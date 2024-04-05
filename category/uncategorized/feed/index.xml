@@ -12,7 +12,7 @@
 	<atom:link href="https://cornerchat543.github.io/category/uncategorized/feed/" rel="self" type="application/rss+xml" />
 	<link>https://cornerchat543.github.io</link>
 	<description></description>
-	<lastBuildDate>Thu, 04 Apr 2024 07:46:00 +0000</lastBuildDate>
+	<lastBuildDate>Fri, 05 Apr 2024 02:03:54 +0000</lastBuildDate>
 	<language>zh-TW</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -21,8 +21,7 @@
 	<generator>https://wordpress.org/?v=6.5</generator>
 	<item>
 		<title>網站第一篇文章</title>
-		<link>https://cornerchat543.github.io/2024/04/04/hello-world/</link>
-					<comments>https://cornerchat543.github.io/2024/04/04/hello-world/#comments</comments>
+		<link>https://cornerchat543.github.io/2024/04/hello-world/</link>
 		
 		<dc:creator><![CDATA[cornerchat543]]></dc:creator>
 		<pubDate>Thu, 04 Apr 2024 07:46:00 +0000</pubDate>
@@ -34,8 +33,6 @@
 <p>歡迎使用 WordPress。這是這個網站的第一篇文章，試試為這篇文章進行編輯或直接刪除，然後開始撰寫新文章！</p>
 ]]></content:encoded>
 					
-					<wfw:commentRss>https://cornerchat543.github.io/2024/04/04/hello-world/feed/</wfw:commentRss>
-			<slash:comments>1</slash:comments>
 		
 		
 			</item>
