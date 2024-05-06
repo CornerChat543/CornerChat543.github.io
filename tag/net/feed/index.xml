@@ -19,6 +19,14 @@
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=6.5.2</generator>
+
+<image>
+	<url>https://cornerchat543.github.io/wp-content/uploads/2024/05/Logo_v2.jpg</url>
+	<title>.NET &#8211; CornerChat543</title>
+	<link>https://cornerchat543.github.io</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
 	<item>
 		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 1</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/</link>

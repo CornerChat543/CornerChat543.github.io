@@ -12,13 +12,21 @@
 	<atom:link href="https://cornerchat543.github.io/feed/" rel="self" type="application/rss+xml" />
 	<link>https://cornerchat543.github.io</link>
 	<description></description>
-	<lastBuildDate>Sun, 05 May 2024 07:00:09 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 06 May 2024 13:52:42 +0000</lastBuildDate>
 	<language>zh-TW</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>
 	1	</sy:updateFrequency>
 	<generator>https://wordpress.org/?v=6.5.2</generator>
+
+<image>
+	<url>https://cornerchat543.github.io/wp-content/uploads/2024/05/Logo_v2.jpg</url>
+	<title>CornerChat543</title>
+	<link>https://cornerchat543.github.io</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
 	<item>
 		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 1</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/</link>
