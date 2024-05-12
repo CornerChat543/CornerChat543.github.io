@@ -12,7 +12,7 @@
 	<atom:link href="https://cornerchat543.github.io/tag/xampp/feed/" rel="self" type="application/rss+xml" />
 	<link>https://cornerchat543.github.io</link>
 	<description></description>
-	<lastBuildDate>Sun, 07 Apr 2024 08:10:22 +0000</lastBuildDate>
+	<lastBuildDate>Sun, 12 May 2024 04:56:47 +0000</lastBuildDate>
 	<language>zh-TW</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -50,7 +50,7 @@
 
 
 
-<p>雖然說，有想做這件事情，不過也想n年了 <s>懶人一枚</s>，大概去年時，有一些空閒開始慢慢著手找尋資料。</p>
+<p>雖然說，有想做這件事情，不過也想 n 年了 <s>懶人一枚</s>，大概去年時，有一些空閒開始慢慢著手找尋資料。</p>
 
 
 
@@ -62,7 +62,7 @@
 
 
 
-<p>在搜尋資料的過程中，發現在Github上有Github Pages ( github.io )，可以做為搭建網站的平台，可以用Markdown、HTML或其他格式。另外，也了解到WordPress是一個備受歡迎的自架網站平台，這也勾起了好奇心。因此，現階段最後決定使用WordPress加上Github Pages來建立Blog。</p>
+<p>在搜尋資料的過程中，發現在 Github 上有 Github Pages ( github.io ) ，可以做為搭建網站的平台，可以用 Markdown 、 HTML 或其他格式。另外，也了解到 WordPress 是一個備受歡迎的自架網站平台，這也勾起了好奇心。因此，現階段最後決定使用 WordPress 加上 Github Pages 來建立 Blog。</p>
 
 
 
@@ -104,16 +104,16 @@
 
 
 
-<h2 class="wp-block-heading article_h2">GitHub Pages建立與設定</h2>
+<h2 class="wp-block-heading article_h2">GitHub Pages 建立與設定</h2>
 
 
 
-<p>以下步驟為假設已經有Github網站的帳號並且登入後，可開始進行，</p>
+<p>以下步驟為假設已經有 Github 網站的帳號並且登入後，可開始進行，</p>
 
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-1 wp-block-group-is-layout-flex">
-<p>1-1.選擇習慣的方式，建立新的Repository，這邊登入後於網頁左側建立</p>
+<p>1-1.選擇習慣的方式，建立新的 Repository ，這邊登入後於網頁左側建立</p>
 
 
 
@@ -123,7 +123,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-2 wp-block-group-is-layout-flex">
-<p>1-2.點擊開始建立後，首先輸入Repository name，這邊輸入「帳號名稱.github.io」。再來視個人需求勾選Add a README file，建議可勾選，這樣在還沒push與部署其他東西前，進入主站會顯示README的內容。最後點選&#8221;Create Repository&#8221;建立。</p>
+<p>1-2.點擊開始建立後，首先輸入 Repository name ，這邊輸入「帳號名稱.github.io」。再來視個人需求勾選 Add a README file ，建議可勾選，這樣在還沒 push 與部署其他東西前，進入主站會顯示 README 的內容。最後點選 &#8220;Create Repository&#8221; 建立。</p>
 
 
 
@@ -131,7 +131,7 @@
 
 
 
-<p>補充，Repository name也能輸入其他名稱，差別在於建立出來的網站，網址會有些差異。在GitHub上創建一個名為「帳號名稱.github.io」的Repository時，沒有特別設定的情況下，前面加上「https://」就會是您的主站點。若是其他名稱，主站點則會是「https://帳號名稱.github.io/Repository name」 <s>( 應該吧 )</s></p>
+<p>補充， Repository name 也能輸入其他名稱，差別在於建立出來的網站，網址會有些差異。在 GitHub 上創建一個名為「帳號名稱.github.io」的 Repository 時，沒有特別設定的情況下，前面加上「https://」就會是您的主站點。若是其他名稱，主站點則會是「https://帳號名稱.github.io/Repository name」 <s>( 應該吧 )</s></p>
 
 
 
@@ -151,7 +151,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-4 wp-block-group-is-layout-flex">
-<p>1-4.建立名為「gh-pages」的分支，點選main分支標籤，輸入「gh-pages」後，按下下方的&#8221;Create branch gh-pages from main&#8221;</p>
+<p>1-4.建立名為「gh-pages」的分支，點選main分支標籤，輸入「gh-pages」後，按下下方的 &#8220;Create branch gh-pages from main&#8221;</p>
 
 
 
@@ -161,7 +161,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-5 wp-block-group-is-layout-flex">
-<p>1-5. gh-pages分支建立完後的樣子</p>
+<p>1-5. gh-pages 分支建立完後的樣子</p>
 
 
 
@@ -171,7 +171,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-6 wp-block-group-is-layout-flex">
-<p>1-6.點選上方標籤列的Settings標籤，進入Repository的設定頁面，在Default branch區塊中來切換預設的分支</p>
+<p>1-6.點選上方標籤列的Settings標籤，進入 Repository 的設定頁面，在 Default branch 區塊中來切換預設的分支</p>
 
 
 
@@ -181,7 +181,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-7 wp-block-group-is-layout-flex">
-<p>1-7.預設的分支，從原本的main改為剛建立的gh-pages分支後，按下&#8221;Update&#8221;</p>
+<p>1-7.預設的分支，從原本的 main 改為剛建立的 gh-pages 分支後，按下 &#8220;Update&#8221;</p>
 
 
 
@@ -191,7 +191,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-8 wp-block-group-is-layout-flex">
-<p>1-8.按下&#8221;I understand&#8221;</p>
+<p>1-8.按下 &#8220;I understand&#8221;</p>
 
 
 
@@ -201,7 +201,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex">
-<p>1-9.選擇左邊選單中的Pages頁籤，找到Build and deployment中的Branch項目，點選main分支</p>
+<p>1-9.選擇左邊選單中的 Pages 頁籤，找到 Build and deployment 中的 Branch 項目，點選 main 分支</p>
 
 
 
@@ -211,7 +211,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex">
-<p>1-10.從main分支改為gh-pages分支，並且按下&#8221;Save&#8221;</p>
+<p>1-10.從 main 分支改為 gh-pages 分支，並且按下 &#8220;Save&#8221;</p>
 
 
 
@@ -220,12 +220,12 @@
 
 
 
-<p>到上面步驟，基本上已經設定完畢，<br>以下為額外的設置，可以忽略，<br>此設置為讓github顯示出網站的連結，<br>避免自行所想的網址，與實際的網址有出入的情況 <s>絕對不是懶得記網址</s> ，</p>
+<p>到上面步驟，基本上已經設定完畢，<br>以下為額外的設置，可以忽略，<br>此設置為讓 github 顯示出網站的連結，<br>避免自行所想的網址，與實際的網址有出入的情況 <s>絕對不是懶得記網址</s> ，</p>
 
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
-<p>額外1-1. 首先在Repository的Code頁籤中，點選About右邊的設定圖示按鈕</p>
+<p>額外1-1. 首先在 Repository 的 Code 頁籤中，點選 About 右邊的設定圖示按鈕</p>
 
 
 
@@ -235,7 +235,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
-<p>額外1-2. 會出現下面的小視窗，可以看到有一個Website的欄位</p>
+<p>額外1-2. 會出現下面的小視窗，可以看到有一個 Website 的欄位</p>
 
 
 
@@ -245,7 +245,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
-<p>額外1-3. 勾選該欄位下方的&#8221;Use your GitHub Pages website&#8221;選項後，Website的欄位便會自動產生並填入主站點的網址，最後按下&#8221;Save changes&#8221;</p>
+<p>額外1-3. 勾選該欄位下方的 &#8220;Use your GitHub Pages website&#8221; 選項後， Website 的欄位便會自動產生並填入主站點的網址，最後按下 &#8220;Save changes&#8221;</p>
 
 
 
@@ -255,7 +255,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
-<p>額外1-4. 儲存成功後，右邊的About便會顯示主站點的超連結，點進去後就能看到所建立的網站</p>
+<p>額外1-4. 儲存成功後，右邊的 About 便會顯示主站點的超連結，點進去後就能看到所建立的網站</p>
 
 
 
@@ -264,16 +264,16 @@
 
 
 
-<h2 class="wp-block-heading article_h2">WordPress建立與設定</h2>
+<h2 class="wp-block-heading article_h2">WordPress 建立與設定</h2>
 
 
 
-<p>接下來目標是，在本機電腦上建立環境，安裝並使用WordPress</p>
+<p>接下來目標是，在本機電腦上建立環境，安裝並使用 WordPress</p>
 
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-15 wp-block-group-is-layout-flex">
-<p>2-1. 依照電腦系統與喜好下載<a href="https://www.apachefriends.org/zh_tw/download.html">XAMPP</a>軟體，這邊下載Windows x64免安裝版本</p>
+<p>2-1. 依照電腦系統與喜好下載 <a href="https://www.apachefriends.org/zh_tw/download.html" target="_blank" rel="noreferrer noopener">XAMPP</a> 軟體，這邊下載 Windows x64 免安裝版本</p>
 
 
 
@@ -287,7 +287,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-16 wp-block-group-is-layout-flex">
-<p>2-2. 下載<a href="https://tw.wordpress.org/download/">WordPress</a>，這邊下載的檔案為zip壓縮檔</p>
+<p>2-2. 下載 <a href="https://tw.wordpress.org/download/" target="_blank" rel="noreferrer noopener">WordPress</a> ，這邊下載的檔案為 zip 壓縮檔</p>
 
 
 
@@ -301,7 +301,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-17 wp-block-group-is-layout-flex">
-<p>2-3. 將XAMPP解壓縮</p>
+<p>2-3. 將 XAMPP 解壓縮</p>
 
 
 
@@ -311,7 +311,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-18 wp-block-group-is-layout-flex">
-<p>2-4. 執行&#8221;setup_xampp&#8221;批次檔</p>
+<p>2-4. 執行 &#8220;setup_xampp&#8221; 批次檔</p>
 
 
 
@@ -331,7 +331,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-20 wp-block-group-is-layout-flex">
-<p>2-6. 在XAMPP中尋找&#8221;htdocs&#8221;的資料夾。進入&#8221;htdocs&#8221;資料夾中，建立一個資料夾，這邊我建立了一個cornerchat543的資料夾，再來把前面步驟中下載的WordPress壓縮檔，解壓縮到該資料夾中</p>
+<p>2-6. 在 XAMPP 中尋找 &#8220;htdocs&#8221; 的資料夾。進入 &#8220;htdocs&#8221; 資料夾中，建立一個資料夾，這邊我建立了一個 cornerchat543 的資料夾，再來把前面步驟中下載的 WordPress 壓縮檔，解壓縮到該資料夾中</p>
 
 
 
@@ -341,7 +341,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-21 wp-block-group-is-layout-flex">
-<p>2-7. 回到XAMPP資料夾中，點選&#8221;xampp-control&#8221;來啟動程式。程式啟動後點選 &#8220;Apache&#8221; 和 &#8220;MySQL&#8221; 右邊的Start按鈕。若出現防火牆的訊息，則按下允許。</p>
+<p>2-7. 回到XAMPP資料夾中，點選 &#8220;xampp-control&#8221; 來啟動程式。程式啟動後點選 &#8220;Apache&#8221; 和 &#8220;MySQL&#8221; 右邊的 Start 按鈕。若出現防火牆的訊息，則按下允許。</p>
 
 
 
@@ -381,7 +381,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-25 wp-block-group-is-layout-flex">
-<p>2-11. 新增成功的話，可從左邊選單中，看到該資料庫在列表中。接著安裝WordPress，在瀏覽器中輸入「http://localhost/{資料夾名稱}/」，資料夾名稱為步驟2-6，也就是在htdocs資料夾中，自行建立的資料夾名稱</p>
+<p>2-11. 新增成功的話，可從左邊選單中，看到該資料庫在列表中。接著安裝 WordPress ，在瀏覽器中輸入「http://localhost/{資料夾名稱}/」，資料夾名稱為步驟2-6，也就是在 htdocs 資料夾中，自行建立的資料夾名稱</p>
 
 
 
@@ -401,7 +401,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-27 wp-block-group-is-layout-flex">
-<p>2-13. 接著輸入步驟2-10所建立的資料庫名稱，以及資料庫預設的帳號root與空密碼(不用輸入)，完成後按下&#8221;傳送&#8221;</p>
+<p>2-13. 接著輸入步驟2-10所建立的資料庫名稱，以及資料庫預設的帳號 root 與空密碼(不用輸入)，完成後按下&#8221;傳送&#8221;</p>
 
 
 
@@ -421,7 +421,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-29 wp-block-group-is-layout-flex">
-<p>2-15. 根據表單填入對應的資訊，使用者名稱與密碼是未來要進入後台管理時需要的。填寫完畢後按下&#8221;安裝WordPress&#8221;</p>
+<p>2-15. 根據表單填入對應的資訊，使用者名稱與密碼是未來要進入後台管理時需要的。填寫完畢後按下 &#8220;安裝WordPress&#8221;</p>
 
 
 
@@ -451,7 +451,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-32 wp-block-group-is-layout-flex">
-<p>2-18. 登入成功後，便會進入到網站的控制台管理畫面。未來要直接進入控制台，則在瀏覽器輸入「http://localhost/{資料夾名稱}/wp-admin/」，資料夾名稱為建立於htdocs下的。</p>
+<p>2-18. 登入成功後，便會進入到網站的控制台管理畫面。未來要直接進入控制台，則在瀏覽器輸入「http://localhost/{資料夾名稱}/wp-admin/」，資料夾名稱為建立於 htdocs 下的。</p>
 
 
 
@@ -465,7 +465,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-33 wp-block-group-is-layout-flex">
-<p>2-19. 若要前往前台網站，點選控制台左上角的房子icon即可</p>
+<p>2-19. 若要前往前台網站，點選控制台左上角的房子 icon 即可</p>
 
 
 
@@ -475,7 +475,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-34 wp-block-group-is-layout-flex">
-<p>2-20. 進入到前台，目前為預設的佈景主題與內容。若要回到控制台頁面，則點選左上角的速度表icon</p>
+<p>2-20. 進入到前台，目前為預設的佈景主題與內容。若要回到控制台頁面，則點選左上角的速度表 icon</p>
 
 
 
@@ -485,7 +485,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-35 wp-block-group-is-layout-flex">
-<p>2-21. 若要變更預設的佈景主題，則在左方點選&#8221;外觀&#8221; &gt; &#8220;佈景主題&#8221;，可以選擇或安裝新的主題。未來本網站會使用Blocksy主題</p>
+<p>2-21. 若要變更預設的佈景主題，則在左方點選&#8221;外觀&#8221; > &#8220;佈景主題&#8221;，可以選擇或安裝新的主題。未來本網站會使用 Blocksy 主題</p>
 
 
 
@@ -494,16 +494,16 @@
 
 
 
-<h2 class="wp-block-heading article_h2">部屬靜態網站到Github</h2>
+<h2 class="wp-block-heading article_h2">部屬靜態網站到 Github</h2>
 
 
 
-<p>Github倉儲和WordPress網站建立好之後，再來要將網站部署到Github上，因Github pages需使用靜態網站，因此接下來會將網站轉為靜態網站，然後進行部署</p>
+<p>Github 倉儲和 WordPress 網站建立好之後，再來要將網站部署到 Github 上，因 Github pages 需使用靜態網站，因此接下來會將網站轉為靜態網站，然後進行部署</p>
 
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-36 wp-block-group-is-layout-flex">
-<p>3-1. 首先將先前所建好的Repository Clone到本機端吧。選擇自己習慣的Github工具，這邊用的是Github Desktop</p>
+<p>3-1. 首先將先前所建好的 Repository Clone 到本機端吧。選擇自己習慣的 Github 工具，這邊用的是 Github Desktop</p>
 
 
 
@@ -513,7 +513,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-37 wp-block-group-is-layout-flex">
-<p>3-2. 選擇要Clone使用的Repository，再來設定要存放在本機的路徑後，按下&#8221;Clone&#8221;</p>
+<p>3-2. 選擇要 Clone 使用的 Repository ，再來設定要存放在本機的路徑後，按下 &#8220;Clone&#8221;</p>
 
 
 
@@ -533,7 +533,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-39 wp-block-group-is-layout-flex">
-<p>3-4. 在安裝外掛的頁面，到右邊搜尋欄中輸入&#8221;Simply Static&#8221;，並且在下方找到該外掛後，進行安裝與啟用</p>
+<p>3-4. 在安裝外掛的頁面，到右邊搜尋欄中輸入 &#8220;Simply Static&#8221; ，並且在下方找到該外掛後，進行安裝與啟用</p>
 
 
 
@@ -543,7 +543,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-40 wp-block-group-is-layout-flex">
-<p>3-5. Simply Static外掛啟用後，可看到左側選單中，出現了Simply Static的選項</p>
+<p>3-5. Simply Static 外掛啟用後，可看到左側選單中，出現了 Simply Static 的選項</p>
 
 
 
@@ -553,7 +553,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-41 wp-block-group-is-layout-flex">
-<p>3-6. 產生靜態網站前，要做些設定，點選左側&#8221;Simply Static&#8221;後，尋找並點選&#8221;General&#8221;，右側的REPLACING URLS選項選擇&#8221;Absolute URLs&#8221;，並在下方SCHEME選擇&#8221;https://&/#8221;，HOST則填入去除https://後，自己的github pages網址，完成後到網頁底端按下&#8221;Save Settings&#8221;</p>
+<p>3-6. 產生靜態網站前，要做些設定，點選左側 &#8220;Simply Static&#8221; 後，尋找並點選 &#8220;General&#8221; ，右側的 REPLACING URLS 選項選擇 &#8220;Absolute URLs&#8221; ，並在下方 SCHEME 選擇 &#8220;https://&/#8221; ， HOST 則填入去除 https:// 後，自己的 github pages 網址，完成後到網頁底端按下 &#8220;Save Settings&#8221;</p>
 
 
 
@@ -563,7 +563,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-42 wp-block-group-is-layout-flex">
-<p>3-7. 在Simply Static頁面中，尋找並點選&#8221;Deploy&#8221;，將右邊的DEPLOYMENT METHOD選擇&#8221;Local Directory&#8221;，接著在Local Directory區塊中的PATH欄位裡，填入步驟3-2，Clone下來的Repository本機路徑，完成後到網頁底端按下&#8221;Save Settings&#8221;</p>
+<p>3-7. 在 Simply Static 頁面中，尋找並點選 &#8220;Deploy&#8221;，將右邊的 DEPLOYMENT METHOD 選擇 &#8220;Local Directory&#8221; ，接著在 Local Directory 區塊中的 PATH 欄位裡，填入步驟3-2， Clone 下來的 Repository 本機路徑，完成後到網頁底端按下 &#8220;Save Settings&#8221;</p>
 
 
 
@@ -573,7 +573,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-43 wp-block-group-is-layout-flex">
-<p>3-8. 上述設定結束後，點選&#8221;Generate Static Files&#8221;便會在設定的資料夾中，產生靜態網站的檔案，可點選&#8221;Activity Log&#8221;，在右側觀看產生過程的Log資訊，並等待執行完成</p>
+<p>3-8. 上述設定結束後，點選 &#8220;Generate Static Files&#8221; 便會在設定的資料夾中，產生靜態網站的檔案，可點選 &#8220;Activity Log&#8221; ，在右側觀看產生過程的 Log 資訊，並等待執行完成</p>
 
 
 
@@ -583,7 +583,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-44 wp-block-group-is-layout-flex">
-<p>3-9. 完成後，在Github工具中，可看到多了許多檔案，再來執行Commit並Push到Github上</p>
+<p>3-9. 完成後，在 Github 工具中，可看到多了許多檔案，再來執行 Commit 並 Push 到 Github 上</p>
 
 
 
@@ -593,7 +593,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-45 wp-block-group-is-layout-flex">
-<p>3-10. 回到Repository網頁中，可看到Push上來的樣子，Push上來後，就會開始執行佈署，到佈署完成可能需要等待一下</p>
+<p>3-10. 回到 Repository 網頁中，可看到 Push 上來的樣子， Push 上來後，就會開始執行佈署，到佈署完成可能需要等待一下</p>
 
 
 
@@ -603,7 +603,7 @@
 
 
 <div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-46 wp-block-group-is-layout-flex">
-<p>3-11. 最後輸入自己的Github pages網址，便可看到成果</p>
+<p>3-11. 最後輸入自己的 Github pages 網址，便可看到成果</p>
 
 
 
@@ -616,15 +616,15 @@
 
 
 
-<p>終於把Github Pages建立起來了，原本想先記錄其他方面的文章，不過回顧建立的過程，有點繁雜，若未來要再架一次，恐怕早就忘光光了，趁著記憶尚未消失前，把步驟和過程記錄下來</p>
+<p>終於把 Github Pages 建立起來了，原本想先記錄其他方面的文章，不過回顧建立的過程，有點繁雜，若未來要再架一次，恐怕早就忘光光了，趁著記憶尚未消失前，把步驟和過程記錄下來</p>
 
 
 
-<p>原本知道Github pages後，考慮要用Markdown還是寫HTML來建立，不過感覺工程浩大，大概很快就&#8230;&#8230;</p>
+<p>原本知道 Github pages 後，考慮要用 Markdown 還是寫 HTML 來建立，不過感覺工程浩大，大概很快就&#8230;&#8230;</p>
 
 
 
-<p>不過還好有WordPress可以使用，在幾乎不用寫code的情況下，就能完成一個網站，省去了不少功夫與時間</p>
+<p>不過還好有 WordPress 可以使用，在幾乎不用寫 code 的情況下，就能完成一個網站，省去了不少功夫與時間</p>
 
 
 
