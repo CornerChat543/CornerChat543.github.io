@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?><?xml-stylesheet type='text/xsl' href='https://cornerchat543.github.io/wp-content/plugins/google-sitemap-generator/sitemap.xsl'?><!-- sitemap-generator-url='http://www.arnebrachhold.de/' sitemap-generator-version='4.1.19' -->
-<!-- generated-on='2024 年 5 月 12 日 04:58' -->
+<!-- generated-on='2024 年 5 月 20 日 16:07' -->
 <urlset xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd' xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>	<url>
 		<loc>https://cornerchat543.github.io/about/</loc>
 		<lastmod>2024-04-07T06:38:50+00:00</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.6</priority>
 	</url>
-</urlset><!-- Request ID: 770f86c0e2c963ce7bb8c3881e5aa190; Queries for sitemap: 4; Total queries: 17; Seconds: 0; Memory for sitemap: 1KB; Total memory: 48MB -->
+</urlset><!-- Request ID: 6a6c69087617e69a05e2c0384a57a87c; Queries for sitemap: 4; Total queries: 17; Seconds: 0; Memory for sitemap: 1KB; Total memory: 48MB -->

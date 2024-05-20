@@ -12,7 +12,7 @@
 	<atom:link href="https://cornerchat543.github.io/tag/mvvm/feed/" rel="self" type="application/rss+xml" />
 	<link>https://cornerchat543.github.io</link>
 	<description></description>
-	<lastBuildDate>Sun, 05 May 2024 06:54:39 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 20 May 2024 16:05:05 +0000</lastBuildDate>
 	<language>zh-TW</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,6 +28,1052 @@
 	<height>32</height>
 </image> 
 	<item>
+		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 2</title>
+		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part02/</link>
+		
+		<dc:creator><![CDATA[cornerchat543]]></dc:creator>
+		<pubDate>Mon, 20 May 2024 16:05:02 +0000</pubDate>
+				<category><![CDATA[C#]]></category>
+		<category><![CDATA[.NET]]></category>
+		<category><![CDATA[MVVM]]></category>
+		<category><![CDATA[Nuget]]></category>
+		<category><![CDATA[ToolKit.MVVM]]></category>
+		<category><![CDATA[WPF]]></category>
+		<guid isPermaLink="false">https://cornerchat543.github.io/?p=187</guid>
+
+					<description><![CDATA[在軟體開發中，處理使用者輸入是一個常見的任務，同時也時常伴隨著數據驗證的需求。 在 WPF 或其他 Windo [&#8230;]]]></description>
+										<content:encoded><![CDATA[
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/6eIEfY5.png" alt=""/></figure>
+
+
+
+<p>在軟體開發中，處理使用者輸入是一個常見的任務，同時也時常伴隨著數據驗證的需求。</p>
+
+
+
+<p>在 WPF 或其他 Windows 平台的 MVVM 架構中，要完成數據驗證，可以選擇使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ValidationRule</mark>、<mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">IDataErrorInfo</mark> 和 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyDataErrorInfo</mark> 這幾個類別或接口。</p>
+
+
+
+<p>其中 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">IDataErrorInfo</mark> 和 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyDataErrorInfo</mark> 的部分為 interface ，不僅要進行實作以外，因 MVVM 架構也需要一併實作 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyPropertyChanged</mark> 。而在 ViewModel 實作上，綁定的屬性也需要撰寫許多涉及 Property 的程式碼，使的開發的過程稍嫌繁瑣。</p>
+
+
+
+<p>本篇的主題， CommunityToolkit.Mvvm 套件提供了實作 MVVM 架構時所需要的物件，其中的一個部分便是關於數據驗證，其中提供的物件，不只實作了<mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyDataErrorInfo</mark> 與 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyPropertyChanged</mark> 等， MVVM 所需實現的interface外，同時也有提供方便的 Attribute 來簡化程式碼。</p>
+
+
+
+<p>本次將進行該套件的數據驗證物件並使用 WPF 的示範。</p>
+
+
+
+<p>本篇文章為 CommunityToolkit.Mvvm 套件系列的第二部分，若想了解關於該套件的基礎使用，可從前往下列網址前往。</p>
+
+
+
+<p><a href="https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/" target="_blank" rel="noreferrer noopener">使用ToolKit.MVVM實現ViewModel – Part 1</a></p>
+
+
+
+<p>本次的開發環境，如下</p>
+
+
+
+<ul>
+<li>IDE : Visual Studio 2022</li>
+
+
+
+<li>.NET版本 : . NET 6.0</li>
+
+
+
+<li>Nuget套件: CommunityToolkit.Mvvm 8.2.2</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-wide"/>
+
+
+
+<h2 class="wp-block-heading article_h2">開始使用 ObservableValidator</h2>
+
+
+
+<p>先從簡單的 View 開始，</p>
+
+
+
+<p>View 的 XAML 部分如下，其中包含3個 TextBox 用於輸入資料 ， 分別綁定 Name、Phone 和 Email 屬性，以及一個綁定 ShowInfoCommand 的按鈕。</p>
+
+
+
+<p>Phone 屬性的 TextBox 設定了 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">Validation.ErrorTemplate</mark> ，當輸入的數值不符合設定的條件時，預期會在該 TextBox 的下方顯示紅色的錯誤訊息。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-1 wp-block-group-is-layout-flex">
+<p>XAML</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">XML</span><span role="button" tabindex="0" data-code="&lt;Window.Resources&gt;
+    &lt;Thickness x:Key=&quot;Margin.Top&quot;&gt;0,25,0,0&lt;/Thickness&gt;
+&lt;/Window.Resources&gt;
+
+&lt;Window.DataContext&gt;
+    &lt;local:Window1ViewModelA/&gt;
+&lt;/Window.DataContext&gt;
+
+&lt;Grid&gt;
+
+    &lt;StackPanel Margin=&quot;20&quot;&gt;
+
+        &lt;!--Name--&gt;
+        &lt;TextBlock Text=&quot;Name:&quot;/&gt;
+        &lt;TextBox Text=&quot;{Binding Path=Name,
+                                UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+
+        &lt;!--Phone--&gt;
+        &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                   Text=&quot;Phone:&quot;/&gt;
+        &lt;TextBox Text=&quot;{Binding Path=Phone,
+                                UpdateSourceTrigger=PropertyChanged}&quot;&gt;
+
+            &lt;Validation.ErrorTemplate&gt;
+                &lt;ControlTemplate&gt;
+                    &lt;StackPanel&gt;
+                        &lt;AdornedElementPlaceholder/&gt;
+                        &lt;TextBlock Text=&quot;{Binding [0].ErrorContent}&quot;
+                                   Foreground=&quot;Red&quot;/&gt;
+                    &lt;/StackPanel&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/Validation.ErrorTemplate&gt;
+            
+        &lt;/TextBox&gt;
+
+        &lt;!--Email--&gt;
+        &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                   Text=&quot;Email:&quot;/&gt;
+        &lt;TextBox Text=&quot;{Binding Path=Email,
+                                UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+        
+        &lt;Button Margin=&quot;{StaticResource Margin.Top}&quot;
+                Content=&quot;Show Info&quot;
+                Command=&quot;{Binding Path=ShowInfoCommand}&quot;/&gt;
+
+    &lt;/StackPanel&gt;
+
+&lt;/Grid&gt;" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Window.Resources</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Thickness</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Margin.Top</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span><span style="color: #BABED8">0,25,0,0</span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Thickness</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Window.Resources</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Window.DataContext</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">local</span><span style="color: #89DDFF">:</span><span style="color: #F07178">Window1ViewModelA</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Window.DataContext</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">20</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Name--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Name:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Name,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Phone--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                   </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Phone:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Phone,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Validation.ErrorTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">ControlTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">AdornedElementPlaceholder</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding [0].ErrorContent}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                   </span><span style="color: #C792EA">Foreground</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Red</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">ControlTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Validation.ErrorTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">            </span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Email--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                   </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Email:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Email,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Button</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                </span><span style="color: #C792EA">Content</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Show Info</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                </span><span style="color: #C792EA">Command</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=ShowInfoCommand}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span></code></pre></div>
+</div>
+
+
+
+<p>ViewModel 需要使用的 namespace 如下所示，包含 ToolKit.Mvvm 以及 ValidationAttribute 的部分。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-2 wp-block-group-is-layout-flex">
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.ComponentModel.DataAnnotations;" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #F78C6C">using</span><span style="color: #BABED8"> CommunityToolkit</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">Mvvm</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">ComponentModel</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #F78C6C">using</span><span style="color: #BABED8"> CommunityToolkit</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">Mvvm</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">Input</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #F78C6C">using</span><span style="color: #BABED8"> System</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">ComponentModel</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">DataAnnotations</span><span style="color: #89DDFF">;</span></span></code></pre></div>
+</div>
+
+
+
+<p>再來則是 ViewModel Window1ViewModelA 的主要程式碼，</p>
+
+
+
+<p>繼承部分，</p>
+
+
+
+<ul>
+<li>繼承套件內的 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別，該類別不僅繼承 MVVM 所使用的 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableObject</mark> ，還實作了數據驗證所需的 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyDataErrorInfo</mark> 介面。</li>
+</ul>
+
+
+
+<p>Property 部分，</p>
+
+
+
+<ul>
+<li>set 使用 SetProperty 方法來通知 View</li>
+
+
+
+<li>Name 和 Phone 屬性上方，使用了 Required Attribute ，該 Attribute 用於數據驗證，作用是指是該屬性是必填的，不能為 null 或空字串。</li>
+</ul>
+
+
+
+<p>Command 部分，</p>
+
+
+
+<ul>
+<li>ShowInfo 方法執行時，首先呼叫 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ValidateAllProperties</mark> 方法驗證所有的屬性的數據，然後，使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">HasErrors</mark> 屬性，來確認是否有數據驗證未通過，並顯示內容為 HasErrors 的 MessageBox。若通過驗證的話，則顯示輸入的內容的 MessageBox。</li>
+</ul>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-3 wp-block-group-is-layout-flex">
+<p>Window1ViewModelA</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="public partial class Window1ViewModelA : ObservableValidator
+{
+    private string? _name;
+    [Required]
+    public string? Name
+    {
+        get =&gt; _name;
+        set =&gt; SetProperty(ref _name, value);
+    }
+
+    private string? _phone;
+    [Required]
+    public string? Phone
+    {
+        get =&gt; _phone;
+        set =&gt; SetProperty(ref _phone, value);
+    }
+
+    private string? _email;
+    public string? Email
+    {
+        get =&gt; _email;
+        set =&gt; SetProperty(ref _email, value);
+    }
+
+    public Window1ViewModelA()
+    {
+
+    }
+
+    [RelayCommand]
+    private void ShowInfo()
+    {
+        ValidateAllProperties();
+        if (HasErrors)
+        {
+            MessageBox.Show(&quot;HasErrors&quot;, &quot;MessageBox&quot;);
+            return;
+        }
+
+        string info = $&quot;Name: {Name}\nPhone: {Phone}\nEmail: {Email}&quot;;
+        MessageBox.Show(info, &quot;MessageBox&quot;);
+    }
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #C792EA">partial</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">class</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Window1ViewModelA</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">:</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableValidator</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Name</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _name</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Phone</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _phone</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Email</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _email</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">Window1ViewModelA</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">RelayCommand</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">void</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">ShowInfo</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #82AAFF">ValidateAllProperties</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF; font-style: italic">if</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">(</span><span style="color: #BABED8">HasErrors</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">            MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">HasErrors</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">string</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">info</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">$&quot;</span><span style="color: #C3E88D">Name: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Name</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Phone: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Phone</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Email: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Email</span><span style="color: #89DDFF">}&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">info</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<p>程式執行後，如下圖。</p>
+
+
+
+<p>在沒有輸入資料的情況下，按下 ShowInfo 按鈕，便會彈出 MessageBox 並顯示 HasErrors 。</p>
+
+
+
+<p>同時可以看到，設定了數據驗證 Attribute [Required] 的屬性，相關的 UI 有了變化，</p>
+
+
+
+<ul>
+<li>Name 的 TextBox 外圍多了紅框，這是因為數據驗證未通過時，TextBox 預設的 ErrorTemplate 是顯示紅框，以提示使用者出現了錯誤狀態。</li>
+
+
+
+<li>Phone 的 TextBox 則與 Name 的不同，下方顯示了驗證錯誤的訊息，有這樣的差異是因為，該 TextBox 有設定了 ErrorTemplate 。</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/Ocbfkjh.png" alt=""/></figure>
+
+
+
+<p>透過上面的範例，已經初步學會如何使用套件中的 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別，並成功實現了以下功能：</p>
+
+
+
+<ul>
+<li>在必填欄位未填寫時，按下執行按鈕後，檢查並提示使用者數據驗證錯誤。</li>
+</ul>
+
+
+
+<h2 class="wp-block-heading article_h2">即時驗證數據</h2>
+
+
+
+<p>那如果想要在輸入數據時，即時進行數據驗證，該如何實現呢?</p>
+
+
+
+<p>其中一個方式是使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 內提供的 SetProperty 方法。如下面程式碼中，可以看到SetProperty 方法的最後一個參數 ( validate ) 帶入了 true ，這樣會在設定屬性值的同時，自動呼叫內部的驗證方法進行數據驗證。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-4 wp-block-group-is-layout-flex">
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="private string? _name;
+[Required]
+public string? Name
+{
+    get =&gt; _name;
+    set =&gt; SetProperty(ref _name, value, true);
+}
+
+private string? _phone;
+[Required]
+public string? Phone
+{
+    get =&gt; _phone;
+    set =&gt; SetProperty(ref _phone, value, true);
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> Name</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _name</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #FF9CAC">true</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> Phone</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _phone</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #FF9CAC">true</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<p>前往 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別中的 SetProperty 方法的內容，如下圖，程式首先執行， <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableObject</mark> 的 SetProperty 方法，接著，如果屬性值有變動且 validate 參數為 true 時，將會執行 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ValidateProperty</mark> 的方法來驗證。</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/YHpBnHq.png" alt=""/></figure>
+
+
+
+<p>完整程式碼如下。除了在 SetProperty 方法中使用 validate 參數進行驗證，這個驗證只有在屬性的 set 方法被觸發時才會執行。為了在程式一開始時就進行一次驗證，下面程式的建構式裡使用了 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ValidateAllProperties</mark> 方法，這樣就能在程式啟動後就先觸發數據驗證一次。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-5 wp-block-group-is-layout-flex">
+<p>Window1ViewModelB</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="public partial class Window1ViewModelB : ObservableValidator
+{
+    private string? _name;
+    [Required]
+    public string? Name
+    {
+        get =&gt; _name;
+        set =&gt; SetProperty(ref _name, value, true);
+    }
+
+    private string? _phone;
+    [Required]
+    public string? Phone
+    {
+        get =&gt; _phone;
+        set =&gt; SetProperty(ref _phone, value, true);
+    }
+
+    private string? _email;
+    public string? Email
+    {
+        get =&gt; _email;
+        set =&gt; SetProperty(ref _email, value);
+    }
+
+    public Window1ViewModelB()
+    {
+        ValidateAllProperties();
+    }
+
+    [RelayCommand]
+    private void ShowInfo()
+    {
+        if (HasErrors)
+        {
+            MessageBox.Show(&quot;HasErrors&quot;, &quot;MessageBox&quot;);
+            return;
+        }
+
+        string info = $&quot;Name: {Name}\nPhone: {Phone}\nEmail: {Email}&quot;;
+        MessageBox.Show(info, &quot;MessageBox&quot;);
+    }
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #C792EA">partial</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">class</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Window1ViewModelB</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">:</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableValidator</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Name</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _name</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #FF9CAC">true</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Phone</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _phone</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #FF9CAC">true</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Email</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">get</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> _email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">set</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=&gt;</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SetProperty</span><span style="color: #89DDFF">(</span><span style="color: #C792EA">ref</span><span style="color: #BABED8"> _email</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> value</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">Window1ViewModelB</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #82AAFF">ValidateAllProperties</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">RelayCommand</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">void</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">ShowInfo</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF; font-style: italic">if</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">(</span><span style="color: #BABED8">HasErrors</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">            MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">HasErrors</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">string</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">info</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">$&quot;</span><span style="color: #C3E88D">Name: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Name</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Phone: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Phone</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Email: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Email</span><span style="color: #89DDFF">}&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">info</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<p>替換過ViewModel後的結果如下，當 TextBox 從為空白狀態輸入資料後，錯誤提示便會立即消失，就像在網頁上填寫資料時的效果一樣。</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/Bh5ABy7.png" alt=""/></figure>
+
+
+
+<h2 class="wp-block-heading article_h2">使用 Attribute 簡化程式</h2>
+
+
+
+<p>到了這個階段，已經能基本使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別，在 MVVM 架構中進行數據驗證。</p>
+
+
+
+<p>那麼 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別，是否有像上篇文章中 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableObject</mark> 類別那樣，能透過 Attribute 來減少程式碼嗎?</p>
+
+
+
+<p>答案是可以的。</p>
+
+
+
+<p>從一般的寫法，更改為使用套件提供的 Attribute ，變動如下圖所示。紅底部分為原先的一般寫法，綠底則為使用 Attribute 簡化程式後的結果。</p>
+
+
+
+<ul>
+<li>[ObservableProperty] ， 如前篇文章所提到的，套件會自動產生，使用 SetProperty 方法的 Property。</li>
+
+
+
+<li>[NotifyDataErrorInfo]，此 Attribute 是在 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 中可使用的，等同於上一節中，將 validate 參數設為 true 的效果。</li>
+
+
+
+<li>[Required]，用於屬性的數據驗證規則 (此為必填的規則)，這部分並不包含在 ToolKit.Mvvm 套件中。</li>
+</ul>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-6 wp-block-group-is-layout-flex">
+<p>紅底：標準使用</p>
+
+
+
+<p>綠底：使用 Attribute</p>
+
+
+
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-1"><img decoding="async" src="https://i.imgur.com/Bbk0UHf.png" alt="Property改使用ObservableProperty Attribute"/></figure>
+</div>
+
+
+
+<p>來詳細看一下 NotifyDataErrorInfo Attribute 的文件註解，如下圖。</p>
+
+
+
+<p>文件中的解釋，當 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableProperty</mark> 與 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">NotifyDataErrorInfo</mark> Attribute 同時使用時，套件自動產生的對應程式碼。</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/XzYdlGd.png" alt=""/></figure>
+
+
+
+<p>那麼前進到自動產生的程式碼中，如下圖，實際上與 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableProperty</mark> Attribute 自動產生的程式，會是差在使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ValidateProperty</mark> 這個方法。</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/DqgwuQy.png" alt=""/></figure>
+
+
+
+<p>最後附上皆替換為 Attribute 的完整的程式碼。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-7 wp-block-group-is-layout-flex">
+<p>Window1ViewModelC</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="public partial class Window1ViewModelC : ObservableValidator
+{
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required]
+    private string? _name;
+
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required]
+    private string? _phone;
+
+    [ObservableProperty]
+    private string? _email;
+
+    public Window1ViewModelC()
+    {
+        ValidateAllProperties();
+    }
+
+    [RelayCommand]
+    private void ShowInfo()
+    {
+        if (HasErrors)
+        {
+            MessageBox.Show(&quot;HasErrors&quot;, &quot;MessageBox&quot;);
+            return;
+        }
+
+        string info = $&quot;Name: {Name}\nPhone: {Phone}\nEmail: {Email}&quot;;
+        MessageBox.Show(info, &quot;MessageBox&quot;);
+    }
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #C792EA">partial</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">class</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Window1ViewModelC</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">:</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableValidator</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">NotifyDataErrorInfo</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">NotifyDataErrorInfo</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">Window1ViewModelC</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #82AAFF">ValidateAllProperties</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">RelayCommand</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">void</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">ShowInfo</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF; font-style: italic">if</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">(</span><span style="color: #BABED8">HasErrors</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">            MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">HasErrors</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">string</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">info</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">$&quot;</span><span style="color: #C3E88D">Name: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Name</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Phone: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Phone</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Email: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Email</span><span style="color: #89DDFF">}&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">info</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<h2 class="wp-block-heading article_h2">使用其他的數據驗證 Attribute</h2>
+
+
+
+<p>在數據驗證方面，.NET 還提供了其他可用的 Attribute。這些 Attribute 不屬於 ToolKit.Mvvm 套件，而是位於 <a href="https://learn.microsoft.com/zh-tw/dotnet/api/system.componentmodel.dataannotations" target="_blank" rel="noreferrer noopener">System.ComponentModel.DataAnnotations</a> 命名空間中。</p>
+
+
+
+<p>那麼來試試將 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 搭配幾種不同的 Attribute 使用。</p>
+
+
+
+<p>View 的 XAML 部分如下，</p>
+
+
+
+<p>在 Window.Resources 中建立 TextBoxStyle ，該 Style 設定了 Validation.ErrorTemplate 屬性，視窗裡的4個 TextBox 皆套用此 Style。那 TextBox 分別綁定 Name、Number、Phone 和 Email 屬性。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-8 wp-block-group-is-layout-flex">
+<p>XAML</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">XML</span><span role="button" tabindex="0" data-code="&lt;Window.Resources&gt;
+
+    &lt;Thickness x:Key=&quot;Margin.Top&quot;&gt;0,25,0,0&lt;/Thickness&gt;
+
+    &lt;Style x:Key=&quot;TextBoxStyle&quot; TargetType=&quot;TextBox&quot;&gt;
+
+        &lt;Setter Property=&quot;Validation.ErrorTemplate&quot;&gt;
+            &lt;Setter.Value&gt;
+                &lt;ControlTemplate&gt;
+                    &lt;StackPanel&gt;
+                        &lt;AdornedElementPlaceholder/&gt;
+                        &lt;TextBlock Text=&quot;{Binding [0].ErrorContent}&quot;
+                                   Foreground=&quot;Red&quot;/&gt;
+                    &lt;/StackPanel&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/Setter.Value&gt;
+        &lt;/Setter&gt;
+
+    &lt;/Style&gt;
+
+&lt;/Window.Resources&gt;
+
+&lt;Window.DataContext&gt;
+    &lt;local:Window2ViewModelA/&gt;
+&lt;/Window.DataContext&gt;
+
+&lt;Grid&gt;
+
+    &lt;StackPanel Margin=&quot;20&quot;&gt;
+
+        &lt;!--Name--&gt;
+        &lt;TextBlock Text=&quot;Name:&quot;/&gt;
+        &lt;TextBox Style=&quot;{StaticResource TextBoxStyle}&quot;
+                 Text=&quot;{Binding Path=Name,
+                                UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+
+        &lt;!--Number--&gt;
+        &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                   Text=&quot;Number:&quot;/&gt;
+        &lt;TextBox Style=&quot;{StaticResource TextBoxStyle}&quot;
+                 Text=&quot;{Binding Path=Number,
+                                UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+
+        &lt;!--Phone--&gt;
+        &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                   Text=&quot;Phone:&quot;/&gt;
+        &lt;TextBox Style=&quot;{StaticResource TextBoxStyle}&quot;
+                 Text=&quot;{Binding Path=Phone,
+                                UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+
+        &lt;!--Email--&gt;
+        &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                   Text=&quot;Email:&quot;/&gt;
+        &lt;TextBox Style=&quot;{StaticResource TextBoxStyle}&quot;
+                 Text=&quot;{Binding Path=Email,
+                                UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+        
+        &lt;Button Margin=&quot;{StaticResource Margin.Top}&quot;
+                Content=&quot;Show Info&quot;
+                Command=&quot;{Binding Path=ShowInfoCommand}&quot;/&gt;
+
+    &lt;/StackPanel&gt;
+
+&lt;/Grid&gt;" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Window.Resources</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Thickness</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Margin.Top</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span><span style="color: #BABED8">0,25,0,0</span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Thickness</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Style</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TextBoxStyle</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TargetType</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TextBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Validation.ErrorTemplate</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter.Value</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">ControlTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">AdornedElementPlaceholder</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding [0].ErrorContent}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                   </span><span style="color: #C792EA">Foreground</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Red</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">ControlTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Setter.Value</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Style</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Window.Resources</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Window.DataContext</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">local</span><span style="color: #89DDFF">:</span><span style="color: #F07178">Window2ViewModelA</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Window.DataContext</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">20</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Name--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Name:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TextBoxStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                 </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Name,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Number--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                   </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Number:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TextBoxStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                 </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Number,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Phone--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                   </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Phone:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TextBoxStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                 </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Phone,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #464B5D; font-style: italic">&lt;!--Email--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                   </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Email:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TextBoxStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                 </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Email,</span></span>
+<span class="line"><span style="color: #C3E88D">                                UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Button</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                </span><span style="color: #C792EA">Content</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Show Info</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                </span><span style="color: #C792EA">Command</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=ShowInfoCommand}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span></code></pre></div>
+</div>
+
+
+
+<p>View的樣子，如下圖。</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/QpU96hB.png" alt=""/></figure>
+
+
+
+<p>以下是 ViewModel 的程式碼，4 個變數除了使用 [Required] 進行數據驗證外，還各自搭配了不同的 Attribute。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex">
+<p>Window2ViewModelA</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="public partial class Window2ViewModelA : ObservableValidator
+{
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required]
+    [MinLength(4)]
+    [MaxLength(10)]
+    private string? _name;
+
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required]
+    [Range(0, 100)]
+    private string? _number;
+
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required]
+    [Phone]
+    private string? _phone;
+
+    [ObservableProperty]
+    [NotifyDataErrorInfo]
+    [Required]
+    [EmailAddress]
+    private string? _email;
+
+    public Window2ViewModelA()
+    {
+        ValidateAllProperties();
+    }
+
+    [RelayCommand]
+    private void ShowInfo()
+    {
+        if (HasErrors)
+        {
+            MessageBox.Show(&quot;HasErrors&quot;, &quot;MessageBox&quot;);
+            return;
+        }
+
+        string info = $&quot;Name: {Name}\nNumber: {Number}\nPhone: {Phone}\nEmail: {Email}&quot;;
+        MessageBox.Show(info, &quot;MessageBox&quot;);
+    }
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #C792EA">partial</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">class</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Window2ViewModelA</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">:</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableValidator</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">NotifyDataErrorInfo</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">MinLength</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">4</span><span style="color: #89DDFF">)]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">MaxLength</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">10</span><span style="color: #89DDFF">)]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">NotifyDataErrorInfo</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Range</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">0</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #F78C6C">100</span><span style="color: #89DDFF">)]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_number</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">NotifyDataErrorInfo</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Phone</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_phone</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">NotifyDataErrorInfo</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">Required</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">EmailAddress</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">Window2ViewModelA</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #82AAFF">ValidateAllProperties</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">RelayCommand</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">void</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">ShowInfo</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF; font-style: italic">if</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">(</span><span style="color: #BABED8">HasErrors</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">            MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">HasErrors</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">string</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">info</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">$&quot;</span><span style="color: #C3E88D">Name: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Name</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Number: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Number</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Phone: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Phone</span><span style="color: #89DDFF">}</span><span style="color: #BABED8">\n</span><span style="color: #C3E88D">Email: </span><span style="color: #89DDFF">{</span><span style="color: #BABED8">Email</span><span style="color: #89DDFF">}&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">info</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">MessageBox</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<p>以下是各種 Attribute在實際執行程式時的效果：</p>
+
+
+
+<ul>
+<li>Name 變數使用了 MinLength 和 MaxLength Attribute，將數據的長度限制在最小長度和最大長度之間。</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/UvFDBDu.png" alt=""/></figure>
+
+
+
+<ul>
+<li>Number 變數使用了 Range Attribute， 將數據的數值限制在設定的範圍內。</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/1ilulpY.png" alt=""/></figure>
+
+
+
+<ul>
+<li>Phone 變數使用了 Phone Attribute，將會檢查數據的內容是否符合電話格式。</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/Rw82DfG.png" alt=""/></figure>
+
+
+
+<ul>
+<li>Email 變數使用了 EmailAddress Attribute，將會檢查數據的內容是否符合電子信箱格式。</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/qVZvBuG.png" alt=""/></figure>
+
+
+
+<h2 class="wp-block-heading article_h2">總結</h2>
+
+
+
+<p>在 MVVM 架構中實現數據驗證時，使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">CommunityToolkit.Mvvm</mark> 套件中的 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別是一個不錯的選擇。它可以節省大量時間和功夫，並且可以配合套件內的 Attribute 自動生成程式碼，使程式碼更為精簡，從而讓開發者能更專注於主要的邏輯。</p>
+
+
+
+<p>需要注意的是，由於 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 實作了 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">INotifyDataErrorInfo</mark> 介面，因此在 View 上綁定的屬性，在數據驗證後，無論是否通過驗證，數據都會更新到 ViewModel 的屬性中。因此，開發者需要確保在適當的時機觸發數據驗證方法，並且在出現驗證錯誤時，確保程式邏輯能夠阻止執行下一步驟，讓程式正確運作。</p>
+
+
+
+<p>而如果希望在 View 層就攔截錯誤數據，使其不進入 ViewModel，那麼實作並使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ValidationRule</mark> 會比較符合這種情況。</p>
+
+
+
+<p>另外，本篇的重點著重在 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別上，因此未深入探討數據驗證 Attribute。除了本文中介紹的現成屬性外，數據驗證屬性還有一些其他的功能和實作方法，例如：</p>
+
+
+
+<ul>
+<li>在驗證錯誤時，使用 ErrorMessage 顯示自訂的錯誤訊息</li>
+
+
+
+<li>使用 CustomValidation Attribute 自訂驗證規則</li>
+
+
+
+<li>繼承 ValidationAttribute 類別來自訂驗證類別</li>
+</ul>
+
+
+
+<p>以上這些內容在網路上已有許多文章介紹。如果有機會，未來會再撰寫一篇番外篇，結合 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableValidator</mark> 類別，進一步探討這些數據驗證屬性的使用方法。</p>
+
+
+
+<h2 class="wp-block-heading article_h2">自言自語543</h2>
+
+
+
+<p>在撰寫 MVVM 架構時，個人還沒做過太多資料驗證的需求，唯一的幾次經驗則是使用 IDataErrorInfo 並配合較傳統的寫法來實現。</p>
+
+
+
+<p>自從使用 CommunityToolkit.Mvvm 套件後，發現了 ObservableValidator 的存在，於是花了些時間了解怎麼使用，說不定未來有機會需要用到。學習的過程中，這才發現原來有數據驗證用的 Attribute ，不但讓程式達成需要的功能、能重複使用以外，還能讓程式碼更精簡，真的是很神奇的東西。</p>
+
+
+
+<p>過去，個人在使用 Attribute ，通常是在配合 Winform 的 PropertyGrid 元件時，會在類別的 Property 上添加一些用於在 PropertyGrid 上使用的設定。如今套件中有自動產生程式碼的 Attribute 外，還有數據驗證用的，看來還有很多需要學習的地方呢…</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 1</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/</link>
 		
@@ -101,7 +1147,7 @@
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-1 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex">
 <p>XAML</p>
 
 
@@ -193,12 +1239,12 @@
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-2 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
 <p>View</p>
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-1"><img decoding="async" src="https://i.imgur.com/OInGGRD.png" alt="範例View執行結果"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-2"><img decoding="async" src="https://i.imgur.com/OInGGRD.png" alt="範例View執行結果"/></figure>
 </div>
 
 
@@ -211,7 +1257,7 @@
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-3 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
 <p>ViewModelBase</p>
 
 
@@ -289,7 +1335,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-4 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
 <p>RelayCommand</p>
 
 
@@ -415,7 +1461,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-5 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel</p>
 
 
@@ -525,12 +1571,12 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-6 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-15 wp-block-group-is-layout-flex">
 <p>執行結果1</p>
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-2"><img decoding="async" src="https://i.imgur.com/z1SbLGL.jpeg" alt="範例程式執行結果1"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-3"><img decoding="async" src="https://i.imgur.com/z1SbLGL.jpeg" alt="範例程式執行結果1"/></figure>
 </div>
 
 
@@ -539,12 +1585,12 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-7 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-16 wp-block-group-is-layout-flex">
 <p>執行結果2</p>
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-3"><img decoding="async" src="https://i.imgur.com/ic2pyqS.png" alt="範例程式執行結果2"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-4"><img decoding="async" src="https://i.imgur.com/ic2pyqS.png" alt="範例程式執行結果2"/></figure>
 </div>
 
 
@@ -577,12 +1623,12 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-8 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-17 wp-block-group-is-layout-flex">
 <p>Nuget 搜尋結果</p>
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-4"><img decoding="async" src="https://i.imgur.com/lqeaStK.jpeg" alt="Nuget搜尋CommunityToolKit.Mvvm套件的搜尋結果"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-5"><img decoding="async" src="https://i.imgur.com/lqeaStK.jpeg" alt="Nuget搜尋CommunityToolKit.Mvvm套件的搜尋結果"/></figure>
 </div>
 
 
@@ -595,7 +1641,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-18 wp-block-group-is-layout-flex">
 <p>Namespace部分</p>
 
 
@@ -645,7 +1691,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-19 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel01</p>
 
 
@@ -771,7 +1817,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-20 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel02</p>
 
 
@@ -863,7 +1909,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-21 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -872,7 +1918,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-5"><img decoding="async" src="https://i.imgur.com/85bHAPG.jpeg" alt="Property改使用ObservableProperty Attribute"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-6"><img decoding="async" src="https://i.imgur.com/85bHAPG.jpeg" alt="Property改使用ObservableProperty Attribute"/></figure>
 </div>
 
 
@@ -937,7 +1983,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-22 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -946,7 +1992,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-6"><img decoding="async" src="https://i.imgur.com/4PI6R5u.png" alt="Property使用NotifyCanExecuteChangedFor Attribute"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-7"><img decoding="async" src="https://i.imgur.com/4PI6R5u.png" alt="Property使用NotifyCanExecuteChangedFor Attribute"/></figure>
 </div>
 
 
@@ -963,7 +2009,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-23 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -972,7 +2018,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<figure class="wp-block-image size-large is-style-default wp-duotone-unset-7"><img decoding="async" src="https://i.imgur.com/mU2ILuw.png" alt="使用RelayCommand Attribute"/></figure>
+<figure class="wp-block-image size-large is-style-default wp-duotone-unset-8"><img decoding="async" src="https://i.imgur.com/mU2ILuw.png" alt="使用RelayCommand Attribute"/></figure>
 </div>
 
 
@@ -1049,7 +2095,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-15 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-24 wp-block-group-is-layout-flex">
 <p>使用 partial 方法</p>
 
 
@@ -1079,7 +2125,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-16 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-25 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel03</p>
 
 
@@ -1207,7 +2253,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-17 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-26 wp-block-group-is-layout-flex">
 <p>使用AsyncRelayCommand</p>
 
 
@@ -1249,7 +2295,7 @@ private async Task ShowNote(string? str)
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-18 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-27 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel04</p>
 
 
@@ -1337,7 +2383,7 @@ private async Task ShowNote(string? str)
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-19 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-28 wp-block-group-is-layout-flex">
 <div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="// 示範用父類別
 public class SomeOtherClass
 {
