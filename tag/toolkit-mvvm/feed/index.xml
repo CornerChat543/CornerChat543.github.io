@@ -12,7 +12,7 @@
 	<atom:link href="https://cornerchat543.github.io/tag/toolkit-mvvm/feed/" rel="self" type="application/rss+xml" />
 	<link>https://cornerchat543.github.io</link>
 	<description></description>
-	<lastBuildDate>Mon, 20 May 2024 16:05:05 +0000</lastBuildDate>
+	<lastBuildDate>Sat, 01 Jun 2024 13:45:36 +0000</lastBuildDate>
 	<language>zh-TW</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,7 +28,7 @@
 	<height>32</height>
 </image> 
 	<item>
-		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 2</title>
+		<title>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 &#8211; Part 2</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part02/</link>
 		
 		<dc:creator><![CDATA[cornerchat543]]></dc:creator>
@@ -1074,7 +1074,7 @@ public string? Phone
 		
 			</item>
 		<item>
-		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 1</title>
+		<title>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 &#8211; Part 1</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/</link>
 		
 		<dc:creator><![CDATA[cornerchat543]]></dc:creator>

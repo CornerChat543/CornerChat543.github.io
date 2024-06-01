@@ -12,7 +12,7 @@
 	<atom:link href="https://cornerchat543.github.io/feed/" rel="self" type="application/rss+xml" />
 	<link>https://cornerchat543.github.io</link>
 	<description></description>
-	<lastBuildDate>Mon, 20 May 2024 16:05:05 +0000</lastBuildDate>
+	<lastBuildDate>Sat, 01 Jun 2024 14:00:21 +0000</lastBuildDate>
 	<language>zh-TW</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,7 +28,868 @@
 	<height>32</height>
 </image> 
 	<item>
-		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 2</title>
+		<title>使用WPF元件和FreeSpire.PDF生成PDF</title>
+		<link>https://cornerchat543.github.io/2024/06/wpf-freespirepdf-flowdocument-to-pdf/</link>
+		
+		<dc:creator><![CDATA[cornerchat543]]></dc:creator>
+		<pubDate>Sat, 01 Jun 2024 13:59:08 +0000</pubDate>
+				<category><![CDATA[C#]]></category>
+		<category><![CDATA[.NET]]></category>
+		<category><![CDATA[FreeSpire.PDF]]></category>
+		<category><![CDATA[MVVM]]></category>
+		<category><![CDATA[Nuget]]></category>
+		<category><![CDATA[PDF]]></category>
+		<category><![CDATA[WPF]]></category>
+		<guid isPermaLink="false">https://cornerchat543.github.io/?p=195</guid>
+
+					<description><![CDATA[當需要在 C# WPF 中產生 PDF 時，通常會使用各種功能強大的套件來實現。那代表著需要學習並掌握套件內的 [&#8230;]]]></description>
+										<content:encoded><![CDATA[
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/YZ9md0s.png" alt=""/></figure>
+
+
+
+<p>當需要在 C# WPF 中產生 PDF 時，通常會使用各種功能強大的套件來實現。那代表著需要學習並掌握套件內的類別與方法，才能實現需要的排版。並且過程中還要確保將顯示的資料正確的放入到 PDF 中。</p>
+
+
+
+<p>總想著，為什麼製作 PDF 不能像編寫 WPF XAML 一樣簡單呢? 這樣就不用學習其他套件了，而且還能透過 Data Binding 直接將資料綁訂到 UI 上。這樣一來，整個過程應該會很方便吧?</p>
+
+
+
+<p>於是經過 Study 後，可以使用 WPF 元件。然後，將其轉成 XPS 格式後，再使用 FreeSpire.PDF 套件中的方法，將 XPS 存成 PDF。這樣就能簡單的通過撰寫 XAML 來產生 PDF檔。</p>
+
+
+
+<p>本次將放上簡單的範例來記錄這項功能的使用。</p>
+
+
+
+<p>本次的開發環境，如下</p>
+
+
+
+<ul>
+<li>IDE : Visual Studio 2022</li>
+
+
+
+<li>.NET版本 : . NET 6.0</li>
+
+
+
+<li>Nuget套件: CommunityToolkit.Mvvm 8.2.2、FreeSpire.PDF 8.6.0</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity is-style-wide"/>
+
+
+
+<h2 class="wp-block-heading article_h2">本文</h2>
+
+
+
+<p>首先來看 View 的部分，完整的 XAML 如下，</p>
+
+
+
+<p>分為兩大部分，分別用途為：</p>
+
+
+
+<ul>
+<li>用於生成 PDF 檔案：假設要產生一個簡單的學生成績單，整體 UI 隱藏在下層。</li>
+
+
+
+<li>使用者輸入區域：用於輸入簡單的資料，透過 Binding 讓 PDF 能有對應的內容。</li>
+</ul>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-1 wp-block-group-is-layout-flex">
+<p>XAML</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(3 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">XML</span><span role="button" tabindex="0" data-code="&lt;Window.Resources&gt;
+
+    &lt;Thickness x:Key=&quot;Margin.Top&quot;&gt;0,10,0,0&lt;/Thickness&gt;
+
+    &lt;!--TitleTextBlockStyle--&gt;
+    &lt;Style x:Key=&quot;TitleTextBlockStyle&quot; TargetType=&quot;TextBlock&quot;&gt;
+        &lt;Setter Property=&quot;Margin&quot; Value=&quot;0,20,0,5&quot;/&gt;
+        &lt;Setter Property=&quot;HorizontalAlignment&quot; Value=&quot;Center&quot;/&gt;
+        &lt;Setter Property=&quot;VerticalAlignment&quot; Value=&quot;Center&quot;/&gt;
+        &lt;Setter Property=&quot;FontSize&quot; Value=&quot;18&quot;/&gt;
+        &lt;Setter Property=&quot;FontWeight&quot; Value=&quot;Bold&quot;/&gt;
+    &lt;/Style&gt;
+
+    &lt;!--TableTitleTextBlockStyle--&gt;
+    &lt;Style x:Key=&quot;TableTitleTextBlockStyle&quot; TargetType=&quot;TextBlock&quot;&gt;
+        &lt;Setter Property=&quot;Margin&quot; Value=&quot;0,0,5,0&quot;/&gt;
+        &lt;Setter Property=&quot;HorizontalAlignment&quot; Value=&quot;Right&quot;/&gt;
+        &lt;Setter Property=&quot;VerticalAlignment&quot; Value=&quot;Center&quot;/&gt;
+        &lt;Setter Property=&quot;FontWeight&quot; Value=&quot;Bold&quot;/&gt;
+        &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot;/&gt;
+    &lt;/Style&gt;
+
+    &lt;!--TableContentTextBlockSytle--&gt;
+    &lt;Style x:Key=&quot;TableContentTextBlockSytle&quot; TargetType=&quot;TextBlock&quot;&gt;
+        &lt;Setter Property=&quot;Margin&quot; Value=&quot;5,0,0,0&quot;/&gt;
+        &lt;Setter Property=&quot;VerticalAlignment&quot; Value=&quot;Center&quot;/&gt;
+        &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot;/&gt;
+    &lt;/Style&gt;
+
+    &lt;!--DataGridColumnHeaderStyle--&gt;
+    &lt;Style x:Key=&quot;DataGridColumnHeaderStyle&quot; TargetType=&quot;DataGridColumnHeader&quot;&gt;
+        &lt;Setter Property=&quot;Height&quot; Value=&quot;30&quot;/&gt;
+        &lt;Setter Property=&quot;FontWeight&quot; Value=&quot;Bold&quot;/&gt;
+
+        &lt;Setter Property=&quot;Template&quot;&gt;
+            &lt;Setter.Value&gt;
+                &lt;ControlTemplate TargetType=&quot;DataGridColumnHeader&quot;&gt;
+                    &lt;Border Width=&quot;Auto&quot;
+                            BorderThickness=&quot;0,1&quot;
+                            BorderBrush=&quot;Black&quot;
+                            Background=&quot;White&quot;&gt;
+                        &lt;Grid&gt;
+                            &lt;ContentPresenter Margin=&quot;5,0,0,0&quot;
+                                              HorizontalAlignment=&quot;Left&quot;
+                                              VerticalAlignment=&quot;Center&quot;/&gt;
+                            &lt;Rectangle Width=&quot;1&quot;
+                                       Fill=&quot;Black&quot;
+                                       HorizontalAlignment=&quot;Right&quot;/&gt;
+                        &lt;/Grid&gt;
+                    &lt;/Border&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/Setter.Value&gt;
+        &lt;/Setter&gt;
+    &lt;/Style&gt;
+
+&lt;/Window.Resources&gt;
+
+&lt;Window.DataContext&gt;
+    &lt;local:MainWindowViewModel/&gt;
+&lt;/Window.DataContext&gt;
+
+ &lt;Grid&gt;
+
+     &lt;!--用於生成PDF檔案--&gt;
+     &lt;FlowDocumentScrollViewer VerticalScrollBarVisibility=&quot;Disabled&quot;
+                               HorizontalScrollBarVisibility=&quot;Disabled&quot;
+                               Visibility=&quot;Visible&quot;&gt;
+
+         &lt;FlowDocument x:Name=&quot;flowDocument&quot;
+                       Background=&quot;White&quot;
+                       PageWidth=&quot;595&quot; 
+                       ColumnWidth=&quot;595&quot;
+                       PageHeight=&quot;842&quot;
+                       PagePadding=&quot;40&quot;
+                       IsOptimalParagraphEnabled=&quot;False&quot;
+                       IsHyphenationEnabled=&quot;False&quot;&gt;
+
+             &lt;Paragraph TextAlignment=&quot;Center&quot;
+                        FontSize=&quot;22pt&quot;&gt;
+                 &lt;Run Text=&quot;Student Report Card&quot;/&gt;
+             &lt;/Paragraph&gt;
+
+             &lt;BlockUIContainer&gt;
+
+                 &lt;StackPanel&gt;
+
+                     &lt;!--Student Information--&gt;
+                     &lt;TextBlock Style=&quot;{StaticResource TitleTextBlockStyle}&quot;
+                                Text=&quot;Student Information&quot;/&gt;
+
+                     &lt;Grid Margin=&quot;50,0&quot;
+                           Height=&quot;90&quot;&gt;
+
+                         &lt;Grid.RowDefinitions&gt;
+                             &lt;RowDefinition Height=&quot;30&quot;/&gt;
+                             &lt;RowDefinition Height=&quot;30&quot;/&gt;
+                             &lt;RowDefinition Height=&quot;30&quot;/&gt;
+                         &lt;/Grid.RowDefinitions&gt;
+
+                         &lt;Grid.ColumnDefinitions&gt;
+                             &lt;ColumnDefinition Width=&quot;*&quot;/&gt;
+                             &lt;ColumnDefinition Width=&quot;3*&quot;/&gt;
+                         &lt;/Grid.ColumnDefinitions&gt;
+
+                         &lt;!--Name--&gt;
+                         &lt;Border Grid.Row=&quot;0&quot;
+                                 Grid.Column=&quot;0&quot;
+                                 BorderBrush=&quot;Black&quot;
+                                 BorderThickness=&quot;1,1,0,0&quot;&gt;
+                             &lt;TextBlock Style=&quot;{StaticResource TableTitleTextBlockStyle}&quot;
+                                        Text=&quot;Name&quot;/&gt;
+                         &lt;/Border&gt;
+
+                         &lt;Border Grid.Row=&quot;0&quot;
+                                 Grid.Column=&quot;1&quot;
+                                 BorderBrush=&quot;Black&quot;
+                                 BorderThickness=&quot;1,1,1,0&quot;&gt;
+                             &lt;TextBlock Style=&quot;{StaticResource TableContentTextBlockSytle}&quot;
+                                        Text=&quot;{Binding Path=Name}&quot;/&gt;
+                         &lt;/Border&gt;
+
+                         &lt;!--ID--&gt;
+                         &lt;Border Grid.Row=&quot;1&quot;
+                                 Grid.Column=&quot;0&quot;
+                                 BorderBrush=&quot;Black&quot;
+                                 BorderThickness=&quot;1,1,0,0&quot;&gt;
+                             &lt;TextBlock Style=&quot;{StaticResource TableTitleTextBlockStyle}&quot;
+                                        Text=&quot;ID&quot;/&gt;
+                         &lt;/Border&gt;
+
+                         &lt;Border Grid.Row=&quot;1&quot;
+                                 Grid.Column=&quot;1&quot;
+                                 BorderBrush=&quot;Black&quot;
+                                 BorderThickness=&quot;1,1,1,0&quot;&gt;
+                             &lt;TextBlock Style=&quot;{StaticResource TableContentTextBlockSytle}&quot;
+                                        Text=&quot;{Binding Path=Id}&quot;/&gt;
+                         &lt;/Border&gt;
+
+                         &lt;!--Email--&gt;
+                         &lt;Border Grid.Row=&quot;2&quot;
+                                 Grid.Column=&quot;0&quot;
+                                 BorderBrush=&quot;Black&quot;
+                                 BorderThickness=&quot;1,1,0,1&quot;&gt;
+                             &lt;TextBlock Style=&quot;{StaticResource TableTitleTextBlockStyle}&quot;
+                                        Text=&quot;Email&quot;/&gt;
+                         &lt;/Border&gt;
+
+                         &lt;Border Grid.Row=&quot;2&quot;
+                                 Grid.Column=&quot;1&quot;
+                                 BorderBrush=&quot;Black&quot;
+                                 BorderThickness=&quot;1&quot;&gt;
+                             &lt;TextBlock Style=&quot;{StaticResource TableContentTextBlockSytle}&quot;
+                                        Text=&quot;{Binding Path=Email}&quot;/&gt;
+                         &lt;/Border&gt;
+
+                     &lt;/Grid&gt;
+
+                     &lt;!--Grades--&gt;
+                     &lt;TextBlock Style=&quot;{StaticResource TitleTextBlockStyle}&quot;
+                                Text=&quot;Grades&quot;/&gt;
+
+                     &lt;DataGrid Margin=&quot;50,0&quot;
+                               FontSize=&quot;12&quot;
+                               RowHeaderWidth=&quot;0&quot;
+                               AutoGenerateColumns=&quot;False&quot;
+                               CanUserAddRows=&quot;False&quot;
+                               ColumnHeaderStyle=&quot;{StaticResource DataGridColumnHeaderStyle}&quot;
+                               ItemsSource=&quot;{Binding Path=GradeCollection}&quot;&gt;
+
+                         &lt;DataGrid.Columns&gt;
+                             &lt;DataGridTextColumn Header=&quot;Subject&quot;
+                                                 Width=&quot;140&quot;
+                                                 Binding=&quot;{Binding Path=Subject}&quot;/&gt;
+                             &lt;DataGridTextColumn Header=&quot;Grade&quot;
+                                                 Width=&quot;*&quot;
+                                                 Binding=&quot;{Binding Path=Grade}&quot;/&gt;
+                         &lt;/DataGrid.Columns&gt;
+                     &lt;/DataGrid&gt;
+
+                 &lt;/StackPanel&gt;
+
+             &lt;/BlockUIContainer&gt;
+
+         &lt;/FlowDocument&gt;
+
+     &lt;/FlowDocumentScrollViewer&gt;
+
+     &lt;!--使用者輸入區域--&gt;
+     &lt;Grid Background=&quot;White&quot;
+           Visibility=&quot;Visible&quot;&gt;
+
+         &lt;StackPanel Margin=&quot;30&quot;&gt;
+
+             &lt;!--Name--&gt;
+             &lt;TextBlock Text=&quot;Name:&quot;/&gt;
+             &lt;TextBox Text=&quot;{Binding Path=Name,
+                                     UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+
+             &lt;!--Id--&gt;
+             &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                        Text=&quot;ID:&quot;/&gt;
+             &lt;TextBox Text=&quot;{Binding Path=Id,
+                                     UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+
+             &lt;!--Email--&gt;
+             &lt;TextBlock Margin=&quot;{StaticResource Margin.Top}&quot;
+                        Text=&quot;Email:&quot;/&gt;
+             &lt;TextBox Text=&quot;{Binding Path=Email,
+                                     UpdateSourceTrigger=PropertyChanged}&quot;/&gt;
+             
+             &lt;Button Margin=&quot;{StaticResource Margin.Top}&quot;
+                     HorizontalAlignment=&quot;Left&quot;
+                     Width=&quot;120&quot; Height=&quot;30&quot;
+                     Content=&quot;Create&quot;
+                     Command=&quot;{Binding Path=CreatePdfCommand}&quot;
+                     CommandParameter=&quot;{Binding ElementName=flowDocument}&quot;/&gt;
+
+         &lt;/StackPanel&gt;
+
+     &lt;/Grid&gt;
+
+ &lt;/Grid&gt;" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Window.Resources</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Thickness</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Margin.Top</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span><span style="color: #BABED8">0,10,0,0</span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Thickness</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #464B5D; font-style: italic">&lt;!--TitleTextBlockStyle--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Style</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TitleTextBlockStyle</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TargetType</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TextBlock</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Margin</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0,20,0,5</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">HorizontalAlignment</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Center</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">VerticalAlignment</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Center</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">FontSize</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">18</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">FontWeight</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Bold</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Style</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #464B5D; font-style: italic">&lt;!--TableTitleTextBlockStyle--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Style</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TableTitleTextBlockStyle</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TargetType</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TextBlock</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Margin</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0,0,5,0</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">HorizontalAlignment</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Right</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">VerticalAlignment</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Center</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">FontWeight</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Bold</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">FontSize</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">12</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Style</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #464B5D; font-style: italic">&lt;!--TableContentTextBlockSytle--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Style</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TableContentTextBlockSytle</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TargetType</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">TextBlock</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Margin</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">5,0,0,0</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">VerticalAlignment</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Center</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">FontSize</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">12</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Style</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #464B5D; font-style: italic">&lt;!--DataGridColumnHeaderStyle--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Style</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Key</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">DataGridColumnHeaderStyle</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TargetType</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">DataGridColumnHeader</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Height</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">30</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">FontWeight</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Value</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Bold</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Property</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Template</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Setter.Value</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">ControlTemplate</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TargetType</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">DataGridColumnHeader</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Auto</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                            </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0,1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                            </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                            </span><span style="color: #C792EA">Background</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">White</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                        </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                            </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">ContentPresenter</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">5,0,0,0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                              </span><span style="color: #C792EA">HorizontalAlignment</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Left</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                              </span><span style="color: #C792EA">VerticalAlignment</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Center</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                            </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Rectangle</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                       </span><span style="color: #C792EA">Fill</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                       </span><span style="color: #C792EA">HorizontalAlignment</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Right</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                        </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">ControlTemplate</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Setter.Value</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Setter</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Style</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Window.Resources</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Window.DataContext</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">local</span><span style="color: #89DDFF">:</span><span style="color: #F07178">MainWindowViewModel</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Window.DataContext</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8"> </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">     </span><span style="color: #464B5D; font-style: italic">&lt;!--用於生成PDF檔案--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">     </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">FlowDocumentScrollViewer</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">VerticalScrollBarVisibility</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Disabled</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">HorizontalScrollBarVisibility</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Disabled</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">Visibility</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Visible</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">FlowDocument</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">x</span><span style="color: #89DDFF">:</span><span style="color: #C792EA">Name</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">flowDocument</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">Background</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">White</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">PageWidth</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">595</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">ColumnWidth</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">595</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">PageHeight</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">842</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">PagePadding</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">40</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">IsOptimalParagraphEnabled</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">False</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                       </span><span style="color: #C792EA">IsHyphenationEnabled</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">False</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Paragraph</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">TextAlignment</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Center</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                        </span><span style="color: #C792EA">FontSize</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">22pt</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                 </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Run</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Student Report Card</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Paragraph</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">BlockUIContainer</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                 </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #464B5D; font-style: italic">&lt;!--Student Information--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TitleTextBlockStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Student Information</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">50,0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                           </span><span style="color: #C792EA">Height</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">90</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid.RowDefinitions</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">RowDefinition</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Height</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">30</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">RowDefinition</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Height</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">30</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">RowDefinition</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Height</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">30</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid.RowDefinitions</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid.ColumnDefinitions</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">ColumnDefinition</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">*</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">ColumnDefinition</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">3*</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid.ColumnDefinitions</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #464B5D; font-style: italic">&lt;!--Name--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Grid.Row</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">Grid.Column</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1,1,0,0</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TableTitleTextBlockStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Name</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Grid.Row</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">Grid.Column</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1,1,1,0</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TableContentTextBlockSytle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Name}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #464B5D; font-style: italic">&lt;!--ID--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Grid.Row</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">Grid.Column</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1,1,0,0</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TableTitleTextBlockStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">ID</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Grid.Row</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">Grid.Column</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1,1,1,0</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TableContentTextBlockSytle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Id}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #464B5D; font-style: italic">&lt;!--Email--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Grid.Row</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">2</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">Grid.Column</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1,1,0,1</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TableTitleTextBlockStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Email</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Border</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Grid.Row</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">2</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">Grid.Column</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderBrush</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Black</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                 </span><span style="color: #C792EA">BorderThickness</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">1</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TableContentTextBlockSytle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Email}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Border</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #464B5D; font-style: italic">&lt;!--Grades--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Style</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource TitleTextBlockStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Grades</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">DataGrid</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">50,0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">FontSize</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">12</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">RowHeaderWidth</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">0</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">AutoGenerateColumns</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">False</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">CanUserAddRows</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">False</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">ColumnHeaderStyle</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource DataGridColumnHeaderStyle}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                               </span><span style="color: #C792EA">ItemsSource</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=GradeCollection}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">DataGrid.Columns</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">DataGridTextColumn</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Header</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Subject</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                                 </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">140</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                                 </span><span style="color: #C792EA">Binding</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Subject}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">DataGridTextColumn</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Header</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Grade</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                                 </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">*</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                                                 </span><span style="color: #C792EA">Binding</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Grade}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">DataGrid.Columns</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"><span style="color: #BABED8">                     </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">DataGrid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">                 </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">BlockUIContainer</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">FlowDocument</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">     </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">FlowDocumentScrollViewer</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">     </span><span style="color: #464B5D; font-style: italic">&lt;!--使用者輸入區域--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">     </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Background</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">White</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">           </span><span style="color: #C792EA">Visibility</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Visible</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">         </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">30</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #464B5D; font-style: italic">&lt;!--Name--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Name:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Name,</span></span>
+<span class="line"><span style="color: #C3E88D">                                     UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #464B5D; font-style: italic">&lt;!--Id--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">ID:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Id,</span></span>
+<span class="line"><span style="color: #C3E88D">                                     UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #464B5D; font-style: italic">&lt;!--Email--&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBlock</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                        </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Email:</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">TextBox</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Text</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=Email,</span></span>
+<span class="line"><span style="color: #C3E88D">                                     UpdateSourceTrigger=PropertyChanged}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"><span style="color: #BABED8">             </span></span>
+<span class="line"><span style="color: #BABED8">             </span><span style="color: #89DDFF">&lt;</span><span style="color: #F07178">Button</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Margin</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{StaticResource Margin.Top}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                     </span><span style="color: #C792EA">HorizontalAlignment</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Left</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                     </span><span style="color: #C792EA">Width</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">120</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF"> </span><span style="color: #C792EA">Height</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">30</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                     </span><span style="color: #C792EA">Content</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Create</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                     </span><span style="color: #C792EA">Command</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding Path=CreatePdfCommand}</span><span style="color: #89DDFF">&quot;</span></span>
+<span class="line"><span style="color: #89DDFF">                     </span><span style="color: #C792EA">CommandParameter</span><span style="color: #89DDFF">=</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">{Binding ElementName=flowDocument}</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">/&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">         </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">StackPanel</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">     </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8"> </span><span style="color: #89DDFF">&lt;/</span><span style="color: #F07178">Grid</span><span style="color: #89DDFF">&gt;</span></span></code></pre></div>
+</div>
+
+
+
+<p>在生成 PDF 的部分，整體效果如下圖所示。整體的架構大致分為：</p>
+
+
+
+<ul>
+<li>最外層使用了 FlowDocument 來定義整個頁面。</li>
+
+
+
+<li>使用 Paragraph 元素來顯示 PDF 文檔的標題「Student Report Card」，也可以用其他 UI 元件。</li>
+
+
+
+<li>使用 <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-palette-color-8-color">BlockUIContainer</mark> 包含了主要的 UI 元素，來 Binding 與 顯示內容。</li>
+
+
+
+<li>主要顯示的內容，放在 StackPanel 中：
+<ol>
+<li>使用 TextBlock 來顯示學生的基本信息（姓名、學號、Email），這三個元素的內容使用Binding 而來，並搭配 Border 做出表格邊線。</li>
+
+
+
+<li>使用 DataGrid 來顯示學生的各科目的成績，顯示的內容也是透過 Binding 到一個集合來顯示，而外觀部分簡單做了 Style 讓元件看起來略像表格。</li>
+</ol>
+</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/9gizEla.png" alt=""/></figure>
+
+
+
+<p></p>
+
+
+
+<p>使用者輸入區域的部分是一個簡單的表單，如下圖所示。其架構分為：</p>
+
+
+
+<ul>
+<li>簡單的輸入 UI，可以輸入姓名、學號和 Email。</li>
+
+
+
+<li>產生按鈕，按下按鈕後，將執行對應的程式來生成 PDF 檔案。成績的部分則會在生成過程中隨機產生並包含在PDF中。</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/ppCgBFG.png" alt=""/></figure>
+
+
+
+<p></p>
+
+
+
+<p>接下來是 ViewModel 的部分。由於成績的資料會是一個集合，因此需要建立一個類別來放置成績，程式碼如下。</p>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-2 wp-block-group-is-layout-flex">
+<p>GradeObservableModel</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="public partial class GradeObservableModel : ObservableObject
+{
+    [ObservableProperty]
+    private string? _subject;
+
+    [ObservableProperty]
+    private int _grade;
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #C792EA">partial</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">class</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">GradeObservableModel</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">:</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableObject</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_subject</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">int</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_grade</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<p></p>
+
+
+
+<p>最後是 MainWindow 所用的 ViewModel，程式碼如下。</p>
+
+
+
+<p>在 Class 方面，ViewModel 的機制藉由繼承了 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">CommunityToolkit.MVVM</mark> 套件中的 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">ObservableObject</mark> 類別來達成。</p>
+
+
+
+<p>在 Property 方面，有 Name、Id、Email 以及 GradeCollection 。</p>
+
+
+
+<p>在 Command 方面，執行流程為，</p>
+
+
+
+<ul>
+<li>參數會帶入 FlowDocument。</li>
+
+
+
+<li>清空 GradeCollection ，產生新的一組資料。</li>
+
+
+
+<li>使用 ConvertToXps 方法將 FlowDocument 轉換成 XPS 格式。</li>
+
+
+
+<li>將 XPS 資料帶入 SaveAsPdf 方法，該方法使用 <mark style="background-color:var(--theme-palette-color-9, rgba(255, 255, 255, 0.2))" class="has-inline-color has-palette-color-8-color">FreeSpire.PDF</mark> 套件中的方法讀取 XPS 資料並儲存為 PDF 檔案。</li>
+</ul>
+
+
+
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-3 wp-block-group-is-layout-flex">
+<p>MainWindowViewModel</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="public partial class MainWindowViewModel : ObservableObject
+{
+    private Random random;
+
+    [ObservableProperty]
+    private string? _name;
+
+    [ObservableProperty]
+    private string? _id;
+
+    [ObservableProperty]
+    private string? _email;
+
+    public ObservableCollection&lt;GradeObservableModel&gt; GradeCollection
+    { get; set; }
+
+    public MainWindowViewModel()
+    {
+        random = new();
+
+        _name = &quot;Peter&quot;;
+        _id = &quot;123456&quot;;
+        _email = &quot;peter@email.com&quot;;
+
+        GradeCollection = new();
+    }
+
+    [RelayCommand]
+    private async Task CreatePdf(FlowDocument fd)
+    {
+        // Clear GradeCollection and add random data 
+        GradeCollection.Clear();
+        GradeCollection.Add(new() { Subject = &quot;Math&quot;, Grade = random.Next(60, 101) });
+        GradeCollection.Add(new() { Subject = &quot;English&quot;, Grade = random.Next(60, 101) });
+        GradeCollection.Add(new() { Subject = &quot;Science&quot;, Grade = random.Next(60, 101) });
+
+        // Wait for UI refresh
+        await Task.Delay(1);
+
+        // Convert the FlowDocument to XPS
+        var xpsStream = ConvertToXps(fd);
+
+        // Save PDF to the specified path
+        SaveAsPdf(xpsStream, &quot;output.pdf&quot;);
+        MessageBox.Show(&quot;Finish!&quot;);
+    }
+
+    private static MemoryStream ConvertToXps(FlowDocument flowDocument)
+    {
+        // Convert FlowDocument to XPS stream
+        var xpsStream = new MemoryStream();
+        using (Package package = Package.Open(xpsStream, FileMode.Create))
+        {
+            var xpsDoc = new XpsDocument(package);
+            XpsDocumentWriter xpsWriter = XpsDocument.CreateXpsDocumentWriter(xpsDoc);
+            DocumentPaginator paginator = ((IDocumentPaginatorSource)flowDocument).DocumentPaginator;
+            xpsWriter.Write(paginator);
+            xpsDoc.Close();
+        }
+
+        return xpsStream;
+    }
+
+    private static void SaveAsPdf(MemoryStream xpsStream, string outputPdfPath)
+    {
+        // Load XPS stream into PdfDocument
+        var pdfDoc = new PdfDocument();
+        pdfDoc.LoadFromXPS(xpsStream);
+
+        // Set PDF page size to A4
+        pdfDoc.PageSettings.Size = PdfPageSize.A4;
+
+        // Save PdfDocument to PDF file
+        pdfDoc.SaveToFile(outputPdfPath);
+        pdfDoc.Close();
+
+        // Dispose the XPS stream
+        xpsStream.Dispose();
+    }
+}" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #C792EA">partial</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">class</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">MainWindowViewModel</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">:</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableObject</span></span>
+<span class="line"><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Random</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">random</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_name</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_id</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">ObservableProperty</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #89DDFF">?</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">_email</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">ObservableCollection</span><span style="color: #89DDFF">&lt;</span><span style="color: #FFCB6B">GradeObservableModel</span><span style="color: #89DDFF">&gt;</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">GradeCollection</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">get</span><span style="color: #89DDFF">;</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">set</span><span style="color: #89DDFF">;</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">public</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">MainWindowViewModel</span><span style="color: #89DDFF">()</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">        random </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">new();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        _name </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Peter</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        _id </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">123456</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">        _email </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">peter@email.com</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        GradeCollection </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">new();</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">[</span><span style="color: #FFCB6B">RelayCommand</span><span style="color: #89DDFF">]</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #C792EA">async</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">Task</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">CreatePdf</span><span style="color: #89DDFF">(</span><span style="color: #FFCB6B">FlowDocument</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">fd</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Clear GradeCollection and add random data </span></span>
+<span class="line"><span style="color: #BABED8">        GradeCollection</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Clear</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">        GradeCollection</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Add</span><span style="color: #89DDFF">(new()</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">{</span><span style="color: #BABED8"> Subject </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Math</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> Grade </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> random</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Next</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">60</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #F78C6C">101</span><span style="color: #89DDFF">)</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">});</span></span>
+<span class="line"><span style="color: #BABED8">        GradeCollection</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Add</span><span style="color: #89DDFF">(new()</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">{</span><span style="color: #BABED8"> Subject </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">English</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> Grade </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> random</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Next</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">60</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #F78C6C">101</span><span style="color: #89DDFF">)</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">});</span></span>
+<span class="line"><span style="color: #BABED8">        GradeCollection</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Add</span><span style="color: #89DDFF">(new()</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">{</span><span style="color: #BABED8"> Subject </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Science</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> Grade </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> random</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Next</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">60</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #F78C6C">101</span><span style="color: #89DDFF">)</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Wait for UI refresh</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">await</span><span style="color: #BABED8"> Task</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Delay</span><span style="color: #89DDFF">(</span><span style="color: #F78C6C">1</span><span style="color: #89DDFF">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Convert the FlowDocument to XPS</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">var</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">xpsStream</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">ConvertToXps</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">fd</span><span style="color: #89DDFF">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Save PDF to the specified path</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #82AAFF">SaveAsPdf</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">xpsStream</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">output.pdf</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">        MessageBox</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Show</span><span style="color: #89DDFF">(</span><span style="color: #89DDFF">&quot;</span><span style="color: #C3E88D">Finish!</span><span style="color: #89DDFF">&quot;</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #C792EA">static</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">MemoryStream</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">ConvertToXps</span><span style="color: #89DDFF">(</span><span style="color: #FFCB6B">FlowDocument</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">flowDocument</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Convert FlowDocument to XPS stream</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">var</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">xpsStream</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">new</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">MemoryStream</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF; font-style: italic">using</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">(</span><span style="color: #FFCB6B">Package</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">package</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> Package</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Open</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">xpsStream</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> FileMode</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">Create</span><span style="color: #89DDFF">))</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #FFCB6B">var</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">xpsDoc</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">new</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">XpsDocument</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">package</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #FFCB6B">XpsDocumentWriter</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">xpsWriter</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> XpsDocument</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">CreateXpsDocumentWriter</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">xpsDoc</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            </span><span style="color: #FFCB6B">DocumentPaginator</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">paginator</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">((</span><span style="color: #FFCB6B">IDocumentPaginatorSource</span><span style="color: #89DDFF">)</span><span style="color: #BABED8">flowDocument</span><span style="color: #89DDFF">).</span><span style="color: #BABED8">DocumentPaginator</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">            xpsWriter</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Write</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">paginator</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">            xpsDoc</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Close</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #89DDFF; font-style: italic">return</span><span style="color: #BABED8"> xpsStream</span><span style="color: #89DDFF">;</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #C792EA">private</span><span style="color: #BABED8"> </span><span style="color: #C792EA">static</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">void</span><span style="color: #BABED8"> </span><span style="color: #82AAFF">SaveAsPdf</span><span style="color: #89DDFF">(</span><span style="color: #FFCB6B">MemoryStream</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">xpsStream</span><span style="color: #89DDFF">,</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">string</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">outputPdfPath</span><span style="color: #89DDFF">)</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">{</span></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Load XPS stream into PdfDocument</span></span>
+<span class="line"><span style="color: #BABED8">        </span><span style="color: #FFCB6B">var</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">pdfDoc</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> </span><span style="color: #89DDFF">new</span><span style="color: #BABED8"> </span><span style="color: #FFCB6B">PdfDocument</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">        pdfDoc</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">LoadFromXPS</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">xpsStream</span><span style="color: #89DDFF">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Set PDF page size to A4</span></span>
+<span class="line"><span style="color: #BABED8">        pdfDoc</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">PageSettings</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">Size </span><span style="color: #89DDFF">=</span><span style="color: #BABED8"> PdfPageSize</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">A4</span><span style="color: #89DDFF">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Save PdfDocument to PDF file</span></span>
+<span class="line"><span style="color: #BABED8">        pdfDoc</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">SaveToFile</span><span style="color: #89DDFF">(</span><span style="color: #BABED8">outputPdfPath</span><span style="color: #89DDFF">);</span></span>
+<span class="line"><span style="color: #BABED8">        pdfDoc</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Close</span><span style="color: #89DDFF">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #89DDFF; font-style: italic">        </span><span style="color: #464B5D; font-style: italic">// Dispose the XPS stream</span></span>
+<span class="line"><span style="color: #BABED8">        xpsStream</span><span style="color: #89DDFF">.</span><span style="color: #82AAFF">Dispose</span><span style="color: #89DDFF">();</span></span>
+<span class="line"><span style="color: #BABED8">    </span><span style="color: #89DDFF">}</span></span>
+<span class="line"><span style="color: #89DDFF">}</span></span></code></pre></div>
+</div>
+
+
+
+<p></p>
+
+
+
+<p>程式執行後，所產生的 PDF 檔內容，如下圖。</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" src="https://i.imgur.com/DL89AvH.png" alt=""/></figure>
+
+
+
+<h2 class="wp-block-heading article_h2">總結</h2>
+
+
+
+<p>在產生 PDF 這一塊，除了手動撰寫程式產生 PDF 排版與資料外，還有一些方法可以實現，例如，可以使用空白的 PDF 作為底稿，然後將需要的資料寫入其中，等等。</p>
+
+
+
+<p>而直接使用 XAML 的 View ，再透過 Binding 來放入需要顯示的資料，最後透過 FreeSpire.PDF 套件轉存成 PDF。並且能 Binding 的話，表示不只文字，甚至圖片與集合都可以使用。如果遇到生成的 PDF 有語系的需求，也可以使用 DynamicResource 來切換，使用起來感覺方便不少。</p>
+
+
+
+<p>此方法做出的 PDF 目前看起來沒有太大的問題，若是有遇到什麼問題，會再進行文章的更新。</p>
+
+
+
+<p>而 UI 的部分，不一定要使用 FlowDocument 也可使用其他 UI 元件，只是再轉 XPS 的時候，則需要用另外的程式來實現。</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 &#8211; Part 2</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part02/</link>
 		
 		<dc:creator><![CDATA[cornerchat543]]></dc:creator>
@@ -113,7 +974,7 @@
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-1 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-4 wp-block-group-is-layout-flex">
 <p>XAML</p>
 
 
@@ -221,7 +1082,7 @@
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-2 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-5 wp-block-group-is-layout-flex">
 <div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel.DataAnnotations;" style="color:#babed8;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6"></path></svg></span><pre class="shiki material-theme-ocean" style="background-color: #0F111A" tabindex="0"><code><span class="line"><span style="color: #F78C6C">using</span><span style="color: #BABED8"> CommunityToolkit</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">Mvvm</span><span style="color: #89DDFF">.</span><span style="color: #BABED8">ComponentModel</span><span style="color: #89DDFF">;</span></span>
@@ -269,7 +1130,7 @@ using System.ComponentModel.DataAnnotations;" style="color:#babed8;display:none"
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-3 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-6 wp-block-group-is-layout-flex">
 <p>Window1ViewModelA</p>
 
 
@@ -413,7 +1274,7 @@ using System.ComponentModel.DataAnnotations;" style="color:#babed8;display:none"
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-4 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-7 wp-block-group-is-layout-flex">
 <div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="private string? _name;
 [Required]
 public string? Name
@@ -459,7 +1320,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-5 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-8 wp-block-group-is-layout-flex">
 <p>Window1ViewModelB</p>
 
 
@@ -595,7 +1456,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-6 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -633,7 +1494,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-7 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex">
 <p>Window1ViewModelC</p>
 
 
@@ -727,7 +1588,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-8 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
 <p>XAML</p>
 
 
@@ -875,7 +1736,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-9 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
 <p>Window2ViewModelA</p>
 
 
@@ -1074,7 +1935,7 @@ public string? Phone
 		
 			</item>
 		<item>
-		<title>使用ToolKit.MVVM實現ViewModel &#8211; Part 1</title>
+		<title>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 &#8211; Part 1</title>
 		<link>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/</link>
 		
 		<dc:creator><![CDATA[cornerchat543]]></dc:creator>
@@ -1147,7 +2008,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-10 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
 <p>XAML</p>
 
 
@@ -1239,7 +2100,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-11 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
 <p>View</p>
 
 
@@ -1257,7 +2118,7 @@ public string? Phone
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-12 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-15 wp-block-group-is-layout-flex">
 <p>ViewModelBase</p>
 
 
@@ -1335,7 +2196,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-13 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-16 wp-block-group-is-layout-flex">
 <p>RelayCommand</p>
 
 
@@ -1461,7 +2322,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-14 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-17 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel</p>
 
 
@@ -1571,7 +2432,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-15 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-18 wp-block-group-is-layout-flex">
 <p>執行結果1</p>
 
 
@@ -1585,7 +2446,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-16 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-19 wp-block-group-is-layout-flex">
 <p>執行結果2</p>
 
 
@@ -1623,7 +2484,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-17 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-20 wp-block-group-is-layout-flex">
 <p>Nuget 搜尋結果</p>
 
 
@@ -1641,7 +2502,7 @@ namespace BindingLibrary
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-18 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-21 wp-block-group-is-layout-flex">
 <p>Namespace部分</p>
 
 
@@ -1691,7 +2552,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-19 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-22 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel01</p>
 
 
@@ -1817,7 +2678,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-20 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-23 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel02</p>
 
 
@@ -1909,7 +2770,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-21 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-24 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -1983,7 +2844,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-22 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-25 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -2009,7 +2870,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-23 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-26 wp-block-group-is-layout-flex">
 <p>紅底：標準使用</p>
 
 
@@ -2095,7 +2956,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-24 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-27 wp-block-group-is-layout-flex">
 <p>使用 partial 方法</p>
 
 
@@ -2125,7 +2986,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-25 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-28 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel03</p>
 
 
@@ -2253,7 +3114,7 @@ using CommunityToolkit.Mvvm.Input;" style="color:#babed8;display:none" aria-labe
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-26 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-29 wp-block-group-is-layout-flex">
 <p>使用AsyncRelayCommand</p>
 
 
@@ -2295,7 +3156,7 @@ private async Task ShowNote(string? str)
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-27 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-30 wp-block-group-is-layout-flex">
 <p>MainWindowViewModel04</p>
 
 
@@ -2383,7 +3244,7 @@ private async Task ShowNote(string? str)
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-28 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-stretch is-layout-flex wp-container-core-group-is-layout-31 wp-block-group-is-layout-flex">
 <div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#babed8;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:flex;align-items:center;padding:10px 0px 10px 16px;margin-bottom:-2px;width:100%;text-align:left;background-color:#181c2a;color:#aaafcf">C#</span><span role="button" tabindex="0" data-code="// 示範用父類別
 public class SomeOtherClass
 {
@@ -2652,7 +3513,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-29 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-32 wp-block-group-is-layout-flex">
 <p>1-1.選擇習慣的方式，建立新的 Repository ，這邊登入後於網頁左側建立</p>
 
 
@@ -2662,7 +3523,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-30 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-33 wp-block-group-is-layout-flex">
 <p>1-2.點擊開始建立後，首先輸入 Repository name ，這邊輸入「帳號名稱.github.io」。再來視個人需求勾選 Add a README file ，建議可勾選，這樣在還沒 push 與部署其他東西前，進入主站會顯示 README 的內容。最後點選 &#8220;Create Repository&#8221; 建立。</p>
 
 
@@ -2680,7 +3541,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-31 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-34 wp-block-group-is-layout-flex">
 <p>1-3.建立完成後，會長得像這樣</p>
 
 
@@ -2690,7 +3551,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-32 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-35 wp-block-group-is-layout-flex">
 <p>1-4.建立名為「gh-pages」的分支，點選main分支標籤，輸入「gh-pages」後，按下下方的 &#8220;Create branch gh-pages from main&#8221;</p>
 
 
@@ -2700,7 +3561,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-33 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-36 wp-block-group-is-layout-flex">
 <p>1-5. gh-pages 分支建立完後的樣子</p>
 
 
@@ -2710,7 +3571,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-34 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-37 wp-block-group-is-layout-flex">
 <p>1-6.點選上方標籤列的Settings標籤，進入 Repository 的設定頁面，在 Default branch 區塊中來切換預設的分支</p>
 
 
@@ -2720,7 +3581,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-35 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-38 wp-block-group-is-layout-flex">
 <p>1-7.預設的分支，從原本的 main 改為剛建立的 gh-pages 分支後，按下 &#8220;Update&#8221;</p>
 
 
@@ -2730,7 +3591,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-36 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-39 wp-block-group-is-layout-flex">
 <p>1-8.按下 &#8220;I understand&#8221;</p>
 
 
@@ -2740,7 +3601,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-37 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-40 wp-block-group-is-layout-flex">
 <p>1-9.選擇左邊選單中的 Pages 頁籤，找到 Build and deployment 中的 Branch 項目，點選 main 分支</p>
 
 
@@ -2750,7 +3611,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-38 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-41 wp-block-group-is-layout-flex">
 <p>1-10.從 main 分支改為 gh-pages 分支，並且按下 &#8220;Save&#8221;</p>
 
 
@@ -2764,7 +3625,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-39 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-42 wp-block-group-is-layout-flex">
 <p>額外1-1. 首先在 Repository 的 Code 頁籤中，點選 About 右邊的設定圖示按鈕</p>
 
 
@@ -2774,7 +3635,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-40 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-43 wp-block-group-is-layout-flex">
 <p>額外1-2. 會出現下面的小視窗，可以看到有一個 Website 的欄位</p>
 
 
@@ -2784,7 +3645,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-41 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-44 wp-block-group-is-layout-flex">
 <p>額外1-3. 勾選該欄位下方的 &#8220;Use your GitHub Pages website&#8221; 選項後， Website 的欄位便會自動產生並填入主站點的網址，最後按下 &#8220;Save changes&#8221;</p>
 
 
@@ -2794,7 +3655,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-42 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-45 wp-block-group-is-layout-flex">
 <p>額外1-4. 儲存成功後，右邊的 About 便會顯示主站點的超連結，點進去後就能看到所建立的網站</p>
 
 
@@ -2812,7 +3673,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-43 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-46 wp-block-group-is-layout-flex">
 <p>2-1. 依照電腦系統與喜好下載 <a href="https://www.apachefriends.org/zh_tw/download.html" target="_blank" rel="noreferrer noopener">XAMPP</a> 軟體，這邊下載 Windows x64 免安裝版本</p>
 
 
@@ -2826,7 +3687,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-44 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-47 wp-block-group-is-layout-flex">
 <p>2-2. 下載 <a href="https://tw.wordpress.org/download/" target="_blank" rel="noreferrer noopener">WordPress</a> ，這邊下載的檔案為 zip 壓縮檔</p>
 
 
@@ -2840,7 +3701,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-45 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-48 wp-block-group-is-layout-flex">
 <p>2-3. 將 XAMPP 解壓縮</p>
 
 
@@ -2850,7 +3711,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-46 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-49 wp-block-group-is-layout-flex">
 <p>2-4. 執行 &#8220;setup_xampp&#8221; 批次檔</p>
 
 
@@ -2860,7 +3721,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-47 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-50 wp-block-group-is-layout-flex">
 <p>2-5. 依照指示並等待批次檔執行完成</p>
 
 
@@ -2870,7 +3731,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-48 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-51 wp-block-group-is-layout-flex">
 <p>2-6. 在 XAMPP 中尋找 &#8220;htdocs&#8221; 的資料夾。進入 &#8220;htdocs&#8221; 資料夾中，建立一個資料夾，這邊我建立了一個 cornerchat543 的資料夾，再來把前面步驟中下載的 WordPress 壓縮檔，解壓縮到該資料夾中</p>
 
 
@@ -2880,7 +3741,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-49 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-52 wp-block-group-is-layout-flex">
 <p>2-7. 回到XAMPP資料夾中，點選 &#8220;xampp-control&#8221; 來啟動程式。程式啟動後點選 &#8220;Apache&#8221; 和 &#8220;MySQL&#8221; 右邊的 Start 按鈕。若出現防火牆的訊息，則按下允許。</p>
 
 
@@ -2890,7 +3751,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-50 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-53 wp-block-group-is-layout-flex">
 <p>2-8. 皆正常運作的話，畫面會與下面相同</p>
 
 
@@ -2900,7 +3761,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-51 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-54 wp-block-group-is-layout-flex">
 <p>2-9. 開啟網頁瀏覽器程式，輸入「http://localhost/phpmyadmin/」來進入MySQL 數據庫的網頁介面</p>
 
 
@@ -2910,7 +3771,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-52 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-55 wp-block-group-is-layout-flex">
 <p>2-10. 建立新的資料庫，點選左邊選單中的&#8221;新增&#8221;，在中間輸入欲新增的資料庫名稱，輸入完畢後按下右邊的&#8221;建立&#8221;按鈕</p>
 
 
@@ -2920,7 +3781,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-53 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-56 wp-block-group-is-layout-flex">
 <p>2-11. 新增成功的話，可從左邊選單中，看到該資料庫在列表中。接著安裝 WordPress ，在瀏覽器中輸入「http://localhost/{資料夾名稱}/」，資料夾名稱為步驟2-6，也就是在 htdocs 資料夾中，自行建立的資料夾名稱</p>
 
 
@@ -2930,7 +3791,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-54 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-57 wp-block-group-is-layout-flex">
 <p>2-12. 進入後便可看到此畫面，點選下方&#8221;開始安裝&#8221;</p>
 
 
@@ -2940,7 +3801,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-55 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-58 wp-block-group-is-layout-flex">
 <p>2-13. 接著輸入步驟2-10所建立的資料庫名稱，以及資料庫預設的帳號 root 與空密碼(不用輸入)，完成後按下&#8221;傳送&#8221;</p>
 
 
@@ -2950,7 +3811,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-56 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-59 wp-block-group-is-layout-flex">
 <p>2-14. 按下&#8221;執行安裝程式&#8221;</p>
 
 
@@ -2960,7 +3821,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-57 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-60 wp-block-group-is-layout-flex">
 <p>2-15. 根據表單填入對應的資訊，使用者名稱與密碼是未來要進入後台管理時需要的。填寫完畢後按下 &#8220;安裝WordPress&#8221;</p>
 
 
@@ -2970,7 +3831,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-58 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-61 wp-block-group-is-layout-flex">
 <p>2-16. 等待之後，安裝完成畫面如下圖，再來便可點選&#8221;登入&#8221;</p>
 
 
@@ -2980,7 +3841,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-59 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-62 wp-block-group-is-layout-flex">
 <p>2-17. 輸入步驟2-15所輸入的使用者與密碼來進行登入</p>
 
 
@@ -2990,7 +3851,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-60 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-63 wp-block-group-is-layout-flex">
 <p>2-18. 登入成功後，便會進入到網站的控制台管理畫面。未來要直接進入控制台，則在瀏覽器輸入「http://localhost/{資料夾名稱}/wp-admin/」，資料夾名稱為建立於 htdocs 下的。</p>
 
 
@@ -3004,7 +3865,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-61 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-64 wp-block-group-is-layout-flex">
 <p>2-19. 若要前往前台網站，點選控制台左上角的房子 icon 即可</p>
 
 
@@ -3014,7 +3875,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-62 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-65 wp-block-group-is-layout-flex">
 <p>2-20. 進入到前台，目前為預設的佈景主題與內容。若要回到控制台頁面，則點選左上角的速度表 icon</p>
 
 
@@ -3024,7 +3885,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-63 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-66 wp-block-group-is-layout-flex">
 <p>2-21. 若要變更預設的佈景主題，則在左方點選&#8221;外觀&#8221; > &#8220;佈景主題&#8221;，可以選擇或安裝新的主題。未來本網站會使用 Blocksy 主題</p>
 
 
@@ -3042,7 +3903,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-64 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-67 wp-block-group-is-layout-flex">
 <p>3-1. 首先將先前所建好的 Repository Clone 到本機端吧。選擇自己習慣的 Github 工具，這邊用的是 Github Desktop</p>
 
 
@@ -3052,7 +3913,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-65 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-68 wp-block-group-is-layout-flex">
 <p>3-2. 選擇要 Clone 使用的 Repository ，再來設定要存放在本機的路徑後，按下 &#8220;Clone&#8221;</p>
 
 
@@ -3062,7 +3923,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-66 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-69 wp-block-group-is-layout-flex">
 <p>3-3. 接下來安裝產生靜態網站的外掛，回到控制台頁面，在左側選單中點選&#8221;外掛&#8221; &gt; &#8220;已安裝外掛&#8221;，在點選上方的&#8221;安裝外掛&#8221;，或是左側選單直接點選&#8221;外掛&#8221; &gt; &#8220;安裝外掛&#8221;</p>
 
 
@@ -3072,7 +3933,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-67 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-70 wp-block-group-is-layout-flex">
 <p>3-4. 在安裝外掛的頁面，到右邊搜尋欄中輸入 &#8220;Simply Static&#8221; ，並且在下方找到該外掛後，進行安裝與啟用</p>
 
 
@@ -3082,7 +3943,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-68 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-71 wp-block-group-is-layout-flex">
 <p>3-5. Simply Static 外掛啟用後，可看到左側選單中，出現了 Simply Static 的選項</p>
 
 
@@ -3092,7 +3953,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-69 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-72 wp-block-group-is-layout-flex">
 <p>3-6. 產生靜態網站前，要做些設定，點選左側 &#8220;Simply Static&#8221; 後，尋找並點選 &#8220;General&#8221; ，右側的 REPLACING URLS 選項選擇 &#8220;Absolute URLs&#8221; ，並在下方 SCHEME 選擇 &#8220;https://&/#8221; ， HOST 則填入去除 https:// 後，自己的 github pages 網址，完成後到網頁底端按下 &#8220;Save Settings&#8221;</p>
 
 
@@ -3102,7 +3963,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-70 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-73 wp-block-group-is-layout-flex">
 <p>3-7. 在 Simply Static 頁面中，尋找並點選 &#8220;Deploy&#8221;，將右邊的 DEPLOYMENT METHOD 選擇 &#8220;Local Directory&#8221; ，接著在 Local Directory 區塊中的 PATH 欄位裡，填入步驟3-2， Clone 下來的 Repository 本機路徑，完成後到網頁底端按下 &#8220;Save Settings&#8221;</p>
 
 
@@ -3112,7 +3973,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-71 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-74 wp-block-group-is-layout-flex">
 <p>3-8. 上述設定結束後，點選 &#8220;Generate Static Files&#8221; 便會在設定的資料夾中，產生靜態網站的檔案，可點選 &#8220;Activity Log&#8221; ，在右側觀看產生過程的 Log 資訊，並等待執行完成</p>
 
 
@@ -3122,7 +3983,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-72 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-75 wp-block-group-is-layout-flex">
 <p>3-9. 完成後，在 Github 工具中，可看到多了許多檔案，再來執行 Commit 並 Push 到 Github 上</p>
 
 
@@ -3132,7 +3993,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-73 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-76 wp-block-group-is-layout-flex">
 <p>3-10. 回到 Repository 網頁中，可看到 Push 上來的樣子， Push 上來後，就會開始執行佈署，到佈署完成可能需要等待一下</p>
 
 
@@ -3142,7 +4003,7 @@ public partial class MainWindowViewModel05 : SomeOtherClass
 
 
 
-<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-74 wp-block-group-is-layout-flex">
+<div class="wp-block-group is-vertical is-content-justification-left is-layout-flex wp-container-core-group-is-layout-77 wp-block-group-is-layout-flex">
 <p>3-11. 最後輸入自己的 Github pages 網址，便可看到成果</p>
 
 
