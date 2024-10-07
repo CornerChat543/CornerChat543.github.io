@@ -535,11 +535,11 @@ const VolantisApp = (() => {
     } else if (dayC >= 1 && dayC < 7) {
       result = " " + parseInt(dayC) + " 天前"
     } else if (hourC >= 1 && hourC < 24) {
-      result = " " + parseInt(hourC) + " 小时前"
+      result = " " + parseInt(hourC) + " 小時前"
     } else if (minC >= 1 && minC < 60) {
-      result = " " + parseInt(minC) + " 分钟前"
+      result = " " + parseInt(minC) + " 分鐘前"
     } else if (diffValue >= 0 && diffValue <= minute) {
-      result = "刚刚"
+      result = "剛剛"
     } else {
       const datetime = new Date();
       datetime.setTime(dateTimeStamp);
