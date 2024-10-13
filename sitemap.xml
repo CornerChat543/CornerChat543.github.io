@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cornerchat543.github.io/2024/04/wordpress-on-github-pages/</loc>
+    <loc>https://cornerchat543.github.io/2024/10/hexo-on-github-pages/</loc>
     
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,7 @@
   <url>
     <loc>https://cornerchat543.github.io/2024/06/wpf-freespirepdf-flowdocument-to-pdf/</loc>
     
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +22,7 @@
   <url>
     <loc>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part02/</loc>
     
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-12</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -30,6 +30,15 @@
   
   <url>
     <loc>https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/</loc>
+    
+    <lastmod>2024-10-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/2024/04/wordpress-on-github-pages/</loc>
     
     <lastmod>2024-10-10</lastmod>
     
@@ -67,92 +76,99 @@
 
   <url>
     <loc>https://cornerchat543.github.io/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://cornerchat543.github.io/tags/NET/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/C/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/MVVM/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/Nuget/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/ToolKit-MVVM/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/WPF/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/FreeSpire-PDF/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://cornerchat543.github.io/tags/PDF/</loc>
-    <lastmod>2024-10-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://cornerchat543.github.io/tags/github-pages/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/github-io/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/Hexo/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/NET/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/C/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/MVVM/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/Nuget/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/ToolKit-MVVM/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/WPF/</loc>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/WordPress/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/XAMPP/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/FreeSpire-PDF/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/PDF/</loc>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -160,15 +176,22 @@
 
   
   <url>
+    <loc>https://cornerchat543.github.io/categories/Hexo/</loc>
+    <lastmod>2024-10-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://cornerchat543.github.io/categories/C/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/categories/Github-Pages/</loc>
-    <lastmod>2024-10-10</lastmod>
+    <lastmod>2024-10-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
