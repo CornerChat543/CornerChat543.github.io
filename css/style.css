@@ -6536,8 +6536,8 @@ div.timenode:hover .meta:after {
 .highlight.typescript:before {
   content: "TypeScript";
 }
-.hljs.cs:before,
-.highlight.cs:before {
+.hljs.csharp:before,
+.highlight.csharp:before {
   content: "C#";
 }
 .hljs.xml:before,
