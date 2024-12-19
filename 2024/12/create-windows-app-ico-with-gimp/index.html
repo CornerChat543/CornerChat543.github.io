@@ -5,8 +5,8 @@
   <meta name="Volantis" content="5.8.0">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://cornerchat543.github.io/categories/deep-learning/"/>
+  
+  <link rel="canonical" href="https://cornerchat543.github.io/2024/12/create-windows-app-ico-with-gimp/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -34,17 +34,23 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>分類：Deep Learning - CornerChat543's Blog</title>
-  <meta name="keywords" content="null">
-  <meta name="description" content="CornerChat543 Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CornerChat543&#39;s Blog">
-<meta property="og:url" content="https://cornerchat543.github.io/categories/Deep-Learning/index.html">
+  <title>用 GIMP 製作 Windows 應用程式的 ico 圖示 - CornerChat543's Blog</title>
+  <meta name="keywords" content="ico,.NET,C#,WPF,null">
+  <meta name="description" content="ico 檔是 Windows 圖示的一種專用格式，能夠包含多種尺寸的圖片，方便系統根據不同情境自動選擇適合的圖示進行顯示。本次想記錄下使用 GIMP 軟體製作 ico 檔案，並將其應用於 WPF 應用程式中，整個過程並不困難，但因為不常用，時間久了可能會忘記，所以寫下來方便未來做個參考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 GIMP 製作 Windows 應用程式的 ico 圖示">
+<meta property="og:url" content="https://cornerchat543.github.io/2024/12/create-windows-app-ico-with-gimp/index.html">
 <meta property="og:site_name" content="CornerChat543&#39;s Blog">
-<meta property="og:description" content="CornerChat543 Blog">
+<meta property="og:description" content="ico 檔是 Windows 圖示的一種專用格式，能夠包含多種尺寸的圖片，方便系統根據不同情境自動選擇適合的圖示進行顯示。本次想記錄下使用 GIMP 軟體製作 ico 檔案，並將其應用於 WPF 應用程式中，整個過程並不困難，但因為不常用，時間久了可能會忘記，所以寫下來方便未來做個參考。">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2024-12-19T13:59:00.000Z">
+<meta property="article:modified_time" content="2024-12-19T14:08:35.889Z">
 <meta property="article:author" content="CornerChat543">
+<meta property="article:tag" content="ico">
+<meta property="article:tag" content=".NET">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="WPF">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   
@@ -2594,7 +2600,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="none" class='cover-wrapper  dock' style="display: none;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg=""></div>
 
@@ -2624,25 +2630,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="safearea">
         <div class="body-wrapper">
           
-
 <div id="l_main" class=''>
-  
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/">
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2024/12/create-windows-app-ico-with-gimp/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="CornerChat543's Blog">
   </span>
@@ -2651,68 +2641,265 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="CornerChat543 Blog">
   </span>
   
-  
+
+
   
     <span hidden>
       <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
     </span>
   
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"  itemprop="url">
-        在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
     
-      <p>TensorFlow 是由 Google 開發的深度學習 Python 套件。最近開始學習深度學習。雖然 Google Colab 是個不錯的學習平台，因為不需要自行安裝環境，但在免費版本中，如果不使用 GPU 運算，訓練速度會有些慢。</p>
-<p>最近剛換了一台配備更好顯卡的電腦，但遺憾的是，從 TensorFlow 2.10.0 版本開始，似乎不再支援 Windows 系統。</p>
-<p>雖然可以安裝舊版本的 TensorFlow，但如果想使用 GPU 進行運算，相關的套件和CUDA 版本也必須相互匹配。如果電腦裡只能有一個環境，未來在各種版本間切換的話，想想就覺得不太方便。</p>
-<p>經過網路搜索和調查後，最終選擇安裝 Anaconda。不僅包含一些基本套件，還能建立多個獨立的虛擬環境。而且，CUDA 和 cuDNN 只需要用一個指令就能安裝，不用自己手動下載，方便了不少。</p>
-<p>這邊將過程記錄下來，方便日後有需要重新配置環境時參考。<br><br></p>
+    
+      <h1 class="title" itemprop="name headline">
+        用 GIMP 製作 Windows 應用程式的 ico 圖示
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/C/">C#</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/C/" itemprop="url"><span itemprop="name">C#</span></a>
+      </span>
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-10-20T15:27:00+08:00">2024-10-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Deep-Learning/">Deep Learning</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/Deep-Learning/" itemprop="url"><span itemprop="name">Deep Learning</span></a>
-            </span>
+
+
           
         
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2024-12-19T21:59:00+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>2024年12月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2024-12-19T22:08:35+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>2024年12月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
       </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>ico 檔是 Windows 圖示的一種專用格式，能夠包含多種尺寸的圖片，方便系統根據不同情境自動選擇適合的圖示進行顯示。本次想記錄下使用 GIMP 軟體製作 ico 檔案，並將其應用於 WPF 應用程式中，整個過程並不困難，但因為不常用，時間久了可能會忘記，所以寫下來方便未來做個參考。</p>
+<span id="more"></span>
+
+<h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><h3 id="準備圖片"><a href="#準備圖片" class="headerlink" title="準備圖片"></a>準備圖片</h3><p>在使用 Windows 時，可能注意到某些軟體的圖示會根據情境顯示不同的尺寸或樣式，這是因為 ico 檔案內，包含多張不同尺寸的圖片，讓系統能根據需求自動切換顯示。</p>
+<p>本篇示範的圖片依照 Windows 的建議，準備了 16x16、24x24、32x32、48x48 和 256x256 等尺寸。</p>
+<p>如下圖所示（為方便顯示，將五張圖片合併在同一張圖中，實際上是五個獨立的圖片檔案）。</p>
+<p>為了便於後續操作時辨識，每張圖片中間特意標註了尺寸數字，並使用不同的背景顏色來提升辨識度。</p>
+<p><img src="https://i.imgur.com/ZAGhltg.png" class="lazyload" data-srcset="https://i.imgur.com/ZAGhltg.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/ZAGhltg.png"></p>
+<br>
+
+<p>在實際製作時，可以根據需求和實際狀況，自行選擇適合的尺寸和圖示，其他細節則可以參考文章末尾的參考資料或自行上網查詢。</p>
+<h3 id="使用軟體"><a href="#使用軟體" class="headerlink" title="使用軟體"></a>使用軟體</h3><p>本次使用的軟體是 GIMP，這是一款自由且開放原始碼的圖像編輯軟體。可以前往 <a target="_blank" rel="noopener" href="https://www.gimp.org/downloads/">GIMP 官網</a>，根據自己的需求和喜好下載適合的版本。</p>
+<h2 id="圖示製作"><a href="#圖示製作" class="headerlink" title="圖示製作"></a>圖示製作</h2><p>準備好圖片和軟體後，就可以開始製作 ico 檔案了</p>
+<ol>
+<li>打開 GIMP 軟體後，點選左上角的”檔案”，接著選擇”開啟”，選擇一張準備好的圖片開始進行製作</li>
+</ol>
+<p><img src="https://i.imgur.com/rYddeJm.png" class="lazyload" data-srcset="https://i.imgur.com/rYddeJm.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/rYddeJm.png"></p>
+<br>
+
+<p>個人習慣選擇尺寸最大的圖片進行操作，下圖為選擇並讀取圖片後的畫面</p>
+<p><img src="https://i.imgur.com/2BPOOo4.png" class="lazyload" data-srcset="https://i.imgur.com/2BPOOo4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/2BPOOo4.png"></p>
+<br>
+
+<ol start="2">
+<li>接著，再次點擊左上角的”檔案”，這次選擇”開啟成為圖層”</li>
+</ol>
+<p><img src="https://i.imgur.com/zJbqFBT.png" class="lazyload" data-srcset="https://i.imgur.com/zJbqFBT.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/zJbqFBT.png"></p>
+<br>
+
+<p>選擇其他尺寸的圖片，這邊選擇尺寸48</p>
+<p><img src="https://i.imgur.com/y5xZhwH.png" class="lazyload" data-srcset="https://i.imgur.com/y5xZhwH.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/y5xZhwH.png"></p>
+<br>
+
+<p>完成選擇後，畫面會顯示如下，</p>
+<p>雖然兩張圖片在畫面中看起來是重疊的，但它們各自屬於不同的圖層</p>
+<p><img src="https://i.imgur.com/D4VEmt8.png" class="lazyload" data-srcset="https://i.imgur.com/D4VEmt8.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/D4VEmt8.png"></p>
+<br>
+
+<ol start="3">
+<li>繼續使用”開啟成為圖層”，選擇剩下的其他尺寸圖片，可以一次選擇多張圖片</li>
+</ol>
+<p><img src="https://i.imgur.com/TBB5Rmd.png" class="lazyload" data-srcset="https://i.imgur.com/TBB5Rmd.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/TBB5Rmd.png"></p>
+<br>
+
+<p>導入完成後，每張圖片都會位於各自的圖層中</p>
+<p><img src="https://i.imgur.com/v34gnxs.png" class="lazyload" data-srcset="https://i.imgur.com/v34gnxs.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/v34gnxs.png"></p>
+<br>
+
+<p>圖層的順序是可以調整的，個人習慣會將圖層按尺寸由小到大排列</p>
+<p>但即使沒有按此順序排列，也不會影響最終的結果</p>
+<p><img src="https://i.imgur.com/Kk1MFso.png" class="lazyload" data-srcset="https://i.imgur.com/Kk1MFso.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/Kk1MFso.png"></p>
+<br>
+
+<ol start="4">
+<li>當所有圖片都導入完成後，就可以將它們匯出成 ico 檔案了，點擊左上角的”檔案”，接著按下”Export As…”</li>
+</ol>
+<p><img src="https://i.imgur.com/pltCKv3.png" class="lazyload" data-srcset="https://i.imgur.com/pltCKv3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/pltCKv3.png"></p>
+<br>
+
+<ol start="5">
+<li>接選擇輸出的資料夾位置並設定檔案名稱，下方勾選”選擇檔案格式”後，選擇檔案格式 Microsoft Windows icon ，延伸檔名為 ico 的項目，接著按下”匯出”</li>
+</ol>
+<p><img src="https://i.imgur.com/OT8xLuL.png" class="lazyload" data-srcset="https://i.imgur.com/OT8xLuL.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/OT8xLuL.png"></p>
+<br>
+
+<ol start="6">
+<li>接著會跳出一個設定視窗，根據需求進行設定後，點擊”匯出”，這樣就完成 ico 檔案的製作了</li>
+</ol>
+<p><img src="https://i.imgur.com/D4LA1Pr.png" class="lazyload" data-srcset="https://i.imgur.com/D4LA1Pr.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/D4LA1Pr.png"></p>
+<br>
+
+<p>完成後，你可以使用 GIMP 讀取剛匯出的 ico 檔案，畫面將顯示檔案內包含的所有圖層與尺寸，</p>
+<p>如果使用系統預設的圖片檢視器打開 ico 檔案，則只會顯示其中一張圖</p>
+<p><img src="https://i.imgur.com/pdyftPm.png" class="lazyload" data-srcset="https://i.imgur.com/pdyftPm.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/pdyftPm.png"></p>
+<br>
+
+<h2 id="在-Windows-程式中使用"><a href="#在-Windows-程式中使用" class="headerlink" title="在 Windows 程式中使用"></a>在 Windows 程式中使用</h2><p>最後來看看如何在 Windows 程式專案中使用 ico 檔案，這裡以 WPF 框架為例進行示範</p>
+<p>將製作完成的 ico 檔案複製到一個 WPF 專案中，</p>
+<p><img src="https://i.imgur.com/PyRqr1d.png" class="lazyload" data-srcset="https://i.imgur.com/PyRqr1d.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/PyRqr1d.png"></p>
+<br>
+
+<p>打開專案屬性，找到 “Win32 資源” 區塊，將圖示設定為剛製作的 ico 檔案，並儲存設定</p>
+<p><img src="https://i.imgur.com/gHXiMMN.png" class="lazyload" data-srcset="https://i.imgur.com/gHXiMMN.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/gHXiMMN.png"></p>
+<br>
+
+<p>專案屬性的 XML 配置會顯示如下圖所示的內容</p>
+<p><img src="https://i.imgur.com/PxuaUkE.png" class="lazyload" data-srcset="https://i.imgur.com/PxuaUkE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/PxuaUkE.png"></p>
+<br>
+
+<p>接著，對整個專案進行編譯</p>
+<p>編譯完成後，前往輸出的資料夾檢查編譯出的執行檔</p>
+<p>在檔案總管的 “詳細資料” 檢視模式下，執行檔的圖示顯示為 16x16 的尺寸</p>
+<p><img src="https://i.imgur.com/9Hfifju.png" class="lazyload" data-srcset="https://i.imgur.com/9Hfifju.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/9Hfifju.png"></p>
+<br>
+
+<p>切換到 “中圖示” 檢視模式，圖示會變為 48x48 的尺寸</p>
+<p><img src="https://i.imgur.com/QUGsJSr.png" class="lazyload" data-srcset="https://i.imgur.com/QUGsJSr.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/QUGsJSr.png"></p>
+<br>
+
+<p>切換到 ”大圖示” 檢視模式，圖示會顯示為 256x256 的尺寸</p>
+<p><img src="https://i.imgur.com/DmgRAq4.png" class="lazyload" data-srcset="https://i.imgur.com/DmgRAq4.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/DmgRAq4.png"></p>
+<br>
+
+<p>啟動程式後，在應用程式視窗標題前方，顯示的是 16x16 的圖示</p>
+<p>而在工具列中的圖示則顯示為 32x32 的尺寸</p>
+<p><img src="https://i.imgur.com/cldcK3Y.png" class="lazyload" data-srcset="https://i.imgur.com/cldcK3Y.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/cldcK3Y.png"></p>
+<br>
+
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows/win32/uxguide/vis-icons">圖示 (設計基本概念)</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows/apps/design/style/iconography/app-icon-construction">建構 Windows 應用程式的圖示</a></li>
+</ul>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
       
-        <div>
-          <a class='readmore' href='/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/' itemprop="url">
-            閱讀全文
-          </a>
-        </div>
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ico/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>ico</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/NET/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>.NET</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>C#</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/WPF/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>WPF</p></a></div>
+  <span hidden itemprop="keywords">ico .NET C# WPF</span>
+
+
         
       
+    </div>
+    <!-- Custom Files bottomMeta begin -->
     
-  </section>
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
   
-    
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2024/11/hexo-volantis-syntax-highlight-customization/'>
+          <p class='title'>Hexo Volantis 主題中簡單調整語法突顯顏色與字體大小<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Syntax Highlight（語法突顯或語法高亮） 是指在顯示程式碼時，通過不同的顏色來區分語法元素，以提升程式碼的可讀性。
+在 Hexo 以及 Hexo Volantis 主題中，也具備這...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
   
 
 
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2024/12/create-windows-app-ico-with-gimp/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 評論</p>
     
-  
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
   
@@ -2721,20 +2908,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       
-<section class="widget blogger desktop mobile pjax">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://avatars.githubusercontent.com/u/152056279?v=4'/>
-        </a>
-      
-    
-    
-    
-  </div>
-</section>
-
     
   
 
@@ -2811,79 +2984,45 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
   
 
-  
-    
-    
-      
-
-<section class="widget desktop mobile pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-clock fa-fw" aria-hidden="true"></i><span class='name'>最近更新</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2024/12/create-windows-app-ico-with-gimp/"><div class="item"><time>2024-12-19</time><span>C#</span></div><span>用 GIMP 製作 Windows 應用程式的 ico 圖示</span></a></li><li><a class="widget-last" href="/2024/11/hexo-volantis-syntax-highlight-customization/"><div class="item"><time>2024-11-09</time><span>Volantis</span></div><span>Hexo Volantis 主題中簡單調整語法突顯顏色與字體大小</span></a></li><li><a class="widget-last" href="/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"><div class="item"><time>2024-10-26</time><span>Deep Learning</span></div><span>在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境</span></a></li><li><a class="widget-last" href="/2024/10/hexo-blog-setup-guide/"><div class="item"><time>2024-10-26</time><span>Hexo</span></div><span>Hexo Blog的基本配置說明指南</span></a></li><li><a class="widget-last" href="/2024/10/hexo-on-github-pages/"><div class="item"><time>2024-10-16</time><span>Hexo</span></div><span>在GitHub Pages上使用Hexo靜態網頁</span></a></li></ul>
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-<section class="widget desktop pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-award fa-fw" aria-hidden="true"></i><span class='name'>網站資訊</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章數目：</div>
-          <div>9 篇</div>
-        </div>
-      
-
-      
-
-
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最後活動日期：</div>
-          <div id="last-update-show">2024-12-19 </div>
-        </div>
-      
-    </div>
-  </div>
-</section>
-
-    
-  
-
 
 <div class="widget-sticky pjax">
+
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>內容目錄</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="toc-number">1.</span> <span class="toc-text">前置作業</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%96%E5%82%99%E5%9C%96%E7%89%87"><span class="toc-number">1.1.</span> <span class="toc-text">準備圖片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%BB%9F%E9%AB%94"><span class="toc-number">1.2.</span> <span class="toc-text">使用軟體</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%96%E7%A4%BA%E8%A3%BD%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">圖示製作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-Windows-%E7%A8%8B%E5%BC%8F%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">在 Windows 程式中使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+  </section>
+
+  
 
 </div>
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -2903,13 +3042,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3468,7 +3608,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/Deep Learning/","name":"Deep Learning"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/12/create-windows-app-ico-with-gimp/","name":"用 GIMP 製作 Windows 應用程式的 ico 圖示"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"用 GIMP 製作 Windows 應用程式的 ico 圖示","description":"ico 檔是 Windows 圖示的一種專用格式，能夠包含多種尺寸的圖片，方便系統根據不同情境自動選擇適合的圖示進行顯示。本次想記錄下使用 GIMP 軟體製作 ico 檔案，並將其應用於 WPF 應用程式中，整個過程並不困難，但因為不常用，時間久了可能會忘記，所以寫下來方便未來做個參考。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/12/create-windows-app-ico-with-gimp/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/12/create-windows-app-ico-with-gimp/","wordCount":144,"datePublished":"2024-12-19T13:59:00.000Z","dateModified":"2024-12-19T14:08:35.889Z","articleSection":"C#","keywords":"ico,.NET,C#,WPF","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
