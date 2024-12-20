@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-10-20T07:27:00.000Z">
-<meta property="article:modified_time" content="2024-10-26T07:34:29.870Z">
+<meta property="article:modified_time" content="2024-12-20T08:17:00.000Z">
 <meta property="article:author" content="CornerChat543">
 <meta property="article:tag" content="TensorFlow">
 <meta property="article:tag" content="Anaconda">
@@ -1914,7 +1914,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1734617403359),
+    lastupdate: new Date(1734686766287),
     sidebar: {
       for_page: ["blogger","category","tagcloud","lastupdate","webinfo"],
       for_post: ["toc","category","tagcloud"],
@@ -2685,10 +2685,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateModified" datetime="2024-10-26T15:34:29+08:00">
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2024-12-20T16:17:00+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>2024年10月26日</p>
+    <p>2024年12月20日</p>
   </a>
 </div>
 
@@ -2728,7 +2728,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>安裝 Anaconda：前往 <a target="_blank" rel="noopener" href="https://www.anaconda.com/download">Anaconda 官網</a>下載對應的安裝程式。目前下載時需要提供電子郵件，Anaconda 會將下載連結寄送到您的信箱。</li>
 </ul>
 <h2 id="指令懶人包"><a href="#指令懶人包" class="headerlink" title="指令懶人包"></a>指令懶人包</h2><p>安裝完成 Anaconda 後，您會在預設安裝情況下看到以下這些程式。</p>
-<p><img src="https://i.imgur.com/ZL91szh.png" class="lazyload" data-srcset="https://i.imgur.com/ZL91szh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/ZL91szh.png"></p>
+<p><img src="https://i.imgur.com/ZL91szh.png" class="lazyload" data-srcset="https://i.imgur.com/ZL91szh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝完成 Anaconda 後，電腦中所安裝的程式"></p>
 <br>
 
 <p>接下來的操作步驟，皆使用 Anaconda Powershell Prompt 並透過指令進行。</p>
@@ -2743,15 +2743,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>首先，建立虛擬環境，輸入以下指令，其中 tf_env 為環境名稱，可以更改為其他名稱。此處指定的 Python 版本為 3.8：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name tf_env python=3.8</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/z4Qz8mw.png" class="lazyload" data-srcset="https://i.imgur.com/z4Qz8mw.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/z4Qz8mw.png"></p>
+<p><img src="https://i.imgur.com/z4Qz8mw.png" class="lazyload" data-srcset="https://i.imgur.com/z4Qz8mw.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="使用 Anaconda Powershell Prompt 建立虛擬環境指令"></p>
 <br>
 
 <p>在安裝過程中，系統會提示是否安裝一些套件，此時請輸入 y 繼續</p>
-<p><img src="https://i.imgur.com/2exY8xe.png" class="lazyload" data-srcset="https://i.imgur.com/2exY8xe.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/2exY8xe.png"></p>
+<p><img src="https://i.imgur.com/2exY8xe.png" class="lazyload" data-srcset="https://i.imgur.com/2exY8xe.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立虛擬環境，安裝過程中的提示"></p>
 <br>
 
 <p>環境建置完成</p>
-<p><img src="https://i.imgur.com/xAvWD1N.png" class="lazyload" data-srcset="https://i.imgur.com/xAvWD1N.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/xAvWD1N.png"></p>
+<p><img src="https://i.imgur.com/xAvWD1N.png" class="lazyload" data-srcset="https://i.imgur.com/xAvWD1N.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立虛擬環境完成"></p>
 <br>
 
 <p>環境建置完成後，接下來需要切換到該虛擬環境並安裝相關套件。使用以下指令來啟動環境，activate 後面為先前命名的環境名稱：</p>
@@ -2760,28 +2760,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <br>
 
 <p>切換成功後，您會發現命令提示符最前面的括號由原本的 base 變成了您所設定的環境名稱</p>
-<p><img src="https://i.imgur.com/KONtuIh.png" class="lazyload" data-srcset="https://i.imgur.com/KONtuIh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/KONtuIh.png"></p>
+<p><img src="https://i.imgur.com/KONtuIh.png" class="lazyload" data-srcset="https://i.imgur.com/KONtuIh.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="使用 Anaconda Powershell Prompt 啟用指定的虛擬環境過程與結果"></p>
 <br>
 
 <p>接著，輸入以下指令來安裝指定版本的 TensorFlow GPU 2.10.0</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorflow-gpu==2.10.0</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/qNAZUEJ.png" class="lazyload" data-srcset="https://i.imgur.com/qNAZUEJ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/qNAZUEJ.png"></p>
-<p><img src="https://i.imgur.com/7Y3eOXb.png" class="lazyload" data-srcset="https://i.imgur.com/7Y3eOXb.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/7Y3eOXb.png"></p>
+<p><img src="https://i.imgur.com/qNAZUEJ.png" class="lazyload" data-srcset="https://i.imgur.com/qNAZUEJ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝 tensorflow-gpu 版本 2.10.0 套件指令"></p>
+<p><img src="https://i.imgur.com/7Y3eOXb.png" class="lazyload" data-srcset="https://i.imgur.com/7Y3eOXb.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝 tensorflow-gpu 版本 2.10.0 套件過程與結果"></p>
 <br>
 
 <p>TensorFlow 安裝完成後，接下來需要安裝 CUDA。請輸入以下指令來安裝 CUDA 11.2。在安裝過程中，系統會提示是否安裝一些套件，此時請輸入 y 以繼續：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge cudatoolkit=11.2</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/Y0Z15Gr.png" class="lazyload" data-srcset="https://i.imgur.com/Y0Z15Gr.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/Y0Z15Gr.png"></p>
-<p><img src="https://i.imgur.com/akygE5F.png" class="lazyload" data-srcset="https://i.imgur.com/akygE5F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/akygE5F.png"></p>
+<p><img src="https://i.imgur.com/Y0Z15Gr.png" class="lazyload" data-srcset="https://i.imgur.com/Y0Z15Gr.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝 cudatoolkit 版本 11.2 套件指令與過程"></p>
+<p><img src="https://i.imgur.com/akygE5F.png" class="lazyload" data-srcset="https://i.imgur.com/akygE5F.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝 cudatoolkit 版本 11.2 套件結果"></p>
 <br>
 
 <p>接下來安裝 CUDNN。請輸入以下指令來安裝 CUDNN 8.1。在安裝過程中，系統會提示是否安裝一些套件，此時請輸入 y 以繼續：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge cudnn=8.1</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.imgur.com/hhoN5ed.png" class="lazyload" data-srcset="https://i.imgur.com/hhoN5ed.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/hhoN5ed.png"></p>
-<p><img src="https://i.imgur.com/P9Tu043.png" class="lazyload" data-srcset="https://i.imgur.com/P9Tu043.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/P9Tu043.png"></p>
+<p><img src="https://i.imgur.com/hhoN5ed.png" class="lazyload" data-srcset="https://i.imgur.com/hhoN5ed.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝 CUDNN 版本 8.1 套件指令與過程"></p>
+<p><img src="https://i.imgur.com/P9Tu043.png" class="lazyload" data-srcset="https://i.imgur.com/P9Tu043.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝 CUDNN 版本 8.1 套件結果"></p>
 <br>
 
 <p>到目前為止，虛擬環境與 TensorFlow 2.10.0 已經安裝完成</p>
@@ -2793,7 +2793,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="built_in">print</span>(tf.__version__)</span><br></pre></td></tr></table></figure>
 
 <p>如果一切正常，將顯示與下圖相同的結果，並且不會出現任何錯誤</p>
-<p><img src="https://i.imgur.com/AkIk8RH.png" class="lazyload" data-srcset="https://i.imgur.com/AkIk8RH.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/AkIk8RH.png"></p>
+<p><img src="https://i.imgur.com/AkIk8RH.png" class="lazyload" data-srcset="https://i.imgur.com/AkIk8RH.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="啟用 Python 環境，並且 import tensorflow 皆成功的結果畫面"></p>
 <br>
 
 <p>如果出現問題，則視窗中會顯示相關錯誤訊息，需要根據錯誤信息進行相應的排除</p>
@@ -2810,22 +2810,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>按下快捷鍵 Ctrl + Shift + P</li>
 <li>點擊 IDE 右下角的解譯器區塊</li>
 </ol>
-<p><img src="https://i.imgur.com/PbWGj7o.png" class="lazyload" data-srcset="https://i.imgur.com/PbWGj7o.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/PbWGj7o.png"></p>
+<p><img src="https://i.imgur.com/PbWGj7o.png" class="lazyload" data-srcset="https://i.imgur.com/PbWGj7o.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="在 VS Code 中開啟解譯器選擇選單"></p>
 <br>
 
 <p>能看到該電腦上所有可用的 Python 解譯器。</p>
 <p>如下圖所示，目前系統中有四個解譯器：一個位於本機電腦上，另外三個則為 Conda 的虛擬環境。</p>
 <p>這邊選擇本次建立的環境 (tf_env)，</p>
-<p><img src="https://i.imgur.com/27usEjX.png" class="lazyload" data-srcset="https://i.imgur.com/27usEjX.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/27usEjX.png"></p>
+<p><img src="https://i.imgur.com/27usEjX.png" class="lazyload" data-srcset="https://i.imgur.com/27usEjX.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="在 VS Code 的解譯器清單"></p>
 <br>
 
 <p>最後執行程式時，可以在終端機中查看執行結果。</p>
 <p>如果顯示卡和環境設置正確，將會看到程式正常執行的結果</p>
-<p><img src="https://i.imgur.com/fb2PBrH.png" class="lazyload" data-srcset="https://i.imgur.com/fb2PBrH.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/fb2PBrH.png"></p>
+<p><img src="https://i.imgur.com/fb2PBrH.png" class="lazyload" data-srcset="https://i.imgur.com/fb2PBrH.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="執行範例程式後，終端機顯示程式的執行結果文字，Tensorflow 正在使用 GPU 訊息"></p>
 <br>
 
 <p>另外，可以在 Anaconda Navigator 的使用者介面中查看所有虛擬環境</p>
-<p><img src="https://i.imgur.com/HIm35Jy.png" class="lazyload" data-srcset="https://i.imgur.com/HIm35Jy.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="https://i.imgur.com/HIm35Jy.png"></p>
+<p><img src="https://i.imgur.com/HIm35Jy.png" class="lazyload" data-srcset="https://i.imgur.com/HIm35Jy.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Anaconda Navigator 中虛擬環境列表畫面"></p>
 <h2 id="自言自語543"><a href="#自言自語543" class="headerlink" title="自言自語543"></a>自言自語543</h2><p>自從知道深度學習與 TensorFlow 後，一直有點感到興趣，但是看著舊電腦中的顯卡弱弱 GTX 950，就想著未來換電腦再說吧 <del>逃避現實</del></p>
 <p>過幾年後，有段時間 Stable Diffusion 大爆紅，看著網路上別人生成的圖片和教學影片，也忍不住在電腦上裝來試試看，弱弱顯卡跑起來挺吃力的就是，也是那時候才知道了 Colab 的存在，稍微把玩一陣子後，覺得免費版的跑起來也是滿久的</p>
 <p>而在某天突然覺得，該換台好一點的電腦，以及購買 AI 相關的書籍來試試看吧</p>
@@ -3622,7 +3622,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/Deep-Learning/","name":"Deep Learning"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/","name":"在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境","description":"TensorFlow 是由 Google 開發的深度學習 Python 套件。最近開始學習深度學習。雖然 Google Colab 是個不錯的學習平台，因為不需要自行安裝環境，但在免費版本中，如果不使用 GPU 運算，訓練速度會有些慢。\n最近剛換了一台配備更好顯卡的電腦，但遺憾的是，從 TensorFlow 2.10.0 版本開始，似乎不再支援 Windows 系統。\n雖然可以安裝舊版本的 TensorFlow，但如果想使用 GPU 進行運算，相關的套件和CUDA 版本也必須相互匹配。如果電腦裡只能有一個環境，未來在各種版本間切換的話，想想就覺得不太方便。\n經過網路搜索和調查後，最終選擇安裝 Anaconda。不僅包含一些基本套件，還能建立多個獨立的虛擬環境。而且，CUDA 和 cuDNN 只需要用一個指令就能安裝，不用自己手動下載，方便了不少。\n這邊將過程記錄下來，方便日後有需要重新配置環境時參考。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/","wordCount":406,"datePublished":"2024-10-20T07:27:00.000Z","dateModified":"2024-10-26T07:34:29.870Z","articleSection":"Deep Learning","keywords":"TensorFlow,Anaconda,GPU,CUDA,CUDNN,AI","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/Deep-Learning/","name":"Deep Learning"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/","name":"在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境","description":"TensorFlow 是由 Google 開發的深度學習 Python 套件。最近開始學習深度學習。雖然 Google Colab 是個不錯的學習平台，因為不需要自行安裝環境，但在免費版本中，如果不使用 GPU 運算，訓練速度會有些慢。\n最近剛換了一台配備更好顯卡的電腦，但遺憾的是，從 TensorFlow 2.10.0 版本開始，似乎不再支援 Windows 系統。\n雖然可以安裝舊版本的 TensorFlow，但如果想使用 GPU 進行運算，相關的套件和CUDA 版本也必須相互匹配。如果電腦裡只能有一個環境，未來在各種版本間切換的話，想想就覺得不太方便。\n經過網路搜索和調查後，最終選擇安裝 Anaconda。不僅包含一些基本套件，還能建立多個獨立的虛擬環境。而且，CUDA 和 cuDNN 只需要用一個指令就能安裝，不用自己手動下載，方便了不少。\n這邊將過程記錄下來，方便日後有需要重新配置環境時參考。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/","wordCount":406,"datePublished":"2024-10-20T07:27:00.000Z","dateModified":"2024-12-20T08:17:00.000Z","articleSection":"Deep Learning","keywords":"TensorFlow,Anaconda,GPU,CUDA,CUDNN,AI","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
