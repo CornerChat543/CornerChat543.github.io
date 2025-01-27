@@ -109,20 +109,20 @@ html {
   font-size: 16px;
 }
 html >::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
+  height: 10px;
+  width: 10px;
 }
 html >::-webkit-scrollbar-track-piece {
   background: transparent;
 }
 html >::-webkit-scrollbar-thumb {
-  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  background: rgba(22,125,222,0.6);
   cursor: pointer;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
 }
 html >::-webkit-scrollbar-thumb:hover {
-  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  background: #167dde;
 }
 body {
   background-color: var(--color-site-body);
@@ -1906,7 +1906,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1734759343471),
+    lastupdate: new Date(1737947833581),
     sidebar: {
       for_page: ["blogger","category","tagcloud","lastupdate","webinfo"],
       for_post: ["toc","category","tagcloud"],
@@ -2822,7 +2822,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2024/12/create-windows-app-ico-with-gimp/"><div class="item"><time>2024-12-21</time><span>C#</span></div><span>用 GIMP 製作 Windows 應用程式的 ico 圖示</span></a></li><li><a class="widget-last" href="/2024/11/hexo-volantis-syntax-highlight-customization/"><div class="item"><time>2024-12-20</time><span>Volantis</span></div><span>Hexo Volantis 主題中簡單調整語法突顯顏色與字體大小</span></a></li><li><a class="widget-last" href="/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"><div class="item"><time>2024-12-20</time><span>Deep Learning</span></div><span>在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境</span></a></li><li><a class="widget-last" href="/2024/10/hexo-blog-setup-guide/"><div class="item"><time>2024-12-20</time><span>Hexo</span></div><span>Hexo Blog的基本配置說明指南</span></a></li><li><a class="widget-last" href="/2024/10/hexo-on-github-pages/"><div class="item"><time>2024-12-20</time><span>Hexo</span></div><span>在GitHub Pages上使用Hexo靜態網頁</span></a></li></ul>
+    <ul class="list entry navigation"><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part01/"><div class="item"><time>2025-01-01</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1</span></a></li><li><a class="widget-last" href="/2024/12/create-windows-app-ico-with-gimp/"><div class="item"><time>2024-12-21</time><span>C#</span></div><span>用 GIMP 製作 Windows 應用程式的 ico 圖示</span></a></li><li><a class="widget-last" href="/2024/11/hexo-volantis-syntax-highlight-customization/"><div class="item"><time>2024-12-20</time><span>Volantis</span></div><span>Hexo Volantis 主題中簡單調整語法突顯顏色與字體大小</span></a></li><li><a class="widget-last" href="/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"><div class="item"><time>2024-12-20</time><span>Deep Learning</span></div><span>在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境</span></a></li><li><a class="widget-last" href="/2024/10/hexo-blog-setup-guide/"><div class="item"><time>2024-12-20</time><span>Hexo</span></div><span>Hexo Blog的基本配置說明指南</span></a></li></ul>
   </div>
 </section>
 
@@ -2863,7 +2863,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>最後活動日期：</div>
-          <div id="last-update-show">2024-12-21 </div>
+          <div id="last-update-show">2025-01-27 </div>
         </div>
       
     </div>
@@ -2949,12 +2949,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         本站使用
         <a href="https://github.com/volantis-x/hexo-theme-volantis/#5.8.0" target="_blank" class="codename">Volantis</a>
-        作為主題
+        作為主題，總訪問量為
+          <span id="busuanzi_value_site_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        
+          <div></div>
+        
       
     
       
         <div class='copyright'>
-        <p>版權 © 2024 CornerChat543</p>
+        <p>版權 © 2024-2025 CornerChat543</p>
 
         </div>
       
@@ -3254,6 +3263,8 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
 
+
+  <script defer src="https://gcore.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
 
 
 <!-- optional -->

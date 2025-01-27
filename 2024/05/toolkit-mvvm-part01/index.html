@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-05-05T05:58:00.000Z">
-<meta property="article:modified_time" content="2024-12-20T07:06:00.000Z">
+<meta property="article:modified_time" content="2025-01-01T08:14:00.000Z">
 <meta property="article:author" content="CornerChat543">
 <meta property="article:tag" content=".NET">
 <meta property="article:tag" content="C#">
@@ -117,20 +117,20 @@ html {
   font-size: 16px;
 }
 html >::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
+  height: 10px;
+  width: 10px;
 }
 html >::-webkit-scrollbar-track-piece {
   background: transparent;
 }
 html >::-webkit-scrollbar-thumb {
-  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  background: rgba(22,125,222,0.6);
   cursor: pointer;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
 }
 html >::-webkit-scrollbar-thumb:hover {
-  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  background: #167dde;
 }
 body {
   background-color: var(--color-site-body);
@@ -1914,7 +1914,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1734759343471),
+    lastupdate: new Date(1737947833581),
     sidebar: {
       for_page: ["blogger","category","tagcloud","lastupdate","webinfo"],
       for_post: ["toc","category","tagcloud"],
@@ -2687,10 +2687,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateModified" datetime="2024-12-20T15:06:00+08:00">
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-01-01T16:14:00+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>2024年12月20日</p>
+    <p>2025年1月1日</p>
   </a>
 </div>
 
@@ -2699,6 +2699,18 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
             
 
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
+      
+      <span id="busuanzi_value_page_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+      
+      <span>次瀏覽</span>
+    </p>
+  </a>
+</div>
 
 
           
@@ -2812,7 +2824,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>其中一個方式為，在撰寫的 ViewModel 上，右鍵 &gt; 移至定義 (或按F12)。<br><img src="https://i.imgur.com/3nvVh2R.jpeg" class="lazyload" data-srcset="https://i.imgur.com/3nvVh2R.jpeg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="於 IDE 中，在類別名上按右鍵的畫面"><br><br></p>
 <p>如下圖，IDE會顯示所有定義該 ViewModel 的檔案，以圖中的狀況，前三個檔案都是自動產生的，這邊點選第一個檔案。<br><img src="https://i.imgur.com/5sZDHZE.jpeg" class="lazyload" data-srcset="https://i.imgur.com/5sZDHZE.jpeg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="IDE 中顯示在整個解決方案中，該類別的定義"><br><br></p>
 <p>進入到該檔案後，如下圖，IDE會提示該檔案為自動產生的。</p>
-<p>在內容中便可找到對應的 Property，同時能看到set方法中，還使用很多的方法，至於怎麼使用，後面的章節會在做說明。<br><img src="https://i.imgur.com/hTdTeTX.jpeg" class="lazyload" data-srcset="https://i.imgur.com/hTdTeTX.jpeg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="使用 ObservableProperty Attribute 所自動產生的程式碼"><br><br></p>
+<p>在內容中便可找到對應的 Property，同時能看到set方法中，還使用很多的方法，至於怎麼使用，後面的章節會再做說明。<br><img src="https://i.imgur.com/hTdTeTX.jpeg" class="lazyload" data-srcset="https://i.imgur.com/hTdTeTX.jpeg" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="使用 ObservableProperty Attribute 所自動產生的程式碼"><br><br></p>
 <p>如果在屬性中需要使用 CanExecute 通知方法，除了使用 <code>ObservableObject</code> 的同時，還需要加上 <code>NotifyCanExecuteChangedFor</code> Attribute。</p>
 <p>如下圖所示，紅底的區域的程式碼可以用綠底的兩個 Attribute 取代，並且將要執行通知的 Command 填入 <code>NotifyCanExecuteChangedFor</code> Attribute 的參數中。</p>
 <p>紅底：標準使用<br>綠底：使用 Attribute<br><img src="https://i.imgur.com/4PI6R5u.png" class="lazyload" data-srcset="https://i.imgur.com/4PI6R5u.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="使用 ObservableProperty 和 NotifyCanExecuteChangedFor Attribute 程式碼前後差異比較"><br><br></p>
@@ -2842,13 +2854,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">partial</span> <span class="keyword">class</span> <span class="title">MainWindowViewModel03</span> : <span class="title">ObservableObject</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ObservableProperty</span>]</span><br><span class="line">    [<span class="meta">NotifyCanExecuteChangedFor(nameof(ShowInfoCommand))</span>]</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">string</span>? _name;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ObservableProperty</span>]</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">string</span>? _phone;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">partial</span> <span class="keyword">void</span> <span class="title">OnNameChanged</span>(<span class="params"><span class="built_in">string</span>? <span class="keyword">value</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">string</span>.IsNullOrEmpty(<span class="keyword">value</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            Phone = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="built_in">bool</span> <span class="title">CanShowInfo</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> !<span class="built_in">string</span>.IsNullOrEmpty(_name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">RelayCommand(CanExecute = nameof(CanShowInfo))</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ShowInfo</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> info = <span class="string">$&quot;Name: <span class="subst">&#123;Name&#125;</span>\nPhone: <span class="subst">&#123;Phone&#125;</span>&quot;</span>;</span><br><span class="line">        MessageBox.Show(info, <span class="string">&quot;MessageBox&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">RelayCommand</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ShowNote</span>(<span class="params"><span class="built_in">string</span>? str</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">string</span> info = <span class="string">$&quot;Note: <span class="subst">&#123;str&#125;</span>&quot;</span>;</span><br><span class="line">        MessageBox.Show(info, <span class="string">&quot;MessageBox&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="使用異步Command"><a href="#使用異步Command" class="headerlink" title="使用異步Command"></a>使用異步Command</h2><p>CommunityToolkit.Mvvm 套件， Command 的部分，除了提供了</p>
 <ul>
-<li>RelayCommand</li>
-<li>RealyCommand<T></li>
+<li><code>RelayComman</code></li>
+<li><code>RealyCommand&lt;T&gt;</code></li>
 </ul>
 <p>除此之外，如果有異步程式的需要，也有提供</p>
 <ul>
-<li>AsyncRelayCommand</li>
-<li>AsyncRelayCommand<T></li>
+<li><code>AsyncRelayCommand</code></li>
+<li><code>AsyncRelayCommand&lt;T&gt;</code></li>
 </ul>
 <p>這兩種 Command 類別供使用。</p>
 <p>而在使用上，可以像一般情況下那樣宣告 <code>AsyncRelayCommand</code> 並使用 new 來實例化。</p>
@@ -3172,12 +3184,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         本站使用
         <a href="https://github.com/volantis-x/hexo-theme-volantis/#5.8.0" target="_blank" class="codename">Volantis</a>
-        作為主題
+        作為主題，總訪問量為
+          <span id="busuanzi_value_site_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        
+          <div></div>
+        
       
     
       
         <div class='copyright'>
-        <p>版權 © 2024 CornerChat543</p>
+        <p>版權 © 2024-2025 CornerChat543</p>
 
         </div>
       
@@ -3478,6 +3499,8 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
 
+  <script defer src="https://gcore.jsdelivr.net/gh/volantis-x/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js" data-pjax></script>
+
 
 <!-- optional -->
 
@@ -3687,7 +3710,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","name":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","wordCount":0,"datePublished":"2024-05-05T05:58:00.000Z","dateModified":"2024-12-20T07:06:00.000Z","articleSection":"C#","keywords":".NET,C#,WPF,MVVM,Nuget,ToolKit.MVVM","image":{"@type":"ImageObject","url":"https://i.imgur.com/wvYMevo.png","width":1024,"height":768}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","name":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","wordCount":0,"datePublished":"2024-05-05T05:58:00.000Z","dateModified":"2025-01-01T08:14:00.000Z","articleSection":"C#","keywords":".NET,C#,WPF,MVVM,Nuget,ToolKit.MVVM","image":{"@type":"ImageObject","url":"https://i.imgur.com/wvYMevo.png","width":1024,"height":768}}]</script>
 
 
 
