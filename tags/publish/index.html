@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://cornerchat543.github.io/tags/tensorflow/"/>
+  <link rel="canonical" href="https://cornerchat543.github.io/tags/publish/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -34,12 +34,12 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>標籤：TensorFlow - CornerChat543's Blog</title>
+  <title>標籤：publish - CornerChat543's Blog</title>
   <meta name="keywords" content="null">
   <meta name="description" content="CornerChat543 Blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CornerChat543&#39;s Blog">
-<meta property="og:url" content="https://cornerchat543.github.io/tags/TensorFlow/index.html">
+<meta property="og:url" content="https://cornerchat543.github.io/tags/publish/index.html">
 <meta property="og:site_name" content="CornerChat543&#39;s Blog">
 <meta property="og:description" content="CornerChat543 Blog">
 <meta property="og:locale" content="zh_TW">
@@ -2642,7 +2642,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           <div class='post-wrapper'>
             <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/">
+  <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2025/08/dotnet-singlefile-publish/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="CornerChat543's Blog">
   </span>
@@ -2660,38 +2660,37 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/"  itemprop="url">
-        在 Windows 11 中使用 Anaconda 建立 TensorFlow GPU 虛擬環境
+      <a href="/2025/08/dotnet-singlefile-publish/"  itemprop="url">
+        發佈 .NET 單一執行檔到本地資料夾
       </a>
     </h2>
   
   <div class='md article-desc' itemprop="articleBody">
     
-      <p>TensorFlow 是由 Google 開發的深度學習 Python 套件。最近開始學習深度學習。雖然 Google Colab 是個不錯的學習平台，因為不需要自行安裝環境，但在免費版本中，如果不使用 GPU 運算，訓練速度會有些慢。</p>
-<p>最近剛換了一台配備更好顯卡的電腦，但遺憾的是，從 TensorFlow 2.10.0 版本開始，似乎不再支援 Windows 系統。</p>
-<p>雖然可以安裝舊版本的 TensorFlow，但如果想使用 GPU 進行運算，相關的套件和CUDA 版本也必須相互匹配。如果電腦裡只能有一個環境，未來在各種版本間切換的話，想想就覺得不太方便。</p>
-<p>經過網路搜索和調查後，最終選擇安裝 Anaconda。不僅包含一些基本套件，還能建立多個獨立的虛擬環境。而且，CUDA 和 cuDNN 只需要用一個指令就能安裝，不用自己手動下載，方便了不少。</p>
-<p>這邊將過程記錄下來，方便日後有需要重新配置環境時參考。<br><br></p>
+      <p>從以前的 .NET Framework 到現在最新的 .NET 框架，所編譯出的結果已經有些不同。以 .NET 框架的 WPF 專案為例，編譯後最少會生成一組 exe 執行檔與對應的 DLL 。</p>
+<p>而現代程式在開發時，經常會使用各種套件或自行撰寫的類別庫來加快開發速度，所以使用的越多，編譯出來的執行檔旁邊的 DLL 檔也越多。 </p>
+<p>而在一些情況下，會將整個編譯輸出的資料夾壓縮後交付給使用者。不過，當檔案數量過多時，使用者在複製或移動時可能會遺漏，甚至誤刪必要的 DLL。若能將專案打包成單一執行檔，這些問題便能避免。</p>
+<p>本篇將紀錄在 .NET WPF 專案中產生單一執行檔的可行方案之一，方便日後做參考。</p>
     
   </div>
   
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time itemprop="dateCreated datePublished" datetime="2024-10-20T15:27:00+08:00">2024-10-20</time>
+        <time itemprop="dateCreated datePublished" datetime="2025-08-30T12:04:00+08:00">2025-08-30</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Deep-Learning/">Deep Learning</a>
+          <a class="category-link" href="/categories/C/">C#</a>
           
             <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/Deep-Learning/" itemprop="url"><span itemprop="name">Deep Learning</span></a>
+              <a href="/categories/C/" itemprop="url"><span itemprop="name">C#</span></a>
             </span>
           
         
       </div>
       
         <div>
-          <a class='readmore' href='/2024/10/setup-tensorflow-gpu-on-windows11-with-anaconda/' itemprop="url">
+          <a class='readmore' href='/2025/08/dotnet-singlefile-publish/' itemprop="url">
             閱讀全文
           </a>
         </div>
@@ -3479,7 +3478,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/tags/TensorFlow/","name":"TensorFlow"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/tags/publish/","name":"publish"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

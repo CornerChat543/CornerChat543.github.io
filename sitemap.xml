@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cornerchat543.github.io/2025/08/dotnet-singlefile-publish/</loc>
+    
+    <lastmod>2025-08-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/2024/06/wpf-freespirepdf-flowdocument-to-pdf/</loc>
+    
+    <lastmod>2025-08-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cornerchat543.github.io/2025/08/toolkit-mvvm-part03/</loc>
     
     <lastmod>2025-08-19</lastmod>
@@ -83,15 +101,6 @@
   </url>
   
   <url>
-    <loc>https://cornerchat543.github.io/2024/06/wpf-freespirepdf-flowdocument-to-pdf/</loc>
-    
-    <lastmod>2024-12-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://cornerchat543.github.io/2024/04/wordpress-on-github-pages/</loc>
     
     <lastmod>2024-12-20</lastmod>
@@ -130,7 +139,7 @@
 
   <url>
     <loc>https://cornerchat543.github.io/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -138,161 +147,168 @@
   
   <url>
     <loc>https://cornerchat543.github.io/tags/ico/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/NET/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/C/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/WPF/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/Hexo/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/github-pages/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/github-io/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/markdown/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/TensorFlow/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/Anaconda/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/GPU/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/CUDA/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/CUDNN/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/AI/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/Volantis/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/highlight/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/MVVM/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/Nuget/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/ToolKit-MVVM/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/FreeSpire-PDF/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/PDF/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/WordPress/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/tags/XAMPP/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://cornerchat543.github.io/tags/publish/</loc>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -301,35 +317,35 @@
   
   <url>
     <loc>https://cornerchat543.github.io/categories/C/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/categories/Hexo/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/categories/Deep-Learning/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/categories/Volantis/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://cornerchat543.github.io/categories/Github-Pages/</loc>
-    <lastmod>2025-08-19</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
