@@ -5,8 +5,8 @@
   <meta name="Volantis" content="5.8.0">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://cornerchat543.github.io/tags/c/"/>
+  
+  <link rel="canonical" href="https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -34,17 +34,22 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>標籤：C++ - CornerChat543's Blog</title>
-  <meta name="keywords" content="null">
-  <meta name="description" content="CornerChat543 Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CornerChat543&#39;s Blog">
-<meta property="og:url" content="https://cornerchat543.github.io/tags/C/index.html">
+  <title>C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記 - CornerChat543's Blog</title>
+  <meta name="keywords" content=".NET,C#,C++,null">
+  <meta name="description" content="C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。 在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 與原生 C&#x2F;C++ DLL：從建立到呼叫的實作筆記">
+<meta property="og:url" content="https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/index.html">
 <meta property="og:site_name" content="CornerChat543&#39;s Blog">
-<meta property="og:description" content="CornerChat543 Blog">
+<meta property="og:description" content="C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。 在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2025-10-28T14:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-28T13:59:52.105Z">
 <meta property="article:author" content="CornerChat543">
+<meta property="article:tag" content=".NET">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   
@@ -2594,7 +2599,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="none" class='cover-wrapper  dock' style="display: none;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg=""></div>
 
@@ -2624,24 +2629,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="safearea">
         <div class="body-wrapper">
           
-
 <div id="l_main" class=''>
-  
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
   <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="CornerChat543's Blog">
@@ -2651,65 +2640,547 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="CornerChat543 Blog">
   </span>
   
-  
+
+
   
     <span hidden>
       <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
     </span>
   
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2025/10/csharp-native-cpp-guide/"  itemprop="url">
+    
+    
+      <h1 class="title" itemprop="name headline">
         C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/C/">C#</a>
     
-      <p>C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。</p>
-<p>在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;C++ 程式碼成 DLL 開始，一步步到實際呼叫為止。如果手上已經有現成的 DLL 和對應的 .h 檔，也能藉此了解整個過程。</p>
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/C/" itemprop="url"><span itemprop="name">C#</span></a>
+      </span>
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2025-10-28T22:00:00+08:00">2025-10-28</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/C/">C#</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/C/" itemprop="url"><span itemprop="name">C#</span></a>
-            </span>
+
+
           
         
-      </div>
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2025-10-28T22:00:00+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>2025年10月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-10-28T21:59:52+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>2025年10月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-        <div>
-          <a class='readmore' href='/2025/10/csharp-native-cpp-guide/' itemprop="url">
-            閱讀全文
-          </a>
-        </div>
+      <span id="busuanzi_value_page_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+      
+      <span>次瀏覽</span>
+    </p>
+  </a>
+</div>
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。</p>
+<p>在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;C++ 程式碼成 DLL 開始，一步步到實際呼叫為止。如果手上已經有現成的 DLL 和對應的 .h 檔，也能藉此了解整個過程。</p>
+<span id="more"></span>
+
+<p>本次的開發環境，如下</p>
+<ul>
+<li>IDE : Visual Studio 2022</li>
+<li>.NET版本 : . NET 8.0</li>
+</ul>
+<h2 id="事前準備與方案架構"><a href="#事前準備與方案架構" class="headerlink" title="事前準備與方案架構"></a>事前準備與方案架構</h2><p>在開始前，除了需要安裝 Visual Studio、C# 和 .NET 之外，</p>
+<p>因為這次會用到 C++ 來建立原生 DLL，所以還需要安裝 C++ 的開發工具。</p>
+<p>如果 Visual Studio 安裝時沒有勾選 C++ 相關項目，</p>
+<p>可以開啟 Visual Studio Installer 來進行安裝。</p>
+<p>理論上最少要安裝這些，</p>
+<ul>
+<li>使用 C++ 的桌面開發</li>
+<li>MSVC v143 - VS 2022 C++ x64&#x2F;x86 建置工具</li>
+<li>C++ 核心功能</li>
+</ul>
+<p>因為個人測試過一些功能，</p>
+<p>安裝的項目也比較混亂，</p>
+<p>所以並不是這麼確定 ，</p>
+<p><del>(哪天有機會確定後再更新)</del></p>
+<p>以下附上個人的安裝清單與畫面供參考，</p>
+<p>如有需要可依照個人需求自行調整環境。</p>
+<p><img src="https://i.imgur.com/vyC7NF9.png" class="lazyload" data-srcset="https://i.imgur.com/vyC7NF9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝項目中工作負載頁籤，勾選使用C++的桌面開發"></p>
+<br>
+
+<p><img src="https://i.imgur.com/pwIXhmV.png" class="lazyload" data-srcset="https://i.imgur.com/pwIXhmV.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝項目中個別元件頁籤，勾選的項目"></p>
+<br>
+
+<p>本次的預計的方案架構如下，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Solution: CsUseCppNativeSample</span><br><span class="line">├─ CppNativeDll       <span class="comment"># C++ 專案，撰寫原生程式碼，編譯成 DLL</span></span><br><span class="line">│    ├─ NativeDll.h</span><br><span class="line">│    └─ NativeDll.cpp</span><br><span class="line">├─ CSharpLibrary      <span class="comment"># C# 類別庫，透過 DllImport 呼叫 C++ DLL</span></span><br><span class="line">│    └─ CsWrapper.cs</span><br><span class="line">└─ CSharpTestApp      <span class="comment"># C# 專案，測試用</span></span><br></pre></td></tr></table></figure>
+
+<p>整體分成三個主要部分，有下至上分別是，</p>
+<ul>
+<li>CppNativeDll：C++ 專案</li>
+<li>CSharpLibrary：C# 類別庫</li>
+<li>CSharpTestApp： C# 專案</li>
+</ul>
+<p>當然，如果想直接在 C# 專案去使用 C++ 專案，也是可行的，</p>
+<p>架構可以依需求自行調整。</p>
+<p>不過個人習慣在實務上這樣分三層，方便維護與測試，也更容易擴充功能。</p>
+<p>接下來，將從建立專案開始，</p>
+<p>並一步步完成整個流程。</p>
+<h2 id="建立-C-DLL-專案與程式"><a href="#建立-C-DLL-專案與程式" class="headerlink" title="建立 C++ DLL 專案與程式"></a>建立 C++ DLL 專案與程式</h2><h3 id="建立C-Native專案"><a href="#建立C-Native專案" class="headerlink" title="建立C++ Native專案"></a>建立C++ Native專案</h3><p>首先，從建立 C++ Native 專案 開始。</p>
+<p>Visual Studio 建立好方案後，</p>
+<p>在方案上按右鍵 → 加入 → 新增專案。</p>
+<p><img src="https://i.imgur.com/xgTtlmC.png" class="lazyload" data-srcset="https://i.imgur.com/xgTtlmC.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="從方案上右鍵點選加入後，點選新增專案"></p>
+<br>
+
+<p>語言篩選部分可以選擇C++，</p>
+<p>個人習慣從 空白專案 開始，所以這邊選擇「空白專案」，</p>
+<p><img src="https://i.imgur.com/zPFu9EG.png" class="lazyload" data-srcset="https://i.imgur.com/zPFu9EG.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立C++空白專案"></p>
+<br>
+
+<p>接著設定專案名稱後即可建立，</p>
+<p>建立完成後，畫面會像下圖這樣，</p>
+<p><img src="https://i.imgur.com/u8hO2Ht.png" class="lazyload" data-srcset="https://i.imgur.com/u8hO2Ht.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++空白專案建立完成"></p>
+<br>
+
+<p>接下來，建立一個空白的標頭檔（.h），</p>
+<p>在「標頭檔」資料夾上按右鍵 → 加入 → 新增項目。</p>
+<p><img src="https://i.imgur.com/VTanE0V.png" class="lazyload" data-srcset="https://i.imgur.com/VTanE0V.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++專案新增空白檔案"></p>
+<br>
+
+<p>接著選擇「標頭檔 (.h)」，輸入名稱後按下「新增」。</p>
+<p><img src="https://i.imgur.com/BhbaoCO.png" class="lazyload" data-srcset="https://i.imgur.com/BhbaoCO.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="新增標頭檔畫面"></p>
+<br>
+
+<p>同樣的步驟，在「來源檔案」資料夾中，</p>
+<p>建立一個 C++ 原始檔 (.cpp)。</p>
+<p><img src="https://i.imgur.com/HsncbLp.png" class="lazyload" data-srcset="https://i.imgur.com/HsncbLp.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="新增C++檔畫面"></p>
+<br>
+
+<p>上述步驟完成後，<br>整個專案的架構與狀況如下圖所示，</p>
+<p><img src="https://i.imgur.com/76iuDeJ.png" class="lazyload" data-srcset="https://i.imgur.com/76iuDeJ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立完標頭檔與C++檔專案結構狀況"></p>
+<br>
+
+<p>到這邊為止，專案的初步建立就完成了。</p>
+<h3 id="C-原生程式碼範例"><a href="#C-原生程式碼範例" class="headerlink" title="C++ 原生程式碼範例"></a>C++ 原生程式碼範例</h3><p>再來是編寫 .h 與 .cpp 的程式內容。</p>
+<p>下面提供的程式碼可以直接貼進專案中使用。</p>
+<p>這個範例示範了一些基本的 C++ 方法，</p>
+<p>各功能方法的細節這裡就不特別說明，</p>
+<p>NativeDll.h</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 基本型別</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">double</span> <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// struct</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125; Point;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">int</span> <span class="title">MulPoint</span><span class="params">(Point p)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// callback</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*Callback)</span><span class="params">(<span class="type">int</span> result)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">void</span> <span class="title">Sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, Callback onResult)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 陣列</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">void</span> <span class="title">SumArray</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> len, <span class="type">int</span>* sum)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// enum</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">    OK = <span class="number">0</span>,</span><br><span class="line">    ERROR = <span class="number">1</span></span><br><span class="line">&#125; Status;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function">Status <span class="title">CheckValue</span><span class="params">(<span class="type">int</span> val)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>NativeDll.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;NativeDll.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (b == <span class="number">0</span>) ? <span class="number">0.0</span> : <span class="built_in">static_cast</span>&lt;<span class="type">double</span>&gt;(a) / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MulPoint</span><span class="params">(Point p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> p.x * p.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, Callback onResult)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(onResult) <span class="built_in">onResult</span>(a - b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">SumArray</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> len, <span class="type">int</span>* sum)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(arr &amp;&amp; sum) &#123;</span><br><span class="line">        *sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; ++i) *sum += arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">CheckValue</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (val &gt;= <span class="number">0</span>) ? OK : ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>整份程式裡，最需要注意的是 .h 檔中的兩個部分：</p>
+<ul>
+<li><code>extern &quot;C&quot;</code>：用來告訴編譯器這些函式使用 C 語言的命名方式，讓之後 C# 在使用 DllImport 時能正確對應函式名稱。</li>
+<li><code>__declspec(dllexport)</code>：用來將這些函式 導出到 DLL，使外部應用程式（例如 C#）可以呼叫。</li>
+</ul>
+<p>這兩個關鍵字是讓 C# 能順利呼叫 C++ 程式的必要設定。</p>
+<p>到此為 C++ 程式碼部分的基本說明。</p>
+<br>
+
+<p>下面為額外的補充，</p>
+<p>如果覺得每個函式都重複寫這兩個關鍵字比較繁瑣，</p>
+<p>可以使用 #ifdef 或 macro 統一管理。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN32</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> DLL_EXPORT extern <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> DLL_EXPORT extern <span class="string">&quot;C&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">DLL_EXPORT <span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function">DLL_EXPORT <span class="type">double</span> <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>那如果希望程式能跨平台共用，則可以 導出符號與呼叫約定一起包起來，例如，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN32</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> DLL_EXPORT extern <span class="string">&quot;C&quot;</span> __declspec(dllexport)</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> CALL_CONV __stdcall</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> DLL_EXPORT extern <span class="string">&quot;C&quot;</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> CALL_CONV</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">DLL_EXPORT <span class="type">int</span> CALL_CONV <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function">DLL_EXPORT <span class="type">double</span> CALL_CONV <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>這樣就能統一管理函式導出與呼叫方式，</p>
+<p>不管在 Windows 或其他平台都能維持一致，程式碼更乾淨，也更容易維護。</p>
+<h3 id="編譯-C-DLL"><a href="#編譯-C-DLL" class="headerlink" title="編譯 C++ DLL"></a>編譯 C++ DLL</h3><p>C++ 程式碼撰寫完成後，接下來要編譯出 Native DLL。</p>
+<p>首先，在專案上按右鍵 → 屬性。</p>
+<p><img src="https://i.imgur.com/MPGftt1.png" class="lazyload" data-srcset="https://i.imgur.com/MPGftt1.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++專案右鍵選單，選擇屬性項目"></p>
+<br>
+
+<p>會出現一個在 C++ 專案中常見的屬性設定視窗，</p>
+<p>因為前面建立專案時選擇了空白專案，</p>
+<p>所以需要做一些設定調整。</p>
+<p>找到組態類型後，可以看到目前選擇的是「應用程式(.exe)」，</p>
+<p>將它改為「動態程式庫(.dll)」，然後按下「套用」即可。</p>
+<p><img src="https://i.imgur.com/qdhVyOm.png" class="lazyload" data-srcset="https://i.imgur.com/qdhVyOm.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="將C++專案組態類型設定為動態程式庫"></p>
+<br>
+
+<p>接下來，只要對著專案按下「建置」，</p>
+<p>就可以在對應的組態資料夾中看到編譯出的 DLL，如下圖所示：</p>
+<p><img src="https://i.imgur.com/gSdJDjF.png" class="lazyload" data-srcset="https://i.imgur.com/gSdJDjF.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++專案編譯動態函示庫結果"></p>
+<br>
+
+<p>接下來，就輪到 C# 的部分了。</p>
+<h2 id="在-C-中呼叫-C-函式庫"><a href="#在-C-中呼叫-C-函式庫" class="headerlink" title="在 C# 中呼叫 C++ 函式庫"></a>在 C# 中呼叫 C++ 函式庫</h2><h3 id="建立呼叫-C-的-C-程式碼"><a href="#建立呼叫-C-的-C-程式碼" class="headerlink" title="建立呼叫 C++ 的 C# 程式碼"></a>建立呼叫 C++ 的 C# 程式碼</h3><p>接下來，我們要撰寫讓 C# 能呼叫 C++ DLL 的程式。</p>
+<p>這裡建立了一個 C# 類別庫，</p>
+<p>並在專案中新增一個名為 CsWrapper.cs 的檔案。</p>
+<p>如前面所說，</p>
+<p>專案架構可以依需求自行調整，</p>
+<p>不一定要建立類別庫。</p>
+<p>此時整個方案的架構如下圖所示，</p>
+<p><img src="https://i.imgur.com/K9VTBYQ.png" class="lazyload" data-srcset="https://i.imgur.com/K9VTBYQ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="呼叫C++的C#類別庫範例架構"></p>
+<br>
+
+<p>再來是整個 C# 程式碼的部分，</p>
+<br>
+
+<p>CsWrapper.cs</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">CsWrapper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// struct 對應</span></span><br><span class="line">    [<span class="meta">StructLayout(LayoutKind.Sequential)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">struct</span> Point</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> x;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">int</span> y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// callback delegate</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">ResultCallback</span>(<span class="params"><span class="built_in">int</span> result</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// enum 對應</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">enum</span> Status</span><br><span class="line">    &#123;</span><br><span class="line">        OK = <span class="number">0</span>,</span><br><span class="line">        ERROR = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// DllImport 封裝</span></span><br><span class="line">    [<span class="meta">DllImport(</span></span><br><span class="line"><span class="meta">        <span class="string">&quot;CppNativeDll.dll&quot;</span>,</span></span><br><span class="line"><span class="meta">        EntryPoint = <span class="string">&quot;Add&quot;</span>,</span></span><br><span class="line"><span class="meta">        CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">Add_Internal</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;CppNativeDll.dll&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">double</span> <span class="title">Divide</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;CppNativeDll.dll&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">MulPoint</span>(<span class="params">Point p</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;CppNativeDll.dll&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">Sub</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b, ResultCallback onResult</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;CppNativeDll.dll&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">SumArray</span>(<span class="params">[In] <span class="built_in">int</span>[] arr, <span class="built_in">int</span> len, <span class="keyword">out</span> <span class="built_in">int</span> sum</span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="string">&quot;CppNativeDll.dll&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> Status <span class="title">CheckValue</span>(<span class="params"><span class="built_in">int</span> val</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封裝成靜態方法給外部使用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">AddNumbers</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span></span><br><span class="line">        =&gt; Add_Internal(a, b);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span> <span class="title">DivideNumbers</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span></span><br><span class="line">        =&gt; Divide(a, b);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">MultiplyPoint</span>(<span class="params"><span class="built_in">int</span> x, <span class="built_in">int</span> y</span>)</span></span><br><span class="line">        =&gt; MulPoint(<span class="keyword">new</span> Point &#123; x = x, y = y &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Subtract</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b, ResultCallback callback</span>)</span></span><br><span class="line">        =&gt; Sub(a, b, callback);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> <span class="title">SumArrayElements</span>(<span class="params"><span class="built_in">int</span>[] arr</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        SumArray(arr, arr.Length, <span class="keyword">out</span> <span class="built_in">int</span> sum);</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Status <span class="title">Check</span>(<span class="params"><span class="built_in">int</span> val</span>)</span></span><br><span class="line">        =&gt; CheckValue(val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大致上可以分成兩大部分：</p>
+<ol>
+<li><p>串接 C++ 的結構與方法</p>
+<p> 包含 <code>struct</code>、<code>enum</code>、<code>delegate</code> 以及使用 <code>DllImport</code> 呼叫 C++ DLL 的原生函式。</p>
+</li>
+<li><p>對外封裝給使用者的方法</p>
+<p> 將原生函式封裝成靜態方法，提供簡單易用的介面給其他 C# 專案呼叫。</p>
+</li>
+</ol>
+<br>
+
+<p>關於 DllImport Attribute 的部分，</p>
+<p>以下以 Add 與 Divide 為例做個說明，</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(</span></span><br><span class="line"><span class="meta">    <span class="string">&quot;CppNativeDll.dll&quot;</span>, // C++ DLL 檔案名稱，如果 DLL 放在同層資料夾，則不需要寫路徑</span></span><br><span class="line"><span class="meta">    EntryPoint = <span class="string">&quot;Add&quot;</span>, // 指定 C++ DLL 中實際的函式名稱</span></span><br><span class="line"><span class="meta">    CallingConvention = CallingConvention.Cdecl // 呼叫約定，必須與 C++ 函式一致</span></span><br><span class="line"><span class="meta">)</span>]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">int</span> <span class="title">Add_Internal</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 因 C# 這邊定義的方法名與 C++ 相同，所以可省略 EntryPoint 的設定</span></span><br><span class="line">[<span class="meta">DllImport(<span class="string">&quot;CppNativeDll.dll&quot;</span>, CallingConvention = CallingConvention.Cdecl)</span>]</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="built_in">double</span> <span class="title">Divide</span>(<span class="params"><span class="built_in">int</span> a, <span class="built_in">int</span> b</span>)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>詳細的設定說明可以自行上網查閱，</p>
+<p>這裡要特別注意的是 C++ 原生 DLL 的檔案名稱與位置。</p>
+<br>
+
+<p>在程式執行時，DLL 必須放在所設定的路徑，</p>
+<p>否則程式可能會發生 Crash。</p>
+<p>至於要放在哪裡，則取決於你的專案策略。</p>
+<br>
+
+<p>例如，有些廠商雖然提供 .NET DLL，</p>
+<p>但實際上原生 C++ DLL 是隨驅動程式一起安裝，</p>
+<p>透過安裝程式放置到指定位置的。</p>
+<br>
+
+<p>另外，如果 C++ 原始碼弱較為複雜、</p>
+<p>或直接呼叫時需要處理許多轉換 (例如結構體或字串)，</p>
+<p>那麼可以在這一層 C# 類別中，</p>
+<p>做適當的封裝與轉換，</p>
+<p>讓外層程式在使用時能保持乾淨且一致的介面。</p>
+<h3 id="C-串接-C-執行結果"><a href="#C-串接-C-執行結果" class="headerlink" title="C# 串接 C++ 執行結果"></a>C# 串接 C++ 執行結果</h3><p>接下來進入實際執行的部分。</p>
+<p>這裡建立一個 C# 主控台專案，</p>
+<p>並將前面建立的 C# 類別庫 加入至專案參考中。</p>
+<p>完成後，整個方案的架構如下圖所示，</p>
+<p><img src="https://i.imgur.com/XWbmG7I.png" class="lazyload" data-srcset="https://i.imgur.com/XWbmG7I.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立C#主控台專案後，整體的方案架構"></p>
+<br>
+
+<p>再來，在 Program.cs 中撰寫一些簡單的測試程式，</p>
+<p>實際呼叫前面封裝的 CsWrapper 方法。</p>
+<p>Program.cs</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> CSharpLibrary;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Add: 3+5 = <span class="subst">&#123;CsWrapper.AddNumbers(<span class="number">3</span>, <span class="number">5</span>)&#125;</span>&quot;</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Divide: 10/2 = <span class="subst">&#123;CsWrapper.DivideNumbers(<span class="number">10</span>, <span class="number">2</span>)&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;MulPoint: 4*5 = <span class="subst">&#123;CsWrapper.MultiplyPoint(<span class="number">4</span>, <span class="number">5</span>)&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        CsWrapper.Subtract(<span class="number">10</span>, <span class="number">3</span>, res =&gt; Console.WriteLine(<span class="string">$&quot;Sub callback: 10-3 = <span class="subst">&#123;res&#125;</span>&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;SumArray: 1+2+3+4+5 = <span class="subst">&#123;CsWrapper.SumArrayElements(arr)&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;CheckValue(5) = <span class="subst">&#123;CsWrapper.Check(<span class="number">5</span>)&#125;</span>&quot;</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;CheckValue(-1) = <span class="subst">&#123;CsWrapper.Check(<span class="number">-1</span>)&#125;</span>&quot;</span>);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>撰寫完成後，可以先執行一次建置。</p>
+<p>由於在前面的 C# 類別庫中，</p>
+<p> DllImport 是設定 C++ DLL 與執行檔位於同一層目錄，</p>
+<p>因此建置完成後，需將編譯出來的 C++ DLL 手動複製到輸出資料夾中，</p>
+<p>如下圖所示，</p>
+<p><img src="https://i.imgur.com/JOyAGT7.png" class="lazyload" data-srcset="https://i.imgur.com/JOyAGT7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#執行檔專案編譯結果，並需要複製C++ DLL到同個目錄下"></p>
+<br>
+
+<p>最後執行整個程式，</p>
+<p>便可看到執行的結果如下圖，</p>
+<p><img src="https://i.imgur.com/WvT8Ofz.png" class="lazyload" data-srcset="https://i.imgur.com/WvT8Ofz.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#專案到呼叫C++程式的執行結果"></p>
+<br>
+
+<p>上述步驟做完，到能看到結果輸出，</p>
+<p>到這邊便能掌握一些基礎的從建立 C++ DLL 到 C# 的使用的其中一種方法。</p>
+<br>
+
+<p>上述步驟完成後，就能順利看到執行結果，</p>
+<p>到這邊為止，應該已能掌握從建立 C++ DLL 到在 C# 中使用的基本流程。</p>
+<br>
+
+<p>隨著實際開發與使用的過程中，</p>
+<p>或許產生一些想法，</p>
+<p>接下來也會分享幾個可以參考的方向。</p>
+<h2 id="額外補充"><a href="#額外補充" class="headerlink" title="額外補充"></a>額外補充</h2><h3 id="補充1：C-如何進入中斷點"><a href="#補充1：C-如何進入中斷點" class="headerlink" title="補充1：C++ 如何進入中斷點"></a>補充1：C++ 如何進入中斷點</h3><p>在開發過程中，難免需要 debug。</p>
+<p>即使像本次範例一樣，</p>
+<p>將 C++ 與 C# 專案放在同一個方案中，</p>
+<p>可能會發現，即便在 C++ 程式碼中插入了中斷點，</p>
+<p>在 Debug 模式 執行 C# 專案時，中斷點仍然不會被觸發。</p>
+<p>那麼，要如何對 C++ 程式碼進行除錯呢？</p>
+<br>
+
+<p>其實只要稍作設定，</p>
+<p>就能讓程式在執行時進入 C++ 的中斷點。</p>
+<br>
+
+<p>首先，在「執行檔專案」上按右鍵 → 屬性，<br>在選單中找到 「偵錯」，<br>接著點選 「開啟 debug 啟動設定檔 UI」。</p>
+<p><img src="https://i.imgur.com/nm8OPdD.png" class="lazyload" data-srcset="https://i.imgur.com/nm8OPdD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="執行檔專案屬性中，偵錯項目設定"></p>
+<br>
+
+<p>在啟動設定檔中，</p>
+<p>找到 「啟用機器碼偵錯」的選項，<br>將它勾選後關閉視窗，這樣設定就完成了。</p>
+<p><img src="https://i.imgur.com/JrMZ2H5.png" class="lazyload" data-srcset="https://i.imgur.com/JrMZ2H5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="啟動設定檔設定啟用機器碼偵錯"></p>
+<br>
+
+<p>接著回到 C++ 程式碼中設定中斷點，</p>
+<p>再以 Debug 模式 執行程式，</p>
+<p>此時中斷點就會如預期生效，</p>
+<p>也能檢視 C++ 端的變數內容與執行流程。</p>
+<p><img src="https://i.imgur.com/Oo64hbS.png" class="lazyload" data-srcset="https://i.imgur.com/Oo64hbS.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="啟用機器碼偵錯後，進入C++程式碼中斷點與變數內容顯示"></p>
+<br>
+
+<h3 id="補充2：利用-Costura-Fody-將-C-DLL-做打包"><a href="#補充2：利用-Costura-Fody-將-C-DLL-做打包" class="headerlink" title="補充2：利用 Costura.Fody 將 C++ DLL 做打包"></a>補充2：利用 Costura.Fody 將 C++ DLL 做打包</h3><p>前面提到，C# 專案在呼叫 C++ DLL 時，</p>
+<p>通常需要把對應的 C++ DLL 放在指定的目錄下，</p>
+<p>否則在執行階段會找不到對應的函式庫。</p>
+<br>
+
+<p>當遇到一些狀況時，</p>
+<p>像是不希望使用者看到這個 C++ DLL，</p>
+<p>或者希望最終只發佈單一的 .NET DLL 檔案，</p>
+<p>這時就會稍微麻煩一些。</p>
+<br>
+
+<p>這時候，可以考慮使用 Costura.Fody 套件，</p>
+<p>該套件會在編譯時，</p>
+<p>可以將所設定的 C++ DLL 檔案包起來。</p>
+<p>詳細操作如下，</p>
+<p>在專案中開啟 NuGet 套件管理器，</p>
+<p>搜尋並安裝 Costura.Fody 套件。</p>
+<p><img src="https://i.imgur.com/dMsaest.png" class="lazyload" data-srcset="https://i.imgur.com/dMsaest.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Nuget 搜尋 Costura.Fody 套件結果"></p>
+<br>
+
+<p>著從專案結構來看，</p>
+<p>由於建置環境設定為 x64，</p>
+<p>需要建立一個名為 costura-win-x64 的資料夾，</p>
+<p>(若使用舊版本套件，則為 Costura64 )</p>
+<p>並將 C++ DLL 複製到該資料夾中。</p>
+<p>設定該 DLL 的屬性，將「建置動作」設為「內嵌資源」。</p>
+<p>至於專案中的 FodyWeavers.xml，</p>
+<p>這個檔案是自動生成，無需特別理會。</p>
+<p><img src="https://i.imgur.com/EF2UTqA.png" class="lazyload" data-srcset="https://i.imgur.com/EF2UTqA.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="設定 Costura.Fody 所需路徑與 DLL 建置動作選擇內嵌資源"></p>
+<br>
+
+<p>接著，可以試著 刪除 bin 目錄中的所有檔案，</p>
+<p>然後重新建置 C# 執行檔專案。</p>
+<p>即使輸出資料夾中沒有原本的 C++ DLL，</p>
+<p>執行程式仍能正常運作。</p>
+<p>這就代表 C++ DLL 已經被 自動包入 C# 類別庫的 DLL 之中。</p>
+<p><img src="https://i.imgur.com/zEBbdc6.png" class="lazyload" data-srcset="https://i.imgur.com/zEBbdc6.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++ DLL 使用套件包入後的應用程式建置結果輸出"></p>
+<br>
+
+<p>如果使用 發佈功能，並且設定為單一檔案發佈，</p>
+<p>原本只會將 .NET DLL 包進去，而不會包含 C++ DLL。</p>
+<p>不過，如果搭配 Costura.Fody 套件，</p>
+<p>C++ DLL 也會被自動包入進去，</p>
+<p>最終就可以只產生單一執行檔，直接執行。</p>
+<p><img src="https://i.imgur.com/qDJ2wIi.png" class="lazyload" data-srcset="https://i.imgur.com/qDJ2wIi.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="單一檔案發布，搭配 Costura.Fody 套件後的輸出結果"></p>
+<br>
+
+<p>如果想進一步了解 單一檔案發佈 的細節，</p>
+<p>可以參考下列網址中的另一篇文章：<br><a href="https://cornerchat543.github.io/2025/08/dotnet-singlefile-publish/">發佈 .NET 單一執行檔到本地資料夾</a></p>
+<br>
+
+<p>如果 NuGet 套件中本身就包含 C++ DLL，</p>
+<p>發佈後仍可能會在輸出資料夾看到該 DLL，</p>
+<p>不論是否有將它放入指定的資料夾中，</p>
+<p>這都是正常現象，屬於發佈功能的行為。</p>
+<br>
+
+<p>前面示範的是將 C++ DLL 包在 C# 類別庫那一層。</p>
+<p>如果希望在執行檔專案這一層使用，也是完全可行的。</p>
+<p>只不過，相關的 Costura 設定就需要在執行檔專案中進行設定。</p>
+<h3 id="補充3：C-DLL-輸出路徑設定"><a href="#補充3：C-DLL-輸出路徑設定" class="headerlink" title="補充3：C++ DLL 輸出路徑設定"></a>補充3：C++ DLL 輸出路徑設定</h3><p>如果在方案中修改了 C++ 程式碼，</p>
+<p>每次要執行整個程式時，都需要手動複製 C++ DLL 到對應目錄，</p>
+<p>這樣做起來會很麻煩，有沒有辦法簡化這個流程呢？</p>
+<br>
+
+<p>這時候，可以透過建置後事件來解決這個問題。</p>
+<p>在 C++ 專案上按右鍵 → 屬性，</p>
+<p>左側選單找到「建置事件」並找到「建置後事件」，</p>
+<p>點下去後，接著點選右邊視窗中的「命令列」，</p>
+<p><img src="https://i.imgur.com/du9FFin.png" class="lazyload" data-srcset="https://i.imgur.com/du9FFin.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++專案屬性頁，選擇建置後事件選項後的狀況"></p>
+<br>
+
+<p>接著輸入以下指令與參數，確認評估值 OK 後，按下「確定」</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcopy /Y /I <span class="string">&quot;<span class="subst">$(TargetPath)</span>&quot;</span> <span class="string">&quot;..\CSharpLibrary\costura-win-x64\&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>配合評估值來看，大家應該可以猜出，</p>
+<p>這是一個將編譯好的 DLL，自動複製到指定位置的指令，</p>
+<p><img src="https://i.imgur.com/NdrrvkV.png" class="lazyload" data-srcset="https://i.imgur.com/NdrrvkV.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建置後要執行的命令列指令輸入"></p>
+<br>
+
+<p>最後在屬性頁按下按下「套用」。</p>
+<p><img src="https://i.imgur.com/AEpVqqE.png" class="lazyload" data-srcset="https://i.imgur.com/AEpVqqE.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++專案屬性頁，建置後事件設定完命令列的結果"></p>
+<br>
+
+<p>這樣一來，未來每次 C++ 編譯完成後，</p>
+<p>對應的 DLL 就會自動複製到指定路徑，</p>
+<p>相關參數與路徑可以依實際專案需求自行調整。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>以上就是利用 DllImport 讓 C# 呼叫 C++ 原生函式的整體流程。</p>
+<p>其實只要是 .NET 架構下的語言，例如 VB.NET，</p>
+<p>也都能用相同的方式進行，</p>
+<p>就算是在 C# 類別庫 中使用，也完全沒問題，</p>
+<p>因為 .NET 各模組之間本身就能相互呼叫。</p>
+<br>
+
+<p>若是從他人手中取得的 C++ DLL 或既有的 DllImport 程式碼，</p>
+<p>在理解了這些原理後，</p>
+<p>相信對整體架構的運作方式就不會那麼陌生。</p>
+<br>
+
+<p>而若是自行開發的 C++ 函式庫，</p>
+<p>在實際串接的過程中若遇到一些小麻煩，</p>
+<p>也可以參考後面的補充章節，</p>
+<p>有幾個能讓整體開發流程更加順暢的方法。</p>
+<br>
+
+<p>另外，在實際部署或讓使用者端執行軟體時，</p>
+<p>電腦端有時也需要安裝對應的 C++ 執行階段元件（Runtime）。</p>
+<p>這部分依照編譯方式與環境設定而定，</p>
+<p>實務上有遇過必須安裝的情況，也有不需要的狀況。</p>
+<p>若未來有更完整的了解，</p>
+<p>會再針對這部分做進一步的補充。</p>
+<h2 id="自言自語543"><a href="#自言自語543" class="headerlink" title="自言自語543"></a>自言自語543</h2><p>依稀記得在學時期，</p>
+<p>第一個接觸的程式語言<del>(應該)</del>就是 C++ ，</p>
+<p>也有印象還有用過什麼 CMake 。</p>
+<br>
+
+<p>以前曾稍微碰過 MFC 專案，</p>
+<p>當時有用個第三方函示庫，</p>
+<p>雖然是編譯好的 C++，</p>
+<p>但卻不是 DLL，而是 .h 和 lib 檔。</p>
+<br>
+
+<p>又或者是也有用過其他的程式語言，</p>
+<p>去串接過 C++ 的程式碼，</p>
+<p>其實還滿多程式語言的底層，</p>
+<p>都是 C&#x2F;C++ 的呢…</p>
+<p><del>(指標什麼的我不想知道)</del></p>
+<br>
+
+<p>總之，除了 C# 有各種方式可以接 C&#x2F;C++ 以外，</p>
+<p>其他語言也是各種五花八門的串接方式呢…</p>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/NET/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>.NET</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>C#</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>C++</p></a></div>
+  <span hidden itemprop="keywords">.NET C# C++</span>
+
+
         
       
+    </div>
+    <!-- Custom Files bottomMeta begin -->
     
-  </section>
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
   
-    
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2025/08/dotnet-singlefile-publish/'>
+          <p class='title'>發佈 .NET 單一執行檔到本地資料夾<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>從以前的 .NET Framework 到現在最新的 .NET 框架，所編譯出的結果已經有些不同。以 .NET 框架的 WPF 專案為例，編譯後最少會生成一組 exe 執行檔與對應的 DLL 。...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
   
 
 
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2025/10/csharp-native-cpp-guide/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 評論</p>
     
-  
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
   
@@ -2718,20 +3189,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       
-<section class="widget blogger desktop mobile pjax">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://avatars.githubusercontent.com/u/152056279?v=4'/>
-        </a>
-      
-    
-    
-    
-  </div>
-</section>
-
     
   
 
@@ -2808,79 +3265,45 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
   
 
-  
-    
-    
-      
-
-<section class="widget desktop mobile pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-clock fa-fw" aria-hidden="true"></i><span class='name'>最近更新</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2025/10/csharp-native-cpp-guide/"><div class="item"><time>2025-10-28</time><span>C#</span></div><span>C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記</span></a></li><li><a class="widget-last" href="/2025/08/dotnet-singlefile-publish/"><div class="item"><time>2025-10-28</time><span>C#</span></div><span>發佈 .NET 單一執行檔到本地資料夾</span></a></li><li><a class="widget-last" href="/2024/06/wpf-freespirepdf-flowdocument-to-pdf/"><div class="item"><time>2025-08-30</time><span>C#</span></div><span>使用WPF元件和FreeSpire.PDF建立PDF</span></a></li><li><a class="widget-last" href="/2025/08/toolkit-mvvm-part03/"><div class="item"><time>2025-08-19</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 3</span></a></li><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part02/"><div class="item"><time>2025-07-16</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 2</span></a></li></ul>
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-<section class="widget desktop pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-award fa-fw" aria-hidden="true"></i><span class='name'>網站資訊</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章數目：</div>
-          <div>13 篇</div>
-        </div>
-      
-
-      
-
-
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最後活動日期：</div>
-          <div id="last-update-show">2025-10-28 </div>
-        </div>
-      
-    </div>
-  </div>
-</section>
-
-    
-  
-
 
 <div class="widget-sticky pjax">
+
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>內容目錄</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99%E8%88%87%E6%96%B9%E6%A1%88%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.</span> <span class="toc-text">事前準備與方案架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-C-DLL-%E5%B0%88%E6%A1%88%E8%88%87%E7%A8%8B%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">建立 C++ DLL 專案與程式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8BC-Native%E5%B0%88%E6%A1%88"><span class="toc-number">2.1.</span> <span class="toc-text">建立C++ Native專案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E5%8E%9F%E7%94%9F%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B"><span class="toc-number">2.2.</span> <span class="toc-text">C++ 原生程式碼範例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%A8%E8%AD%AF-C-DLL"><span class="toc-number">2.3.</span> <span class="toc-text">編譯 C++ DLL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-C-%E4%B8%AD%E5%91%BC%E5%8F%AB-C-%E5%87%BD%E5%BC%8F%E5%BA%AB"><span class="toc-number">3.</span> <span class="toc-text">在 C# 中呼叫 C++ 函式庫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E5%91%BC%E5%8F%AB-C-%E7%9A%84-C-%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">3.1.</span> <span class="toc-text">建立呼叫 C++ 的 C# 程式碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E4%B8%B2%E6%8E%A5-C-%E5%9F%B7%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">3.2.</span> <span class="toc-text">C# 串接 C++ 執行結果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%8D%E5%A4%96%E8%A3%9C%E5%85%85"><span class="toc-number">4.</span> <span class="toc-text">額外補充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%9C%E5%85%851%EF%BC%9AC-%E5%A6%82%E4%BD%95%E9%80%B2%E5%85%A5%E4%B8%AD%E6%96%B7%E9%BB%9E"><span class="toc-number">4.1.</span> <span class="toc-text">補充1：C++ 如何進入中斷點</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%9C%E5%85%852%EF%BC%9A%E5%88%A9%E7%94%A8-Costura-Fody-%E5%B0%87-C-DLL-%E5%81%9A%E6%89%93%E5%8C%85"><span class="toc-number">4.2.</span> <span class="toc-text">補充2：利用 Costura.Fody 將 C++ DLL 做打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%9C%E5%85%853%EF%BC%9AC-DLL-%E8%BC%B8%E5%87%BA%E8%B7%AF%E5%BE%91%E8%A8%AD%E5%AE%9A"><span class="toc-number">4.3.</span> <span class="toc-text">補充3：C++ DLL 輸出路徑設定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">5.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E8%A8%80%E8%87%AA%E8%AA%9E543"><span class="toc-number">6.</span> <span class="toc-text">自言自語543</span></a></li></ol>
+    </div>
+  </section>
+
+  
 
 </div>
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -2900,13 +3323,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3476,7 +3900,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/tags/C++/","name":"C++"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/","name":"C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記","description":"C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。\n在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;C++ 程式碼成 DLL 開始，一步步到實際呼叫為止。如果手上已經有現成的 DLL 和對應的 .h 檔，也能藉此了解整個過程。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/","wordCount":263,"datePublished":"2025-10-28T14:00:00.000Z","dateModified":"2025-10-28T13:59:52.105Z","articleSection":"C#","keywords":".NET,C#,C++","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
