@@ -45,7 +45,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2025-10-28T14:00:00.000Z">
-<meta property="article:modified_time" content="2025-10-28T13:59:52.105Z">
+<meta property="article:modified_time" content="2025-12-21T14:29:00.000Z">
 <meta property="article:author" content="CornerChat543">
 <meta property="article:tag" content=".NET">
 <meta property="article:tag" content="C#">
@@ -1911,7 +1911,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1761660006813),
+    lastupdate: new Date(1768037554880),
     sidebar: {
       for_page: ["blogger","category","tagcloud","lastupdate","webinfo"],
       for_post: ["toc","category","tagcloud"],
@@ -2682,10 +2682,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-10-28T21:59:52+08:00">
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-12-21T22:29:00+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>2025年10月28日</p>
+    <p>2025年12月21日</p>
   </a>
 </div>
 
@@ -2795,7 +2795,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><img src="https://i.imgur.com/HsncbLp.png" class="lazyload" data-srcset="https://i.imgur.com/HsncbLp.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="新增C++檔畫面"></p>
 <br>
 
-<p>上述步驟完成後，<br>整個專案的架構與狀況如下圖所示，</p>
+<p>上述步驟完成後，</p>
+<p>整個專案的架構與狀況如下圖所示，</p>
 <p><img src="https://i.imgur.com/76iuDeJ.png" class="lazyload" data-srcset="https://i.imgur.com/76iuDeJ.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立完標頭檔與C++檔專案結構狀況"></p>
 <br>
 
@@ -2933,10 +2934,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><img src="https://i.imgur.com/WvT8Ofz.png" class="lazyload" data-srcset="https://i.imgur.com/WvT8Ofz.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#專案到呼叫C++程式的執行結果"></p>
 <br>
 
-<p>上述步驟做完，到能看到結果輸出，</p>
-<p>到這邊便能掌握一些基礎的從建立 C++ DLL 到 C# 的使用的其中一種方法。</p>
-<br>
-
 <p>上述步驟完成後，就能順利看到執行結果，</p>
 <p>到這邊為止，應該已能掌握從建立 C++ DLL 到在 C# 中使用的基本流程。</p>
 <br>
@@ -2956,12 +2953,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>就能讓程式在執行時進入 C++ 的中斷點。</p>
 <br>
 
-<p>首先，在「執行檔專案」上按右鍵 → 屬性，<br>在選單中找到 「偵錯」，<br>接著點選 「開啟 debug 啟動設定檔 UI」。</p>
+<p>首先，在「執行檔專案」上按右鍵 → 屬性，</p>
+<p>在選單中找到 「偵錯」，</p>
+<p>接著點選 「開啟 debug 啟動設定檔 UI」。</p>
 <p><img src="https://i.imgur.com/nm8OPdD.png" class="lazyload" data-srcset="https://i.imgur.com/nm8OPdD.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="執行檔專案屬性中，偵錯項目設定"></p>
 <br>
 
 <p>在啟動設定檔中，</p>
-<p>找到 「啟用機器碼偵錯」的選項，<br>將它勾選後關閉視窗，這樣設定就完成了。</p>
+<p>找到 「啟用機器碼偵錯」的選項，</p>
+<p>將它勾選後關閉視窗，這樣設定就完成了。</p>
 <p><img src="https://i.imgur.com/JrMZ2H5.png" class="lazyload" data-srcset="https://i.imgur.com/JrMZ2H5.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="啟動設定檔設定啟用機器碼偵錯"></p>
 <br>
 
@@ -2992,7 +2992,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p><img src="https://i.imgur.com/dMsaest.png" class="lazyload" data-srcset="https://i.imgur.com/dMsaest.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Nuget 搜尋 Costura.Fody 套件結果"></p>
 <br>
 
-<p>著從專案結構來看，</p>
+<p>從專案結構來看，</p>
 <p>由於建置環境設定為 x64，</p>
 <p>需要建立一個名為 costura-win-x64 的資料夾，</p>
 <p>(若使用舊版本套件，則為 Costura64 )</p>
@@ -3388,7 +3388,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         <div class='copyright'>
-        <p>版權 © 2024-2025 CornerChat543</p>
+        <p>版權 © 2024-2026 CornerChat543</p>
 
         </div>
       
@@ -3900,7 +3900,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/","name":"C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記","description":"C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。\n在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;C++ 程式碼成 DLL 開始，一步步到實際呼叫為止。如果手上已經有現成的 DLL 和對應的 .h 檔，也能藉此了解整個過程。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/","wordCount":263,"datePublished":"2025-10-28T14:00:00.000Z","dateModified":"2025-10-28T13:59:52.105Z","articleSection":"C#","keywords":".NET,C#,C++","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/","name":"C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記","description":"C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其他語言重複使用。\n在 C# 中，串接 C&#x2F;C++ 的方式有很多種。本次想記錄其中一種做法：透過 DllImport 讓 C# 呼叫原生函式。從使用 Visual Studio 編譯 C&#x2F;C++ 程式碼成 DLL 開始，一步步到實際呼叫為止。如果手上已經有現成的 DLL 和對應的 .h 檔，也能藉此了解整個過程。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/","wordCount":263,"datePublished":"2025-10-28T14:00:00.000Z","dateModified":"2025-12-21T14:29:00.000Z","articleSection":"C#","keywords":".NET,C#,C++","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 

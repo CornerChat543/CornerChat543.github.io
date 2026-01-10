@@ -34,18 +34,18 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1 - CornerChat543's Blog</title>
+  <title>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1 - CornerChat543's Blog</title>
   <meta name="keywords" content=".NET,C#,WPF,MVVM,Nuget,ToolKit.MVVM,null">
   <meta name="description" content="在WPF開發中(或其他Windows框架)，若要實現MVVM架構的話，通常需要實作 INotifyPropertyChanged、ICommand，這兩個 interface 。自己先前的習慣是，從網路上找其他人寫好的實作，複製到自己的專案中使用，且每開一次新專案，就複製一份。 某天如往常地尋找資料時，發現了微軟在 Nuget 上的 CommunityToolkit.Mvvm 套件(也稱為MVVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1">
+<meta property="og:title" content="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1">
 <meta property="og:url" content="https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/index.html">
 <meta property="og:site_name" content="CornerChat543&#39;s Blog">
 <meta property="og:description" content="在WPF開發中(或其他Windows框架)，若要實現MVVM架構的話，通常需要實作 INotifyPropertyChanged、ICommand，這兩個 interface 。自己先前的習慣是，從網路上找其他人寫好的實作，複製到自己的專案中使用，且每開一次新專案，就複製一份。 某天如往常地尋找資料時，發現了微軟在 Nuget 上的 CommunityToolkit.Mvvm 套件(也稱為MVVM">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2024-05-05T05:58:00.000Z">
-<meta property="article:modified_time" content="2025-01-27T06:18:00.000Z">
+<meta property="article:modified_time" content="2025-12-21T15:03:00.000Z">
 <meta property="article:author" content="CornerChat543">
 <meta property="article:tag" content=".NET">
 <meta property="article:tag" content="C#">
@@ -1914,7 +1914,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1761660006813),
+    lastupdate: new Date(1768037554880),
     sidebar: {
       for_page: ["blogger","category","tagcloud","lastupdate","webinfo"],
       for_post: ["toc","category","tagcloud"],
@@ -2657,7 +2657,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       <h1 class="title" itemprop="name headline">
-        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1
+        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1
       </h1>
       <div class='new-meta-box'>
         
@@ -2687,10 +2687,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
         
           
-            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-01-27T14:18:00+08:00">
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2025-12-21T23:03:00+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>2025年1月27日</p>
+    <p>2025年12月21日</p>
   </a>
 </div>
 
@@ -2728,7 +2728,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <p>在WPF開發中(或其他Windows框架)，若要實現MVVM架構的話，通常需要實作 <code>INotifyPropertyChanged</code>、<code>ICommand</code>，這兩個 interface 。自己先前的習慣是，從網路上找其他人寫好的實作，複製到自己的專案中使用，且每開一次新專案，就複製一份。</p>
 <p>某天如往常地尋找資料時，發現了微軟在 Nuget 上的 CommunityToolkit.Mvvm 套件(也稱為MVVM工具包)。該套件不但實作了MVVM所需要的物件，還提供一些好用的 Attribute ，讓程式碼可以更精簡，從而讓開發人員更專注在重要的程式邏輯中。</p>
 <p>關於 CommunityToolkit.Mvvm 套件使用方法，預計拆分成幾篇不同主題的文章，而本次將記錄，在未使用此套件之前的做法，接著套件的安裝方法、基本使用，以及如何使用其提供的 Attribute 功能。</p>
-<p>開發環境，如下</p>
+<span id="more"></span>
+
+<p>本篇文章為 CommunityToolkit.Mvvm 套件系列的第一部分，若想了解關於該套件的資料驗證或 Messenger 通訊機制的使用，可從下列網址前往。</p>
+<p><a href="https://cornerchat543.github.io/2024/05/toolkit-mvvm-part02/">使用ToolKit.MVVM實現ViewModel – Part 2 (資料驗證)</a></p>
+<p><a href="https://cornerchat543.github.io/2025/08/toolkit-mvvm-part03/">使用ToolKit.MVVM實現ViewModel – Part 3 (Messenger 通訊機制)</a></p>
+<p>本次的開發環境，如下</p>
 <ul>
 <li>IDE : Visual Studio 2022</li>
 <li>.NET版本 : . NET 6.0</li>
@@ -2898,7 +2903,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>[RelayCommand] (※RelayCommand、RelayCommand<T>、AsyncRelayCommand、AsyncRelayCommand<T> 皆使用此 Attribute )</li>
 </ul>
 <p>當然還有其他的 Attribute ，這邊僅列出個人認為基礎且較常會用到的部分。</p>
-<p>至於能夠實現數據驗證的 ViewModel 功能，將在Part 2中來講解與示範。</p>
 <p>另外，雖然本篇文章是以 WPF 來做範例，而該套件也同樣適用在其他的 XAML 平台 <del>(應該吧，看到官網有 UWP 的範例，不過我沒用過)</del> 。</p>
 <h2 id="自言自語543"><a href="#自言自語543" class="headerlink" title="自言自語543"></a>自言自語543</h2><p>真沒想到有這樣的套件，以前在建立新的 WPF 專案或撰寫時，很常到別的專案中複製 ViewModelBase ，或是複製 Property 中使用相關方法的程式碼，總是想著，明明是 MVVM 99% 會用到的東西，為什麼一直沒有內建實作的類別可以直接用呢?</p>
 <p>然後隨著 ViewModel 龐大起來，Property 和 Command 的程式越來越大串，雖然有 Region 可以收納起來，但是展開後…嗯…還是收起來吧…</p>
@@ -2952,14 +2956,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class="prev-next">
       
         <a class='prev' href='/2024/05/toolkit-mvvm-part02/'>
-          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 2</p>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 2</p>
           <p class='content'>在軟體開發中，處理使用者輸入是一個常見的任務，同時也時常伴隨著數據驗證的需求。
 在 WPF 或其他 Windows 平台的 MVVM 架構中，要完成數據驗證，可以選擇使用 ValidationR...</p>
         </a>
       
       
         <a class='next' href='/2024/04/wordpress-on-github-pages/'>
-          <p class='title'>在GitHub Pages上使用WordPress靜態網頁<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='title'>在 GitHub Pages 上使用 WordPress 靜態網頁<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>撰寫程式時，經常在網路上查詢 (複製) 程式，感謝願意在網路上分享的前輩們。也常想著哪天，也能放放自己的 爛 程式，不僅可以備忘一下，也能供人參考 供未來的自己複製 。
 雖然說，有想做這件事情，...</p>
         </a>
@@ -3198,7 +3202,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         <div class='copyright'>
-        <p>版權 © 2024-2025 CornerChat543</p>
+        <p>版權 © 2024-2026 CornerChat543</p>
 
         </div>
       
@@ -3710,7 +3714,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","name":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","wordCount":0,"datePublished":"2024-05-05T05:58:00.000Z","dateModified":"2025-01-27T06:18:00.000Z","articleSection":"C#","keywords":".NET,C#,WPF,MVVM,Nuget,ToolKit.MVVM","image":{"@type":"ImageObject","url":"https://i.imgur.com/wvYMevo.png","width":1024,"height":768}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","name":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1","description":"在WPF開發中(或其他Windows框架)，若要實現MVVM架構的話，通常需要實作 INotifyPropertyChanged、ICommand，這兩個 interface 。自己先前的習慣是，從網路上找其他人寫好的實作，複製到自己的專案中使用，且每開一次新專案，就複製一份。\n某天如往常地尋找資料時，發現了微軟在 Nuget 上的 CommunityToolkit.Mvvm 套件(也稱為MVVM工具包)。該套件不但實作了MVVM所需要的物件，還提供一些好用的 Attribute ，讓程式碼可以更精簡，從而讓開發人員更專注在重要的程式邏輯中。\n關於 CommunityToolkit.Mvvm 套件使用方法，預計拆分成幾篇不同主題的文章，而本次將記錄，在未使用此套件之前的做法，接著套件的安裝方法、基本使用，以及如何使用其提供的 Attribute 功能。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2024/05/toolkit-mvvm-part01/","wordCount":381,"datePublished":"2024-05-05T05:58:00.000Z","dateModified":"2025-12-21T15:03:00.000Z","articleSection":"C#","keywords":".NET,C#,WPF,MVVM,Nuget,ToolKit.MVVM","image":{"@type":"ImageObject","url":"https://i.imgur.com/wvYMevo.png","width":1024,"height":768}}]</script>
 
 
 

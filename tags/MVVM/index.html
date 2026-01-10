@@ -1906,7 +1906,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1761660006813),
+    lastupdate: new Date(1768037554880),
     sidebar: {
       for_page: ["blogger","category","tagcloud","lastupdate","webinfo"],
       for_post: ["toc","category","tagcloud"],
@@ -2663,7 +2663,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class='headimg-div'>
       <a class='headimg-a' href="/2025/08/toolkit-mvvm-part03/">
-        <img itemprop="image" class='headimg' alt="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 3" src='https://i.imgur.com/baz5XKi.png'/>
+        <img itemprop="image" class='headimg' alt="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 3" src='https://i.imgur.com/baz5XKi.png'/>
       </a>
     </div>
   
@@ -2671,7 +2671,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     <h2 class="article-title"  itemprop="name headline">
       <a href="/2025/08/toolkit-mvvm-part03/"  itemprop="url">
-        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 3
+        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 3
       </a>
     </h2>
   
@@ -2793,7 +2793,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class='headimg-div'>
       <a class='headimg-a' href="/2024/06/wpf-freespirepdf-flowdocument-to-pdf/">
-        <img itemprop="image" class='headimg' alt="使用WPF元件和FreeSpire.PDF建立PDF" src='https://i.imgur.com/bT1F61f.png'/>
+        <img itemprop="image" class='headimg' alt="使用 WPF 元件和 FreeSpire.PDF 建立 PDF" src='https://i.imgur.com/bT1F61f.png'/>
       </a>
     </div>
   
@@ -2801,7 +2801,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     <h2 class="article-title"  itemprop="name headline">
       <a href="/2024/06/wpf-freespirepdf-flowdocument-to-pdf/"  itemprop="url">
-        使用WPF元件和FreeSpire.PDF建立PDF
+        使用 WPF 元件和 FreeSpire.PDF 建立 PDF
       </a>
     </h2>
   
@@ -2859,7 +2859,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class='headimg-div'>
       <a class='headimg-a' href="/2024/05/toolkit-mvvm-part02/">
-        <img itemprop="image" class='headimg' alt="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 2" src='https://i.imgur.com/VeMCJc6.png'/>
+        <img itemprop="image" class='headimg' alt="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 2" src='https://i.imgur.com/VeMCJc6.png'/>
       </a>
     </div>
   
@@ -2867,17 +2867,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     <h2 class="article-title"  itemprop="name headline">
       <a href="/2024/05/toolkit-mvvm-part02/"  itemprop="url">
-        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 2
+        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 2
       </a>
     </h2>
   
   <div class='md article-desc' itemprop="articleBody">
     
-      
-        在軟體開發中，處理使用者輸入是一個常見的任務，同時也時常伴隨著數據驗證的需求。
-在 WPF 或其他 Windows 平台的 MVVM 架構中，要完成數據驗證，可以選擇使用 ValidationRule、IDataErrorInfo 和 INotifyDataErrorInfo 這幾個類別或接口。
-其中 IDataErrorInfo 和 INotifyDataErrorInfo 的部分為 in...
-      
+      <p>在軟體開發中，處理使用者輸入是一個常見的任務，同時也時常伴隨著數據驗證的需求。</p>
+<p>在 WPF 或其他 Windows 平台的 MVVM 架構中，要完成數據驗證，可以選擇使用 <code>ValidationRule</code>、<code>IDataErrorInfo</code> 和 <code>INotifyDataErrorInfo</code> 這幾個類別或接口。</p>
+<p>其中 <code>IDataErrorInfo</code> 和 <code>INotifyDataErrorInfo</code> 的部分為 interface ，不僅要進行實作以外，因 MVVM 架構也需要一併實作 <code>INotifyPropertyChanged</code> 。而在 ViewModel 實作上，綁定的屬性也需要撰寫許多涉及 Property 的程式碼，使的開發的過程稍嫌繁瑣。</p>
+<p>本篇的主題， CommunityToolkit.Mvvm 套件提供了實作 MVVM 架構時所需要的物件，其中的一個部分便是關於數據驗證，其中提供的物件，不只實作了 <code>INotifyDataErrorInfo</code> 與 <code>INotifyPropertyChanged</code> 等， MVVM 所需實現的interface外，同時也有提供方便的 Attribute 來簡化程式碼。</p>
+<p>本次將進行該套件的數據驗證物件並使用 WPF 的示範。</p>
     
   </div>
   
@@ -2926,7 +2926,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     <div class='headimg-div'>
       <a class='headimg-a' href="/2024/05/toolkit-mvvm-part01/">
-        <img itemprop="image" class='headimg' alt="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1" src='https://i.imgur.com/wvYMevo.png'/>
+        <img itemprop="image" class='headimg' alt="簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1" src='https://i.imgur.com/wvYMevo.png'/>
       </a>
     </div>
   
@@ -2934,16 +2934,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     <h2 class="article-title"  itemprop="name headline">
       <a href="/2024/05/toolkit-mvvm-part01/"  itemprop="url">
-        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 1
+        簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1
       </a>
     </h2>
   
   <div class='md article-desc' itemprop="articleBody">
     
-      
-        在WPF開發中(或其他Windows框架)，若要實現MVVM架構的話，通常需要實作 INotifyPropertyChanged、ICommand，這兩個 interface 。自己先前的習慣是，從網路上找其他人寫好的實作，複製到自己的專案中使用，且每開一次新專案，就複製一份。
-某天如往常地尋找資料時，發現了微軟在 Nuget 上的 CommunityToolkit.Mvvm 套件(也稱為M...
-      
+      <p>在WPF開發中(或其他Windows框架)，若要實現MVVM架構的話，通常需要實作 <code>INotifyPropertyChanged</code>、<code>ICommand</code>，這兩個 interface 。自己先前的習慣是，從網路上找其他人寫好的實作，複製到自己的專案中使用，且每開一次新專案，就複製一份。</p>
+<p>某天如往常地尋找資料時，發現了微軟在 Nuget 上的 CommunityToolkit.Mvvm 套件(也稱為MVVM工具包)。該套件不但實作了MVVM所需要的物件，還提供一些好用的 Attribute ，讓程式碼可以更精簡，從而讓開發人員更專注在重要的程式邏輯中。</p>
+<p>關於 CommunityToolkit.Mvvm 套件使用方法，預計拆分成幾篇不同主題的文章，而本次將記錄，在未使用此套件之前的做法，接著套件的安裝方法、基本使用，以及如何使用其提供的 Attribute 功能。</p>
     
   </div>
   
@@ -3098,7 +3097,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2025/10/csharp-native-cpp-guide/"><div class="item"><time>2025-10-28</time><span>C#</span></div><span>C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記</span></a></li><li><a class="widget-last" href="/2025/08/dotnet-singlefile-publish/"><div class="item"><time>2025-10-28</time><span>C#</span></div><span>發佈 .NET 單一執行檔到本地資料夾</span></a></li><li><a class="widget-last" href="/2024/06/wpf-freespirepdf-flowdocument-to-pdf/"><div class="item"><time>2025-08-30</time><span>C#</span></div><span>使用WPF元件和FreeSpire.PDF建立PDF</span></a></li><li><a class="widget-last" href="/2025/08/toolkit-mvvm-part03/"><div class="item"><time>2025-08-19</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 3</span></a></li><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part02/"><div class="item"><time>2025-07-16</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM套件 – Part 2</span></a></li></ul>
+    <ul class="list entry navigation"><li><a class="widget-last" href="/2025/08/toolkit-mvvm-part03/"><div class="item"><time>2025-12-25</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 3</span></a></li><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part01/"><div class="item"><time>2025-12-21</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1</span></a></li><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part02/"><div class="item"><time>2025-12-21</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 2</span></a></li><li><a class="widget-last" href="/2025/10/csharp-native-cpp-guide/"><div class="item"><time>2025-12-21</time><span>C#</span></div><span>C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記</span></a></li><li><a class="widget-last" href="/2025/08/dotnet-singlefile-publish/"><div class="item"><time>2025-10-28</time><span>C#</span></div><span>發佈 .NET 單一執行檔到本地資料夾</span></a></li></ul>
   </div>
 </section>
 
@@ -3139,7 +3138,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>最後活動日期：</div>
-          <div id="last-update-show">2025-10-28 </div>
+          <div id="last-update-show">2026-01-10 </div>
         </div>
       
     </div>
@@ -3239,7 +3238,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         <div class='copyright'>
-        <p>版權 © 2024-2025 CornerChat543</p>
+        <p>版權 © 2024-2026 CornerChat543</p>
 
         </div>
       
