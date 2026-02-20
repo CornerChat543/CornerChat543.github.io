@@ -5,8 +5,8 @@
   <meta name="Volantis" content="5.8.0">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="https://cornerchat543.github.io/tags/wordpress/"/>
+  
+  <link rel="canonical" href="https://cornerchat543.github.io/2026/02/csharp-native-cli-guide/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -34,17 +34,23 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>標籤：WordPress - CornerChat543's Blog</title>
-  <meta name="keywords" content="null">
-  <meta name="description" content="CornerChat543 Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CornerChat543&#39;s Blog">
-<meta property="og:url" content="https://cornerchat543.github.io/tags/WordPress/index.html">
+  <title>C# 與原生 C/C++：以 C++/CLI 建立可直接引用的類別庫 - CornerChat543's Blog</title>
+  <meta name="keywords" content=".NET,C#,C++,C++/CLI,null">
+  <meta name="description" content="C&#x2F;C++ 是電腦世界的共同語言。而在 C# 中，串接 C&#x2F;C++ 的方式有很多種。前次記錄了一種做法：透過 DllImport 讓 C# 呼叫原生函式，這次要來記錄另一種方式。 先回顧一下，當提到 .NET，通常會先想到 C#，其次可能是 VB.NET 或 C++&#x2F;CLI ( F#表示：當我塑膠?) ，而 C++&#x2F;CLI 的特點在於，它能同時撰寫 .NET">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# 與原生 C&#x2F;C++：以 C++&#x2F;CLI 建立可直接引用的類別庫">
+<meta property="og:url" content="https://cornerchat543.github.io/2026/02/csharp-native-cli-guide/index.html">
 <meta property="og:site_name" content="CornerChat543&#39;s Blog">
-<meta property="og:description" content="CornerChat543 Blog">
+<meta property="og:description" content="C&#x2F;C++ 是電腦世界的共同語言。而在 C# 中，串接 C&#x2F;C++ 的方式有很多種。前次記錄了一種做法：透過 DllImport 讓 C# 呼叫原生函式，這次要來記錄另一種方式。 先回顧一下，當提到 .NET，通常會先想到 C#，其次可能是 VB.NET 或 C++&#x2F;CLI ( F#表示：當我塑膠?) ，而 C++&#x2F;CLI 的特點在於，它能同時撰寫 .NET">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2026-02-20T14:59:00.000Z">
+<meta property="article:modified_time" content="2026-02-20T15:01:26.861Z">
 <meta property="article:author" content="CornerChat543">
+<meta property="article:tag" content=".NET">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="C++&#x2F;CLI">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   
@@ -2594,7 +2600,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="none" class='cover-wrapper  dock' style="display: none;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg=""></div>
 
@@ -2624,25 +2630,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="safearea">
         <div class="body-wrapper">
           
-
 <div id="l_main" class=''>
-  
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2024/04/wordpress-on-github-pages/">
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="https://cornerchat543.github.io/2026/02/csharp-native-cli-guide/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="CornerChat543's Blog">
   </span>
@@ -2651,70 +2641,485 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="CornerChat543 Blog">
   </span>
   
+
+
   
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
   
-    <div class='headimg-div'>
-      <a class='headimg-a' href="/2024/04/wordpress-on-github-pages/">
-        <img itemprop="image" class='headimg' alt="在 GitHub Pages 上使用 WordPress 靜態網頁" src='https://i.imgur.com/nMZKXoW.jpeg'/>
-      </a>
-    </div>
-  
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2024/04/wordpress-on-github-pages/"  itemprop="url">
-        在 GitHub Pages 上使用 WordPress 靜態網頁
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
     
-      
-        撰寫程式時，經常在網路上查詢 (複製) 程式，感謝願意在網路上分享的前輩們。也常想著哪天，也能放放自己的 爛 程式，不僅可以備忘一下，也能供人參考 供未來的自己複製 。
-雖然說，有想做這件事情，不過也想 n 年了 懶人一枚，大概去年時，有一些空閒開始慢慢著手找尋資料。
-對一些現成的部落格網站，進行了研究或嘗試，功能感覺有點陽春且能自訂的項目不多，或是需要撰寫程式來實現，要做到我想要的感覺，工...
-      
+    
+      <h1 class="title" itemprop="name headline">
+        C# 與原生 C/C++：以 C++/CLI 建立可直接引用的類別庫
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/C/">C#</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/C/" itemprop="url"><span itemprop="name">C#</span></a>
+      </span>
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time itemprop="dateCreated datePublished" datetime="2024-04-07T15:52:00+08:00">2024-04-07</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Github-Pages/">Github Pages</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/Github-Pages/" itemprop="url"><span itemprop="name">Github Pages</span></a>
-            </span>
+
+
           
         
-      </div>
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2026-02-20T22:59:00+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>2026年2月20日</p>
+  </a>
+</div>
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateModified" datetime="2026-02-20T23:01:26+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>2026年2月20日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+<div class="new-meta-item browse">
+  <a class='notlink'>
+    <p>
+      <i class="fa-solid fa-eye fa-fw" aria-hidden="true"></i>
       
-        <div>
-          <a class='readmore' href='/2024/04/wordpress-on-github-pages/' itemprop="url">
-            閱讀全文
-          </a>
-        </div>
+      <span id="busuanzi_value_page_pv"><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span>
+      
+      <span>次瀏覽</span>
+    </p>
+  </a>
+</div>
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>C&#x2F;C++ 是電腦世界的共同語言。而在 C# 中，串接 C&#x2F;C++ 的方式有很多種。前次記錄了一種做法：透過 DllImport 讓 C# 呼叫原生函式，這次要來記錄另一種方式。</p>
+<p>先回顧一下，當提到 .NET，通常會先想到 C#，其次可能是 VB.NET 或 C++&#x2F;CLI <del>( F#表示：當我塑膠?)</del> ，而 C++&#x2F;CLI 的特點在於，它能同時撰寫 .NET 的 managed 程式，也能直接整合原生 unmanaged 的 C&#x2F;C++ 程式碼。</p>
+<p>本文將記錄如何將 C&#x2F;C++ 原始碼放入 C++&#x2F;CLI 專案中，並將其製作成可供 C# 直接引用的類別庫。</p>
+<span id="more"></span>
+
+<p>本次的開發環境，如下</p>
+<ul>
+<li>IDE : Visual Studio 2022</li>
+<li>.NET版本 : . NET 8.0</li>
+</ul>
+<h2 id="事前準備與方案架構"><a href="#事前準備與方案架構" class="headerlink" title="事前準備與方案架構"></a>事前準備與方案架構</h2><p>在開始前，除了需要安裝 Visual Studio、C# 和 .NET 之外，</p>
+<p>因為這次會用到 C++&#x2F;CLI 的部分，所以還需要相關的開發工具。</p>
+<p>如果 Visual Studio 安裝時沒有勾選相關項目，</p>
+<p>可以開啟 Visual Studio Installer 來進行安裝。</p>
+<p>理論上最少要安裝這些，</p>
+<ul>
+<li>MSVC v143 - VS 2022 C++ x64&#x2F;x86 建置工具</li>
+<li>C++ 核心功能</li>
+<li>C++&#x2F;CLI support for v143 build tools</li>
+</ul>
+<p>因為我測試過一些功能，</p>
+<p>安裝的項目也比較混亂，</p>
+<p>所以並不是這麼確定 ，</p>
+<p><del>(哪天有機會確定後再更新)</del></p>
+<p>以下附上我的安裝清單與畫面供參考，</p>
+<p>如有需要可依照個人需求自行調整環境。</p>
+<p><img src="https://i.imgur.com/4GsOuIt.png" class="lazyload" data-srcset="https://i.imgur.com/4GsOuIt.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="安裝項目中個別元件頁籤，勾選的項目"></p>
+<br>
+
+<p>本次的預計的方案架構如下，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Solution: CsUseCppCliSample</span><br><span class="line">├─ CppCliLibrary          <span class="comment"># C++/CLI 類別庫，內含 unmanaged 與 managed 程式碼</span></span><br><span class="line">│    ├─ NativeDll.h</span><br><span class="line">│    ├─ NativeDll.cpp     <span class="comment"># 純原生 C++ 實作(unmanaged)</span></span><br><span class="line">│    └─ NativeWrapper.h</span><br><span class="line">│    └─ NativeWrapper.cpp <span class="comment"># C++/CLI 包裝層(managed)，對外提供使用</span></span><br><span class="line">└─ CSharpTestApp          <span class="comment"># C# 專案，測試用</span></span><br></pre></td></tr></table></figure>
+
+<p>整體分成兩個主要部分，分別是，</p>
+<ul>
+<li>CppCliLibrary：C++&#x2F;CLI 類別庫</li>
+<li>CSharpTestApp： C# 專案</li>
+</ul>
+<p>雖然最後是由 C# 來呈現執行結果，</p>
+<p>不過 C++&#x2F;CLI 是一種可以同時撰寫「原生 C++」與「.NET 託管程式碼」的 C++ 延伸語法，</p>
+<p>它可以：</p>
+<ul>
+<li>呼叫原生 C++ 程式碼</li>
+<li>同時產生 .NET 類別庫</li>
+</ul>
+<p>因此， C++&#x2F;CLI 類別庫編譯出來的是 ****.NET 類別庫 DLL，</p>
+<p>也就是說，只要是 .NET 平台上的語言 ( C#、VB.NET… 等)，</p>
+<p>理論上都可以直接引用該 DLL，而不限於 C#。</p>
+<p>接下來，將從建立專案開始，</p>
+<p>並一步步完成整個流程。</p>
+<h2 id="建立-C-CLI-類別庫專案"><a href="#建立-C-CLI-類別庫專案" class="headerlink" title="建立 C++&#x2F;CLI 類別庫專案"></a>建立 C++&#x2F;CLI 類別庫專案</h2><p>首先，從建立 C++&#x2F;CLI 類別庫專案開始。</p>
+<p>Visual Studio 建立好方案後，</p>
+<p>在方案上按右鍵 → 加入 → 新增專案。</p>
+<p><img src="https://i.imgur.com/28frNUf.png" class="lazyload" data-srcset="https://i.imgur.com/28frNUf.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="從方案上右鍵點選加入後，點選新增專案"></p>
+<br>
+
+<p>語言篩選部分可以選擇 C++，</p>
+<p>接著找到 CLR 類別庫的項目，</p>
+<p>次範例將執行於 .NET 架構上，</p>
+<p>因此選擇 CLR 類別庫(.NET)，</p>
+<p>如果目標平台是 .NET Framework 的話，</p>
+<p>則要選擇 CLR 類別庫(.NET Framework)。</p>
+<p><img src="https://i.imgur.com/N9rz0I7.png" class="lazyload" data-srcset="https://i.imgur.com/N9rz0I7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立C++/CLI專案"></p>
+<br>
+
+<p>設定專案名稱後即可建立專案，</p>
+<p>建立完成後，畫面會像下圖這樣，</p>
+<p>已經有一些必要與預設的檔案。</p>
+<p><img src="https://i.imgur.com/7PBUbof.png" class="lazyload" data-srcset="https://i.imgur.com/7PBUbof.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++/CLI專案建立完成"></p>
+<br>
+
+<p>接下來，建立新的標頭檔（.h），</p>
+<p>在「標頭檔」資料夾上按右鍵 → 加入 → 新增項目。</p>
+<p><img src="https://i.imgur.com/F75CRqY.png" class="lazyload" data-srcset="https://i.imgur.com/F75CRqY.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++/CLI專案新增項目"></p>
+<br>
+
+<p>接著選擇「標頭檔 (.h)」，輸入名稱後按下「新增」，</p>
+<p>這邊總共新增兩個 .h 檔 NativeDll.h 和 NativeWrapper.h</p>
+<p><img src="https://i.imgur.com/lrGMnMN.png" class="lazyload" data-srcset="https://i.imgur.com/lrGMnMN.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="新增標頭檔畫面"></p>
+<br>
+
+<p>同樣的步驟，在「來源檔案」資料夾中，</p>
+<p>建立 C++ 檔 (.cpp)。</p>
+<p><img src="https://i.imgur.com/2cAmAeX.png" class="lazyload" data-srcset="https://i.imgur.com/2cAmAeX.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++/CLI專案新增項目"></p>
+<br>
+
+<p>這邊建立與兩個 .h 對應的兩個 cpp 檔，</p>
+<p>NativeDll.cpp 和 NativeWrapper.cpp。</p>
+<p><img src="https://i.imgur.com/u1oPn14.png" class="lazyload" data-srcset="https://i.imgur.com/u1oPn14.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="新增C++檔畫面"></p>
+<br>
+
+<p>上述步驟完成後，<br>整個專案的架構與狀況如下圖所示，</p>
+<p><img src="https://i.imgur.com/dZ6wZ7G.png" class="lazyload" data-srcset="https://i.imgur.com/dZ6wZ7G.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立完標頭檔與C++檔專案結構狀況"></p>
+<br>
+
+<p>到這邊為止，專案的初步建立就完成了。</p>
+<h2 id="C-原生程式碼範例"><a href="#C-原生程式碼範例" class="headerlink" title="C++ 原生程式碼範例"></a>C++ 原生程式碼範例</h2><p>再來是 C++ 原生程式碼 .h 與 .cpp 的程式內容。</p>
+<p>下面提供的程式碼可以直接貼進專案中使用。</p>
+<p>這個範例示範了一些基本的 C++ 方法，</p>
+<p>各功能方法的細節這裡就不特別說明，</p>
+<p>NativeDll.h</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 基本型別</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">double</span> <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// struct</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">int</span> x;</span><br><span class="line">    <span class="type">int</span> y;</span><br><span class="line">&#125; Point;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">int</span> <span class="title">MulPoint</span><span class="params">(Point p)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// callback</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*Callback)</span><span class="params">(<span class="type">int</span> result)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">void</span> <span class="title">Sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, Callback onResult)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 陣列</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function"><span class="type">void</span> <span class="title">SumArray</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> len, <span class="type">int</span>* sum)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// enum</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">    OK = <span class="number">0</span>,</span><br><span class="line">    ERROR = <span class="number">1</span></span><br><span class="line">&#125; Status;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> __declspec(dllexport) <span class="function">Status <span class="title">CheckValue</span><span class="params">(<span class="type">int</span> val)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>NativeDll.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pch.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;NativeDll.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;numeric&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (b == <span class="number">0</span>) ? <span class="number">0.0</span> : <span class="built_in">static_cast</span>&lt;<span class="type">double</span>&gt;(a) / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MulPoint</span><span class="params">(Point p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> p.x * p.y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, Callback onResult)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (onResult) <span class="built_in">onResult</span>(a - b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">SumArray</span><span class="params">(<span class="type">int</span>* arr, <span class="type">int</span> len, <span class="type">int</span>* sum)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr &amp;&amp; sum) &#123;</span><br><span class="line">        *sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; ++i) *sum += arr[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">CheckValue</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (val &gt;= <span class="number">0</span>) ? OK : ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>補充說明，在 NativeDll.h 中，</p>
+<p>可以看到使用了 <code>extern &quot;C&quot;</code> 與 <code>__declspec(dllexport)</code>。</p>
+<p>這是因為本範例的 C++ 程式碼，同時也可以提供給 P&#x2F;Invoke 機制或不同平台使用的情境。</p>
+<p>(有興趣的話，可前往 <a href="https://cornerchat543.github.io/2025/10/csharp-native-cpp-guide/">C# 與原生 C&#x2F;C++ DLL：從建立到呼叫的實作筆記</a>)</p>
+<p>如果實務專案是：</p>
+<ul>
+<li>純 C++ 使用</li>
+<li>或僅提供給 C++&#x2F;CLI 專案呼叫</li>
+</ul>
+<p>其實不需要撰寫這些宣告，直接使用一般的 C++ 函式即可。</p>
+<h2 id="建立呼叫-C-的-C-CLI-程式碼"><a href="#建立呼叫-C-的-C-CLI-程式碼" class="headerlink" title="建立呼叫 C++ 的 C++&#x2F;CLI 程式碼"></a>建立呼叫 C++ 的 C++&#x2F;CLI 程式碼</h2><p>接下來實作 C++&#x2F;CLI 包裝層，</p>
+<p>這一層的角色很單純，</p>
+<p>將 Native C++ 的函式轉換成 .NET 可直接使用的類別與方法。</p>
+<ul>
+<li>對外，它是一個標準的 .NET 類別庫。</li>
+<li>對內，它負責呼叫前面實作的 Native C++ 函式。</li>
+</ul>
+<p>NativeWrapper.h</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> System;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 設定 .NET namespace，提供給外部專案引用</span></span><br><span class="line"><span class="keyword">namespace</span> NativeBridge</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 對應 Native 的 Status enum</span></span><br><span class="line">    <span class="comment">// 使用 enum class 建立 .NET 可用的強型別列舉</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum class</span> <span class="title class_">CheckStatus</span></span><br><span class="line">    &#123;</span><br><span class="line">        OK = <span class="number">0</span>,</span><br><span class="line">        ERROR = <span class="number">1</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 對應 Native 的 callback</span></span><br><span class="line">    <span class="comment">// 在 .NET 中使用 delegate 表示函式指標</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> delegate <span class="type">void</span> <span class="title">ManagedCallback</span><span class="params">(<span class="type">int</span> result)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 ref class 建立 .NET 類別</span></span><br><span class="line">    <span class="comment">// 此類別將作為 Native C++ 的包裝層</span></span><br><span class="line">    <span class="keyword">public</span> ref <span class="keyword">class</span> <span class="title class_">NativeWrapper</span></span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 對應 Native 的各方法</span></span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">double</span> <span class="title">Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">MulPoint</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span>;</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">SumArray</span><span class="params">(array&lt;<span class="type">int</span>&gt;^ arr)</span></span>;</span><br><span class="line">        <span class="function"><span class="type">static</span> CheckStatus <span class="title">CheckValue</span><span class="params">(<span class="type">int</span> val)</span></span>;</span><br><span class="line">        <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">Sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, ManagedCallback^ cb)</span></span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>NativeWrapper.cpp</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;pch.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;NativeWrapper.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;NativeDll.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> System;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> System::Runtime::InteropServices;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> NativeBridge;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"><span class="comment">// 基本型別：直接轉呼叫</span></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">NativeWrapper::Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 直接呼叫 Native C++ 函式</span></span><br><span class="line">    <span class="keyword">return</span> ::<span class="built_in">Add</span>(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">NativeWrapper::Divide</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ::<span class="built_in">Divide</span>(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"><span class="comment">// struct 轉換</span></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">NativeWrapper::MulPoint</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 建立 Native 的 Point 結構</span></span><br><span class="line">    Point p&#123; x, y &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 傳入 Native 函式</span></span><br><span class="line">    <span class="keyword">return</span> ::<span class="built_in">MulPoint</span>(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"><span class="comment">// .NET 陣列 → Native 指標</span></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">NativeWrapper::SumArray</span><span class="params">(array&lt;<span class="type">int</span>&gt;^ arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr == <span class="literal">nullptr</span> || arr-&gt;Length == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// pin_ptr 會暫時固定記憶體位置</span></span><br><span class="line">    <span class="comment">// 避免 .NET GC 在呼叫期間移動陣列</span></span><br><span class="line">    pin_ptr&lt;<span class="type">int</span>&gt; p = &amp;arr[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 將 .NET 陣列轉成原生指標後呼叫 Native</span></span><br><span class="line">    ::<span class="built_in">SumArray</span>(p, arr-&gt;Length, &amp;sum);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"><span class="comment">// enum 轉換</span></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function">NativeBridge::CheckStatus <span class="title">NativeWrapper::CheckValue</span><span class="params">(<span class="type">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 先取得 Native enum</span></span><br><span class="line">    ::Status nativeStatus = ::<span class="built_in">CheckValue</span>(val);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 轉換成 .NET enum class</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;NativeBridge::CheckStatus&gt;(nativeStatus);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"><span class="comment">// delegate → 函式指標</span></span><br><span class="line"><span class="comment">// ------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">NativeWrapper::Sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, ManagedCallback^ cb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cb == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 將 .NET delegate 轉為函式指標</span></span><br><span class="line">    IntPtr ptr = Marshal::<span class="built_in">GetFunctionPointerForDelegate</span>(cb);</span><br><span class="line"></span><br><span class="line">    Callback nativeCb = <span class="built_in">static_cast</span>&lt;Callback&gt;(ptr.<span class="built_in">ToPointer</span>());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 呼叫 Native 函式並傳入 callback</span></span><br><span class="line">    ::<span class="built_in">Sub</span>(a, b, nativeCb);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>從以上程式碼可以看得出來，</p>
+<p>C++&#x2F;CLI 是一種介於 C++ 與 .NET 之間的混合寫法。</p>
+<br>
+
+<p>在檔案結構上，仍然保留了 C++ 的風格，</p>
+<p>例如 .h 與 .cpp 分離，將宣告與實作拆成兩個檔案。</p>
+<p>不過在 .NET 架構下，其實也可以將定義與實作寫在同一個檔案中，</p>
+<p>就像 C# 的 .cs 檔一樣。</p>
+<p>實務上是否拆分，可以依專案規模與習慣自行決定。</p>
+<br>
+
+<p>至於程式內容的寫法，</p>
+<p>例如 <code>namespace</code>、<code>public</code>、<code>private</code>、<code>class</code> 等語法，</p>
+<p>其實和 C# 非常接近。</p>
+<p>不過因為本質上還是 C++，</p>
+<p>會出現一些 C++&#x2F;CLI 才有的特殊符號。</p>
+<p>例如，<code>::</code> 、<code>^</code> 、<code>%</code></p>
+<br>
+
+<p>在 C# 中，大多數成員存取只會看到使用 <code>.</code>，</p>
+<p>而在 C++&#x2F;CLI 中，則會混用 C++ 與 .NET 的語法。</p>
+<p>雖然這些符號都有規則可循，</p>
+<p>但實際撰寫時確實比較容易讓人混淆，</p>
+<p>特別是在 Native 與 .NET 型別交錯出現的時候。</p>
+<p>剛開始接觸時，可能會有些燒腦。</p>
+<p><del>以前曾因為弄錯符號編譯不過搞半天，</del></p>
+<p><del>還好現在有 AI 可以問</del></p>
+<br>
+
+<p>另外，在 <code>class NativeWrapper</code> 前面可以看到 <code>ref</code> 關鍵字。</p>
+<p>這個關鍵字主要用來區分與一般 C++ 類別的差異。</p>
+<p>也就是說：</p>
+<ul>
+<li>僅使用 <code>class</code> → 代表一般 C++ 類別（Unmanaged）</li>
+<li>使用 <code>ref class</code> → 代表 .NET 類別（Managed）</li>
+</ul>
+<br>
+
+<p>所謂 Managed 與 Unmanaged 的差異如下，</p>
+<ul>
+<li>Managed：由 .NET 執行環境（CLR）負責執行與記憶體管理。</li>
+<li>Unmanaged：傳統 C&#x2F;C++ 程式碼，記憶體需自行管理，</li>
+</ul>
+<br>
+
+<p>在 .NET 中，像 C#、VB.NET ，撰寫出的程式碼就屬於 Managed，</p>
+<p>而 C++&#x2F;CLI 因為同時支援 Managed 與 Unmanaged 程式碼，</p>
+<p>因此在類別宣告時，需要透過 <code>ref</code> 關鍵字來明確區分。</p>
+<h2 id="編譯-C-CLI-類別庫"><a href="#編譯-C-CLI-類別庫" class="headerlink" title="編譯 C++&#x2F;CLI 類別庫"></a>編譯 C++&#x2F;CLI 類別庫</h2><p>完成 C++ 與 C++&#x2F;CLI 程式碼撰寫後，接下來進行專案編譯。</p>
+<p>一般情況下，若沒有特別需求，</p>
+<p>可以像一般 C# 類別庫一樣直接建置（Build）即可。</p>
+<br>
+
+<p>若需要指定目標 Framework 或 Windows 版本，</p>
+<p>則可以依下列步驟進行設定。</p>
+<br>
+
+<p>首先，在專案上按右鍵 → 選擇「屬性」。</p>
+<p><img src="https://i.imgur.com/WOxOjCx.png" class="lazyload" data-srcset="https://i.imgur.com/WOxOjCx.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++/CLI專案右鍵選單，選擇屬性項目"></p>
+<br>
+
+<p>進入 C++&#x2F;CLI 專案的屬性設定視窗後，</p>
+<p>點選「組態屬性」→「進階」。</p>
+<p>在此設定：</p>
+<ul>
+<li>.NET 目標 Framework：選擇 .NET 8.0</li>
+<li>.NET 目標 Windows 版本：選擇 10.0.19041.0</li>
+</ul>
+<p>上述設定為本範例使用的環境版本，</p>
+<p>實際專案可依開發環境與需求自行調整。</p>
+<p><img src="https://i.imgur.com/um9T847.png" class="lazyload" data-srcset="https://i.imgur.com/um9T847.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++/CLI設定.NET目標"></p>
+<br>
+
+<h2 id="C-串接-C-CLI-執行結果"><a href="#C-串接-C-CLI-執行結果" class="headerlink" title="C# 串接 C++&#x2F;CLI 執行結果"></a>C# 串接 C++&#x2F;CLI 執行結果</h2><p>最後進入實際執行的部分。</p>
+<p>這裡建立一個 C# 主控台專案。</p>
+<p><img src="https://i.imgur.com/86dWM54.png" class="lazyload" data-srcset="https://i.imgur.com/86dWM54.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="建立C#主控台專案後，整體的方案架構"></p>
+<br>
+
+<p>C# 主控台專案相依性加入前面的 C++&#x2F;CLI 專案。</p>
+<p><img src="https://i.imgur.com/3MAFniO.png" class="lazyload" data-srcset="https://i.imgur.com/3MAFniO.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#專案加入C++/CLI專案參考"></p>
+<br>
+
+<p>完成後，整個方案的架構如下圖所示。</p>
+<p><img src="https://i.imgur.com/5dciO4b.png" class="lazyload" data-srcset="https://i.imgur.com/5dciO4b.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#專案加入C++/CLI專案參考結果"></p>
+<br>
+
+<p>再來，在 Program.cs 中撰寫一些簡單的測試程式，</p>
+<p>實際呼叫前面封裝的 NativeWrapper 中的方法。</p>
+<br>
+
+<p>Program.cs</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> NativeBridge;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Add: 3+5 = <span class="subst">&#123;NativeWrapper.Add(<span class="number">3</span>, <span class="number">5</span>)&#125;</span>&quot;</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;Divide: 10/2 = <span class="subst">&#123;NativeWrapper.Divide(<span class="number">10</span>, <span class="number">2</span>)&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;MulPoint: 4*5 = <span class="subst">&#123;NativeWrapper.MulPoint(<span class="number">4</span>, <span class="number">5</span>)&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        NativeWrapper.Sub(<span class="number">10</span>, <span class="number">3</span>, res =&gt; Console.WriteLine(<span class="string">$&quot;Sub callback: 10-3 = <span class="subst">&#123;res&#125;</span>&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;SumArray: 1+2+3+4+5 = <span class="subst">&#123;NativeWrapper.SumArray(arr)&#125;</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;CheckValue(5) = <span class="subst">&#123;NativeWrapper.CheckValue(<span class="number">5</span>)&#125;</span>&quot;</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;CheckValue(-1) = <span class="subst">&#123;NativeWrapper.CheckValue(<span class="number">-1</span>)&#125;</span>&quot;</span>);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>編譯前，把編譯目標設定與類別庫相同，</p>
+<p><img src="https://i.imgur.com/7X2adFe.png" class="lazyload" data-srcset="https://i.imgur.com/7X2adFe.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#專案.NET目標設定"></p>
+<br>
+
+<p>最後執行整個程式，</p>
+<p>便可看到執行的結果如下圖，</p>
+<p><img src="https://i.imgur.com/SXmI6Qb.png" class="lazyload" data-srcset="https://i.imgur.com/SXmI6Qb.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C#專案到呼叫C++程式的執行結果"></p>
+<br>
+
+<p>上述步驟完成後，就能順利看到執行結果，</p>
+<p>到這邊為止，應該已能掌握從建立 C++&#x2F;CLI 到在 C# 中使用的基本流程。</p>
+<br>
+
+<h2 id="補充：C-CLI-進入中斷點"><a href="#補充：C-CLI-進入中斷點" class="headerlink" title="補充：C++&#x2F;CLI 進入中斷點"></a>補充：C++&#x2F;CLI 進入中斷點</h2><p>程式撰寫過程中，難免需要 debug。</p>
+<p>而 C++&#x2F;CLI 跟使用 C# 一樣，</p>
+<p>直接在需要的地方下中斷即可。</p>
+<br>
+
+<p>例如在 C++&#x2F;CLI 轉接層程式下中斷，</p>
+<p><img src="https://i.imgur.com/1lBlI2f.png" class="lazyload" data-srcset="https://i.imgur.com/1lBlI2f.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++/CLI程式碼中斷點與變數內容顯示"></p>
+<br>
+
+<p>或專案內 C++ 原生程式中下中斷，</p>
+<p><img src="https://i.imgur.com/xDrtpMd.png" class="lazyload" data-srcset="https://i.imgur.com/xDrtpMd.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="C++程式碼中斷點與變數內容顯示"></p>
+<br>
+
+<p>沒有特殊狀況，都可以下中斷點，</p>
+<p>並且可以看到變數的內容，</p>
+<p>不需要額外開混合模式。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>以上就是使用 C++&#x2F;CLI 串接 C++ 原生函式的整體流程。</p>
+<br>
+
+<p>整體來說，相較於直接使用原生 C++ DLL 搭配 DllImport 進行呼叫，</p>
+<p>透過 C++&#x2F;CLI 建立一層橋接，</p>
+<p>流程步驟個人感覺不算複雜。</p>
+<p>在實務上有幾個地方需要特別注意：</p>
+<ul>
+<li>一開始需要先安裝並啟用 C++&#x2F;CLI 相關元件。</li>
+<li>C++&#x2F;CLI 的語法同時包含 C++ 與 .NET 的寫法，但會出現一些特殊符號（例如 <code>^</code>、<code>gcnew</code>），初學時可能會覺得有點不習慣。</li>
+<li>雖然檔案同樣分為 <code>.h</code> 與 <code>.cpp</code>，但內容可能是原生 C++，也可能是 C++&#x2F;CLI 程式碼。</li>
+</ul>
+<br>
+
+<p>另外，原生 C++ 的寫法，</p>
+<p>有時候在 C++&#x2F;CLI 做橋接時會變得比較麻煩。</p>
+<p>有些在 C++ 裡很正常的設計，</p>
+<p>在 .NET 環境下不一定適合，</p>
+<p>硬是照原本方式實作，</p>
+<p>反而會讓程式變得很複雜。</p>
+<p>因為 C++&#x2F;CLI 在 managed 這一側還是走 .NET 的機制，</p>
+<p>所以如果發現橋接寫起來太繞，</p>
+<p>其實可以換個做法，</p>
+<p>用比較符合 .NET 習慣的方式來設計，</p>
+<p>不一定要完全照搬原本的 C++ 寫法。</p>
+<h2 id="自言自語543"><a href="#自言自語543" class="headerlink" title="自言自語543"></a>自言自語543</h2><p>遙想當年稍微碰觸過 MFC 專案後，</p>
+<p>對於使用 .h 和 .cpp 檔撰寫視窗程式，</p>
+<p>有了初步的認識 。</p>
+<p><del>(是個超麻煩的東西)</del></p>
+<br>
+
+<p>而過了幾年後開始接觸 .net framework，</p>
+<p>其中就碰到 C++&#x2F;CLI…</p>
+<p>又或是當時稱為 Visual C++ .NET 的專案，</p>
+<p>看了一頭霧水後，</p>
+<p>決心買一本書來好好的鑽研，</p>
+<p>把書中的範例手動 key 到電腦中，</p>
+<p>但是卻怎麼樣也編譯不起來…</p>
+<p>後面才知道書中的語法都是舊的…</p>
+<br>
+
+<p>最後搞懂 .h 和 .cpp 在 C++&#x2F;CLI 的狀況後，</p>
+<p>反而是看著網路上 C# 的範例，</p>
+<p>自行轉換到 C++&#x2F;CLI 中，</p>
+<p>這樣一步一腳印慢慢地了解並熟悉 .net framework。</p>
+<br>
+
+<p>記得以前的 Visual Studio 的範本，</p>
+<p>有 C#、VB.NET 和 C++.NET <del>這三本柱</del>，</p>
+<p>不過某個版本開始把 C++&#x2F;CLI 給移除了，</p>
+<p>現在不僅要自己去安裝，</p>
+<p>並且如果要建立 C++&#x2F;CLI 的 Winform 專案，</p>
+<p>似乎也要完全從零開始建立。</p>
+<br>
+
+<p>至於在 C# 中要呼叫 C++，</p>
+<p>不管是使用 DllImport，還是透過 C++&#x2F;CLI 做橋接，</p>
+<p>其實都算是解法之一。</p>
+<p>只是 C++&#x2F;CLI 微軟已沒有特別的去推進，</p>
+<p>或許未來還會有更好的整合方式，</p>
+<p>等有機會再來研究看看。</p>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/NET/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>.NET</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>C#</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>C++</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/C-CLI/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>C++/CLI</p></a></div>
+  <span hidden itemprop="keywords">.NET C# C++ C++/CLI</span>
+
+
         
       
+    </div>
+    <!-- Custom Files bottomMeta begin -->
     
-  </section>
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
   
-    
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2025/10/csharp-native-cpp-guide/'>
+          <p class='title'>C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>C&#x2F;C++ 是電腦世界的共同語言。它速度快，又能直接與系統溝通，因此許多語言都能透過它來串接底層功能。有時候，也會將關鍵的程式邏輯用 C&#x2F;C++ 寫好，只需實作一次，就能讓其...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
   
 
 
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2026/02/csharp-native-cli-guide/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 評論</p>
     
-  
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
   
@@ -2723,20 +3128,6 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       
-<section class="widget blogger desktop mobile pjax">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://avatars.githubusercontent.com/u/152056279?v=4'/>
-        </a>
-      
-    
-    
-    
-  </div>
-</section>
-
     
   
 
@@ -2813,79 +3204,45 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
   
 
-  
-    
-    
-      
-
-<section class="widget desktop mobile pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-clock fa-fw" aria-hidden="true"></i><span class='name'>最近更新</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2026/02/csharp-native-cli-guide/"><div class="item"><time>2026-02-20</time><span>C#</span></div><span>C# 與原生 C/C++：以 C++/CLI 建立可直接引用的類別庫</span></a></li><li><a class="widget-last" href="/2025/08/toolkit-mvvm-part03/"><div class="item"><time>2025-12-25</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 3</span></a></li><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part01/"><div class="item"><time>2025-12-21</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 1</span></a></li><li><a class="widget-last" href="/2024/05/toolkit-mvvm-part02/"><div class="item"><time>2025-12-21</time><span>C#</span></div><span>簡化 WPF MVVM 開發的利器：CommunityToolkit.MVVM 套件 – Part 2</span></a></li><li><a class="widget-last" href="/2025/10/csharp-native-cpp-guide/"><div class="item"><time>2025-12-21</time><span>C#</span></div><span>C# 與原生 C/C++ DLL：從建立到呼叫的實作筆記</span></a></li></ul>
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-<section class="widget desktop pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-award fa-fw" aria-hidden="true"></i><span class='name'>網站資訊</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章數目：</div>
-          <div>14 篇</div>
-        </div>
-      
-
-      
-
-
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最後活動日期：</div>
-          <div id="last-update-show">2026-02-20 </div>
-        </div>
-      
-    </div>
-  </div>
-</section>
-
-    
-  
-
 
 <div class="widget-sticky pjax">
+
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>內容目錄</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%89%8D%E6%BA%96%E5%82%99%E8%88%87%E6%96%B9%E6%A1%88%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.</span> <span class="toc-text">事前準備與方案架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-C-CLI-%E9%A1%9E%E5%88%A5%E5%BA%AB%E5%B0%88%E6%A1%88"><span class="toc-number">2.</span> <span class="toc-text">建立 C++&#x2F;CLI 類別庫專案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%8E%9F%E7%94%9F%E7%A8%8B%E5%BC%8F%E7%A2%BC%E7%AF%84%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">C++ 原生程式碼範例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E5%91%BC%E5%8F%AB-C-%E7%9A%84-C-CLI-%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">4.</span> <span class="toc-text">建立呼叫 C++ 的 C++&#x2F;CLI 程式碼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A8%E8%AD%AF-C-CLI-%E9%A1%9E%E5%88%A5%E5%BA%AB"><span class="toc-number">5.</span> <span class="toc-text">編譯 C++&#x2F;CLI 類別庫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%B8%B2%E6%8E%A5-C-CLI-%E5%9F%B7%E8%A1%8C%E7%B5%90%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text">C# 串接 C++&#x2F;CLI 執行結果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9AC-CLI-%E9%80%B2%E5%85%A5%E4%B8%AD%E6%96%B7%E9%BB%9E"><span class="toc-number">7.</span> <span class="toc-text">補充：C++&#x2F;CLI 進入中斷點</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B8%BD%E7%B5%90"><span class="toc-number">8.</span> <span class="toc-text">總結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E8%A8%80%E8%87%AA%E8%AA%9E543"><span class="toc-number">9.</span> <span class="toc-text">自言自語543</span></a></li></ol>
+    </div>
+  </section>
+
+  
 
 </div>
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -2905,13 +3262,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3481,7 +3839,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/tags/WordPress/","name":"WordPress"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"CornerChat543 Blog","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","sameAs":["https://github.com/volantis-x"],"description":"CornerChat543 Blog"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://cornerchat543.github.io/","name":"CornerChat543's Blog"}},{"@type":"ListItem","position":2,"item":{"@id":"https://cornerchat543.github.io/categories/C/","name":"C#"}},{"@type":"ListItem","position":3,"item":{"@id":"https://cornerchat543.github.io/2026/02/csharp-native-cli-guide/","name":"C# 與原生 C/C++：以 C++/CLI 建立可直接引用的類別庫"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","keywords":null,"description":"CornerChat543 Blog","author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/","description":"CornerChat543 Blog"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","url":"https://cornerchat543.github.io/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"https://cornerchat543.github.io?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"C# 與原生 C/C++：以 C++/CLI 建立可直接引用的類別庫","description":"C&#x2F;C++ 是電腦世界的共同語言。而在 C# 中，串接 C&#x2F;C++ 的方式有很多種。前次記錄了一種做法：透過 DllImport 讓 C# 呼叫原生函式，這次要來記錄另一種方式。\n先回顧一下，當提到 .NET，通常會先想到 C#，其次可能是 VB.NET 或 C++&#x2F;CLI ( F#表示：當我塑膠?) ，而 C++&#x2F;CLI 的特點在於，它能同時撰寫 .NET 的 managed 程式，也能直接整合原生 unmanaged 的 C&#x2F;C++ 程式碼。\n本文將記錄如何將 C&#x2F;C++ 原始碼放入 C++&#x2F;CLI 專案中，並將其製作成可供 C# 直接引用的類別庫。","inLanguage":"zh-TW","mainEntityOfPage":{"@type":"WebPage","@id":"https://cornerchat543.github.io/2026/02/csharp-native-cli-guide/"},"author":{"@type":"Person","name":"CornerChat543","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"https://cornerchat543.github.io/"},"publisher":{"@type":"Organization","name":"CornerChat543's Blog","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"https://cornerchat543.github.io/2026/02/csharp-native-cli-guide/","wordCount":315,"datePublished":"2026-02-20T14:59:00.000Z","dateModified":"2026-02-20T15:01:26.861Z","articleSection":"C#","keywords":".NET,C#,C++,C++/CLI","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
